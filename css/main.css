@@ -36,6 +36,23 @@ body
 	line-height:	48px;
 }
 
+ul.nav li
+{
+	width:	50%;
+	float:	left;
+	background-color:	#3399ff;
+}
+
+ul.nav li a
+{
+	color:	#ffffff;
+}
+
+ul.nav li a:hover
+{
+	color:	#3399ff;
+}
+
 #content
 {
 	background-color:	#ffffff;
@@ -49,6 +66,12 @@ body
 	height:	32px;
 	line-height:	32px;
 	border-top:	1px dashed #000000;
+}
+
+.titleHeading
+{
+	margin-top:	-8px;
+	font-size:	16px;
 }
 
 /* End of File */
