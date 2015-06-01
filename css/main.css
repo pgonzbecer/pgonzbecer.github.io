@@ -32,6 +32,8 @@ body
 {
 	background-color:	#ffffff;
 	text-align:	center;
+	min-height:	48px;
+	line-height:	48px;
 }
 
 #content
