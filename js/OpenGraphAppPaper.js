@@ -87,26 +87,21 @@ function resizeBoardMobile()
 	).css("top", $(window).height()*0.75
 	).css("width", $(window).width()
 	).css("height", $(window).height()*0.25);
-	/*$("#m-entry").css(
-	{
-		display:	block,
-		position:	absolute,
-		top:	$(window).height()*0.75,
-		width:	$(window).width(),
-		height:	$(window).height()
-	});*/
 }
 
 // Called when the window has been resized
 $(window).resize(function()
 {
+	bMobile=	$(window).width()<= 512;
+	
 	if(!bMobile)
 	{
+		resizeBoard();/*
 		clearTimeout(resizeTimer);
 		resizeTimer=	setTimeout(function()
 		{
 			resizeBoard();
-		}, 200);
+		}, 200);*/
 	}
 	else
 	{

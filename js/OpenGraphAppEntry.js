@@ -11,6 +11,7 @@ $(document).ready(function()
 	$(".entry")[0].color=	nextColor();
 	$(".entry")[0].dashed=	false;
 	$(".entry").draggable();
+	$("#m-entry").graphRef;
 	
 	entryFocusMath($(".entry")[0]);
 	displayColorToEntry($(".entry"));
@@ -22,6 +23,8 @@ $(document).ready(function()
 	).on("click", ".dashed", onDashedClick
 	).on("click", ".mathinput", onMathInputClick
 	).on("keyup", ".entry", onEntryKeyUp);
+	
+	$("#m-entry").on("keyup", "textarea", onMobileEntryKeyUp);
 });
 
 // Gets the next color in the array of stored colors
@@ -69,14 +72,40 @@ function renderGraph(inputObj)
 	
 	try
 	{
-		eval("userFunction= function(x){ with(Math) return "+convertedMath+" }");
+		eval("userFunction= function(x) { with(Math) return "+convertedMath+" }");
 		if(JXG.isFunction(userFunction))
 		{
 			removeFromGraph(inputObj);
-			inputObj.graphRef=	board.create("functiongraph", [userFunction],{
+			inputObj.graphRef=	board.create("functiongraph", userFunction,
+			{
 				visible:	true,
 				strokeWidth:	2,
 				strokeColor:	inputObj.color
+			});
+		}
+	}
+	catch(e)	{	console.log("caught "+e);	}
+}
+
+// Renders the graph for the mobile view
+function renderGraphMobile(inputObj)
+{
+	// Variables
+	var	userFunction;
+	var	txt=	$(inputObj).find("textarea").val();
+	var	convertedMath=	mathjs(txt);
+	
+	try
+	{
+		eval("userFunction= function(x) { with(Math) return "+convertedMath+" }");
+		if(JXG.isFunction(userFunction))
+		{
+			removeFromGraph(inputObj);
+			inputObj.graphRef=	board.create("functiongraph", userFunction,
+			{
+				visible:	true,
+				strokeWidth:	2,
+				strokeColor:	"blue"
 			});
 		}
 	}
@@ -223,6 +252,14 @@ function onEntryKeyUp(e)
 		$(currEntry).find(".dashed").trigger("click");
 		$(currEntry).find(".dashed").trigger("click");
 	}
+}
+
+function onMobileEntryKeyUp(e)
+{
+	// Variables
+	var	currEntry=	$(e.target).parents("#m-entry")[0];
+	
+	renderGraphMobile(currEntry);
 }
 
 // End of File

@@ -5,8 +5,8 @@ $(document).ready(function()
 	if(location.hash!= "")
 		updateEntry($(".entry")[0], location.hash.substring(1));
 	$("#shfuncs").click(fadeEntries);
-	$(window).resize(detectMobile);
 	detectMobile();
+	$(window).resize(detectMobile);
 });
 
 // Writes into the given entry with the given string
@@ -23,9 +23,9 @@ function updateEntry(entry, str)
 	renderGraph(entry);
 }
 
-function dbg(str)
+function changeHeader(str)
 {
-	$("#dbg").html(str);
+	$("#header").html(str);
 }
 
 // Fades away the entries from visibility
@@ -38,11 +38,15 @@ function fadeEntries()
 		
 		if(elem.style.visibility== "visible")
 		{
-			$(elem).fadeOut(800, function(){elem.style.visibility= "hidden";});
+			elem.style.visibility=	"hidden";
+			elem.style.opacity=	"0";
+			$(elem).hide(800);
 		}
 		else
 		{
-			$(elem).fadeIn(800, function(){elem.style.visibility= "visible";});
+			elem.style.visibility=	"visible";
+			elem.style.opacity=	"1";
+			$(elem).show(800);
 		}
 	});
 }
@@ -50,10 +54,37 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	$(window).width()<= 512;
+	bMobile=	($(window).width()<= 512);
 	
 	if(!bMobile)
+	{
+		removeFromGraph($("#m-entry")[0]);
+		$(".entry").each(function(index, elem)
+		{
+			elem.style.visibility=	"visible";
+			elem.style.display=	"block";
+			$(elem).show();
+			renderGraph($(".entry")[index]);
+		});
+		$("#shfuncs").show();
+		changeHeader("<em>OpenGraph <sub>&alpha; 0.1</sub></em>");
+		$("#m-entry").find("textarea").val("");
+		resizeBoard();
+		
 		return;
+	}
+	
+	$(".entry").each(function(index, elem)
+	{
+		elem.style.visibility=	"hidden";
+		elem.style.display=	"none";
+		$(elem).hide();
+		removeFromGraph($(".entry")[index]);
+	});
+	//renderGraph($("#m-entry")[0]); // Comes out null and crashes for some reason
+	$("#shfuncs").hide();
+	resizeBoardMobile();
+	changeHeader("<em>OpenGraph Mobile <sub>&alpha; 0.1</sub></em>");
 }
 
 // End of File
