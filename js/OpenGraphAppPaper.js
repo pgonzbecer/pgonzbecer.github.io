@@ -102,7 +102,7 @@ function resizeBoardMobile()
 // Called when the window has been resized
 $(window).resize(function()
 {
-	bMobile=	$(window).width()<= 512;
+	bMobile=	$(window).width()<= 640;
 	
 	if(!bMobile)
 	{

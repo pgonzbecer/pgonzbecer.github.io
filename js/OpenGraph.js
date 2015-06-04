@@ -62,7 +62,7 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	($(window).width()<= 512);
+	bMobile=	($(window).width()<= 640);
 	
 	if(!bMobile)
 	{
