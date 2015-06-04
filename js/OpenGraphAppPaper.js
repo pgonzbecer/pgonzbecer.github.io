@@ -3,6 +3,7 @@
 // Variables
 var	board;
 var	resizeTimer;
+var	bMobile;
 
 // Called when the page is ready and loaded
 $(document).ready(function()
@@ -71,16 +72,46 @@ function resizeBoard()
 	
 	board.resizeContainer($(window).width(), $(window).height());
 	board.setBoundingBox(bb);
-};
+	$("#m-entry").css("display", "none");
+}
+
+// Resizes the graphing board for mobile viewage
+function resizeBoardMobile()
+{
+	var	bb=	board.getBoundingBox();
+	var	mentry=	$("#m-entry");
+	
+	board.resizeContainer($(window).width(), $(window).height()*0.75);
+	board.setBoundingBox(bb);
+	mentry.css("display", "block"
+	).css("top", $(window).height()*0.75
+	).css("width", $(window).width()
+	).css("height", $(window).height()*0.25);
+	/*$("#m-entry").css(
+	{
+		display:	block,
+		position:	absolute,
+		top:	$(window).height()*0.75,
+		width:	$(window).width(),
+		height:	$(window).height()
+	});*/
+}
 
 // Called when the window has been resized
 $(window).resize(function()
 {
-	clearTimeout(resizeTimer);
-	resizeTimer=	setTimeout(function()
+	if(!bMobile)
 	{
-		resizeBoard();
-	}, 200);
+		clearTimeout(resizeTimer);
+		resizeTimer=	setTimeout(function()
+		{
+			resizeBoard();
+		}, 200);
+	}
+	else
+	{
+		resizeBoardMobile();
+	}
 });
 
 // End of File

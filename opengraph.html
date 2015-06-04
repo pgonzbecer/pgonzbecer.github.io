@@ -61,6 +61,17 @@
         .showColor{cursor:pointer}
         .btn-add{color:lightgreen}
         .btn-remove{color:lightcoral}
+		#m-entry
+		{
+			display:	none;
+			position:	absolute;
+		}
+		
+		#m-entry textarea
+		{
+			width:	100%;
+			height:	100%;
+		}
     </style>
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -73,7 +84,6 @@
 <body>
 
     <div id="myBox" class="jxgbox" style="position:absolute; width:100px; height:100px;"></div>
-
   
     <div class="container-fluid" style="top: 0px; background-color:black; opacity:0.5; "><h4 id="dbg" style="color:white"><em>OpenGraph <sub>&alpha; 0.1</sub></em></h4></div>
 
@@ -108,7 +118,9 @@
 		<span class="glyphicon glyphicon-menu-up"></span>
 	</div>
 
-    
+    <div id="m-entry">
+		<textarea></textarea>
+	</div>
     
     <!--/-><script>
         

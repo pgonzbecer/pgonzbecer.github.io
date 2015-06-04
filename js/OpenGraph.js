@@ -47,10 +47,13 @@ function fadeEntries()
 	});
 }
 
+// Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	if($(window).width()<= 512)
-		dbg("DERP");
+	bMobile=	$(window).width()<= 512;
+	
+	if(!bMobile)
+		return;
 }
 
 // End of File
