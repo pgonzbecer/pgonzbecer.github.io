@@ -4,6 +4,14 @@
 var	board;
 var	resizeTimer;
 var	bMobile;
+var	movement=	new function(){};
+
+movement.x=	0;
+movement.y=	0;
+movement.magnitude= function()
+{
+	return Math.Sqrt((movement.x*movement.x)+(movement.y*movement.y));
+};
 
 // Called when the page is ready and loaded
 $(document).ready(function()
@@ -29,6 +37,8 @@ $(document).ready(function()
 		}
 	});
 	resizeBoard();
+	
+	$("#myBox").on("mousemove", onMobileMouseMovement);
 
 	// Called when the resetHomeZoom button has been clicked
 	$("#resetHomeZoom").click(function()
@@ -108,5 +118,25 @@ $(window).resize(function()
 		resizeBoardMobile();
 	}
 });
+
+// Called whenever there is a mouse movement within the mobile side of the grapher
+function onMobileMouseMovement(e)
+{
+	if(!bMobile)
+		return;
+	
+	// Variables
+	var	ox;
+	var	oy;
+	
+	if(movement.x!= 0)
+	{
+		ox=	movemnet.x;
+		oy=	movement.y;
+	}
+	movement.x=	e.pageX;
+	movement.y=	e.pageY;
+	// Find out how to manipulate the graph by just mouse movement, the phones use movement instead of clicks
+}
 
 // End of File

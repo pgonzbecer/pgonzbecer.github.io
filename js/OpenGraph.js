@@ -23,6 +23,7 @@ function updateEntry(entry, str)
 	renderGraph(entry);
 }
 
+// Changes the header of the page
 function changeHeader(str)
 {
 	$("#header").html(str);
