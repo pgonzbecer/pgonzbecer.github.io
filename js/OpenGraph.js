@@ -23,6 +23,11 @@ function updateEntry(entry, str)
 	renderGraph(entry);
 }
 
+function dbg(str)
+{
+	$("#dbg").html(str);
+}
+
 // Fades away the entries from visibility
 function fadeEntries()
 {
@@ -45,7 +50,7 @@ function fadeEntries()
 function detectMobile()
 {
 	if($(window).width()<= 512)
-		alert("DERP");
+		dbg("DERP");
 }
 
 // End of File
