@@ -1,10 +1,12 @@
 
-
+// Called when the page is ready and loaded
 $(document).ready(function()
 {
 	if(location.hash!= "")
 		updateEntry($(".entry")[0], location.hash.substring(1));
 	$("#shfuncs").click(fadeEntries);
+	$(window).resize(detectMobile);
+	detectMobile();
 });
 
 // Writes into the given entry with the given string
@@ -38,6 +40,12 @@ function fadeEntries()
 			$(elem).fadeIn(800, function(){elem.style.visibility= "visible";});
 		}
 	});
+}
+
+function detectMobile()
+{
+	if($(window).width()<= 512)
+		alert("DERP");
 }
 
 // End of File
