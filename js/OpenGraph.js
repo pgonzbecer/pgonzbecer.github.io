@@ -2,11 +2,11 @@
 // Called when the page is ready and loaded
 $(document).ready(function()
 {
-	if(location.hash!= "")
-		updateEntry($(".entry")[0], location.hash.substring(1));
 	$("#shfuncs").click(fadeEntries);
 	detectMobile();
 	$(window).resize(detectMobile);
+	if(location.hash!= "")
+		updateEntry($(".entry")[0], location.hash.substring(1));
 });
 
 // Writes into the given entry with the given string
@@ -14,13 +14,20 @@ function updateEntry(entry, str)
 {
 	// Variables
 	var	fractions=	str.split("/");
+	var	nstr=	str;
 	
-	if(fractions.length> 0)
-		str=	"\\frac{"+fractions[0]+"}{"+fractions[1]+"}";
-	str=	str.replace("(", "\\left(");
-	str=	str.replace(")", "\\right)");
-	$(entry).find(".mathquill-editable").mathquill("write", str);
+	if(fractions.length> 0 && str.indexOf("/")!= -1)
+		nstr=	"\\frac{"+fractions[0]+"}{"+fractions[1]+"}";
+	nstr=	nstr.replace("(", "\\left(");
+	nstr=	nstr.replace(")", "\\right)");
+	$(entry).find(".mathquill-editable").mathquill("write", nstr);
 	renderGraph(entry);
+	
+	if(bMobile)
+	{
+		$("#m-entry").find("textarea").val(str);
+		renderGraphMobile($("#m-entry")[0]);
+	}
 }
 
 // Changes the header of the page
