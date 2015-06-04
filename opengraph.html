@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- I know!  I'm still working on it. (John Redden: jtredden@gmail.com)-->
+    <title>Open Graph Alpha</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/jsxgraph.css" rel="stylesheet" />
+    <link href="css/mathquill.css" rel="stylesheet" />
+    <link href="css/jquery-ui.min.css" rel="stylesheet" />
+    
+
+    <script type="text/javascript" src="js/mathjs.js"></script>
+    <script type="text/javascript" src="js/jsxgraphcore.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/mathquill.js"></script>
+	<!-- Our Files /-->
+	<script type="text/javascript" src="js/OpenGraphAppPaper.js"></script>
+	<script type="text/javascript" src="js/OpenGraphAppEntry.js"></script>
+	<script type="text/javascript" src="js/OpenGraph.js"></script>
+	
+    <style>
+        .myForm{
+            position: absolute;
+            top: 50px; 
+            left: 15px;
+
+            width:300px;
+
+        }
+        .entry:not(:first-of-type){
+            margin-top: 10px;
+        }
+        .entry{
+            position:relative;
+            padding:5px;
+            border-color:lightgray;
+            border-width:1px;
+            border-radius:4px;
+            border-style:solid;
+            background-color:white;
+            font-size:larger;
+            height:70px;
+            z-index:1000;
+        }
+        .mathinput{
+            position:absolute;
+            width:155px;
+            height:85%;
+            padding:4px;
+            margin-left:4px;
+            background-color:oldlace;
+
+        }
+        .showColor{cursor:pointer}
+        .btn-add{color:lightgreen}
+        .btn-remove{color:lightcoral}
+    </style>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div id="myBox" class="jxgbox" style="position:absolute; width:100px; height:100px;"></div>
+
+  
+    <div class="container-fluid" style="top: 0px; background-color:black; opacity:0.5; "><h4 style="color:white"><em>OpenGraph <sub>&alpha; 0.1</sub></em></h4></div>
+
+    <div class="myForm"> <!-- make these collapsable -->
+
+        <div class="entry" >
+            <span class="btn-group-sm btn-group-vertical">
+                <span class="showColor btn btn-default" style="color:white">y =</span>
+                <span class="dashed btn btn-default" style="color:gray"><span class="glyphicon glyphicon-option-horizontal"></span></span>
+            </span>
+            <span class="mathinput">
+                <span class="mathquill-editable"></span>
+            </span>
+            <span class="btn-group pull-right">
+                <span class="btn btn-default map"> <span class="glyphicon glyphicon-map-marker"></span> </span>
+                <span class="btn btn-default btn-add"> <span class="glyphicon glyphicon-plus"></span> </span>
+            </span>
+
+        </div>
+     
+    </div>
+
+    <div class="btn-group-vertical" style="position: absolute; top: 15px; right: 15px; z-index:1000;">
+        <div id="resetHomeZoom" class="btn btn-default btn-sm" title="Reset Zoom Home" size="10"><div class="glyphicon glyphicon-screenshot"></div></div>
+        <div id="toggleZoomType" class="btn btn-default btn-sm" title="Toggle Zoom Type">
+            <div class="glyphicon glyphicon-zoom-in"></div>
+            <span id="zoomType" style="font-family:'Courier New', Courier, monospace">xy</span>
+        </div>
+    </div>
+	
+	<div id="shfuncs" class="btn btn-default" style="position: absolute; top: 15px; right: 135px; z-index: 1000;">
+		<span class="glyphicon glyphicon-menu-up"></span>
+	</div>
+
+    
+    
+    <!--/-><script>
+        
+        var board;
+        $(document).ready(function () {  //dom is ready to manipulate
+
+            var colors = ['SlateGray','RoyalBlue', 'SeaGreen', 'Violet', 'Coral' ];
+            var n = 0;
+            function curColor() {
+                n++;
+                if (n === colors.length) n = 0;
+                return colors[n];
+            };
+
+            board = JXG.JSXGraph.initBoard('myBox', {
+                boundingbox: [-10, 12, 10, -10],
+                axis: { ticks: { drawLabels: true }, firstArrow: true, strokeColor:'black' },
+                grid: { strokeWidth: 0.75 },
+                showCopyright: false,
+                showNavigation: false,
+                keepaspectratio: true, //square graph coming in
+                zoom: {
+                    wheel: true,
+                    needshift: false
+                },
+                pan: {
+                    enabled: true,   // Allow panning
+                    needTwoFingers: true, // panningis done with two fingers on touch devices
+                    needshift: false, // mouse panning needs pressing of the shift key
+                }
+            });
+            board.resizeContainer($(window).width(), $(window).height());
+
+           
+            //The 'entry' is the object of interest.. it has extra properties associated
+            console.log($(".entry").find(".mathquill-editable:first"));
+            $(".entry")[0].graphRef;
+            $(".entry")[0].color = curColor();
+            $(".entry")[0].dashed = false;
+            $(".entry").draggable();
+
+            entryFocusMath($(".entry")[0]); // darn hack here gave me a headache
+            
+            $(".entry").find('.showColor').css({ backgroundColor: $(".entry")[0].color });
+
+            // For new Graph entries and delete old entries
+            // TODO streamline these handlers!
+            $(".myForm").on('click', '.btn-add', function (e) {
+
+                var controlForm = $('.myForm'),
+                    currentEntry = $(this).parents('.entry'),
+                    newEntry = $(currentEntry.clone()).appendTo(controlForm);
+                //console.log(currentEntry);
+                newEntry[0].color = curColor();
+                newEntry.find('.mathquill-editable').html("&nbsp;").mathquill('editable');//TODO give focus
+                //console.log( $(newEntry).find('.mathquill-editable') );
+                newEntry.find('.showColor').css({ backgroundColor: newEntry[0].color });
+                newEntry.find('.dashed').css({ color: colors[0] });
+                newEntry.draggable();
+
+                newEntry.find(".mathquill-editable:first").addClass('hasCursor').find('textarea').focus(); //hack to focus mathquill??
+
+                // change the button faces
+                controlForm.find('.entry:not(:last) .btn-add')
+                    .removeClass('btn-add').addClass('btn-remove')
+                    .html('<span class="glyphicon glyphicon-minus"></span>');
+
+            }).on('click', '.btn-remove', function (e) {
+                //console.log($(this).parents('.entry:first').children('input')[0].graphRef);
+                var currentEntry = $(this).parents('.entry');
+                removeIt(currentEntry[0]); // removes graph from board
+                currentEntry.remove(); // removes from DOM
+
+            }).on('click', '.map', function (e) {
+                var currentEntry = $(this).parents('.entry');
+
+                if (currentEntry[0].graphRef) {
+                    
+                    board.create('glider', [0, 0, currentEntry[0].graphRef], { color: currentEntry[0].color }); //removed with board??
+                } else {
+                    currentEntry.effect('shake', { times: 2 }, 700);
+                }
+
+            }).on('click', '.showColor', function (e) {
+                var currentEntry = $(this).parents('.entry');
+               
+                currentEntry[0].color = curColor();
+                if (currentEntry[0].graphRef) {
+                    (currentEntry[0].graphRef).setProperty({ strokeColor: currentEntry[0].color });
+                } else {
+                    //currentEntry.effect('shake', { times: 2 }, 700);
+                }
+
+                currentEntry.find('.showColor').css({ backgroundColor: currentEntry[0].color });  //DOM Element color
+
+            }).on('click', '.dashed', function (e) {
+                var currentEntry = $(this).parents('.entry');
+                
+                if (currentEntry[0].graphRef) {
+                    if (currentEntry[0].dashed) {
+                        (currentEntry[0].graphRef).setProperty({ dash: 0 });
+                        currentEntry[0].dashed = false;
+                        currentEntry.find('.dashed').css({ color: colors[0] });  //DOM Element color
+                    } else {
+                        (currentEntry[0].graphRef).setProperty({ dash: 2 });
+                        currentEntry[0].dashed = true;
+                        currentEntry.find('.dashed').css({ color: 'lightgray' });  //DOM Element color
+                    }
+                } else {
+                    currentEntry.effect('shake', { times: 2 }, 700);
+                }
+            }).on('click', '.mathinput', function (e) {
+                var curEntry = $(e.target).parents('.entry')[0];
+                entryFocusMath(curEntry);
+
+            }).on('keyup', '.entry', function (e) {
+
+                var curEntry = $(e.target).parents('.entry')[0];
+                //console.log(curEntry);
+                
+                if (e.keyCode === 13) { //enter key on the form
+                   $(curEntry).find('.btn-add').trigger('click');
+                }
+                
+                graphIt(curEntry);
+                
+            });
+
+     
+       
+
+            // below function will be reused whenever new graph needed
+            function graphIt(inputObj) {
+                var userFunction;
+                // entry as div object is coming in
+                var txt = $(inputObj).find('.mathquill-editable').mathquill('text');
+
+                // catch text issues before sending to mathjs.js
+                //console.log(txt);
+                txt = fixInput(txt, inputObj);
+                //console.log(txt);
+
+                var convertedMath = mathjs(txt); 
+                // create a function based on user input converted to javascript math
+                
+                try {
+                    eval("userFunction = function(x){ with(Math) return " + convertedMath + " }");
+                    if (JXG.isFunction(userFunction)) {
+                        removeIt(inputObj); //removes previous graph
+                        inputObj.graphRef = board.create('functiongraph', [userFunction], { visible: true, strokeWidth: 2, strokeColor: inputObj.color });
+                    };
+                } catch (e) {
+                    console.log("caught " + e)
+                }
+            
+            };
+
+            function fixInput(argTxt, argEntry) {
+                argTxt.toLowerCase();
+                var n = argTxt.length;
+
+                //console.log(argTxt);
+                
+                if (n > 4) {
+                    //trig testing
+                    var last3 = argTxt.substring(n-5,n);
+                    if (last3 === "s*i*n" || last3 === "c*o*s" || last3 === "t*a*n" || last3 === "q*r*t") {
+                        $(argEntry).find('.mathquill-editable').mathquill('write', "\\left( x \\right)");  //mathquill wants laTex
+                        entryFocusMath(argEntry);
+                    }
+                }
+
+                argTxt = $(argEntry).find('.mathquill-editable').mathquill('text');
+
+                argTxt = argTxt.replace("**", "^");
+                argTxt = argTxt.replace("s*i*n*", "sin");
+                argTxt = argTxt.replace("sinh*", "sinh");
+                argTxt = argTxt.replace("c*o*s*", "cos");
+                argTxt = argTxt.replace("cosh*", "cosh");
+                argTxt = argTxt.replace("t*a*n*", "tan");
+                argTxt = argTxt.replace("tan*h", "tanh");
+                argTxt = argTxt.replace("s*q*r*t*", "sqrt");
+                argTxt = argTxt.replace("p*i", "pi");
+                argTxt = argTxt.replace("xcdot", "");
+                // I am sure I missed a bunch of stuff!  Needs LaTex => AsciiMath
+
+                return argTxt;
+            };
+
+            
+            function removeIt(inputObj) {
+                //removes associatecd graph object from board.
+                if (typeof inputObj === 'object') {
+                    board.removeObject(inputObj.graphRef);
+                }
+            };
+            function entryFocusMath(inputEntry) {
+                //hack until I can figure out why the mathquill .focus() is not working
+                // entry is a div object
+                $(inputEntry).find(".mathquill-editable:first").addClass('hasCursor').focus(); //hack to focus mathquill??
+                $(inputEntry).find(".mathquill-editable:first").find('textarea').focus(); //hack to focus mathquill??
+
+            }
+            //**********************************************************************
+
+
+   
+        });
+
+     
+
+
+        //zoom functionality ************************************************************************
+        $("#resetHomeZoom").click(function () {
+            board.zoom100();
+            board.setBoundingBox([-10, 12, 10, -10], true);
+        });
+        $("#toggleZoomType").click(function () {
+            var zt = $("#zoomType").text().trim();
+  
+            if (zt === "xy") {
+                $("#zoomType").html("&nbsp;x");
+                board.attr.zoom.factorx = 1.25;
+                board.attr.zoom.factory = 1.0;
+            }
+            else if (zt === "x") {
+                $("#zoomType").html("&nbsp;y");
+                board.attr.zoom.factorx = 1.0;
+                board.attr.zoom.factory = 1.25;
+            }
+            else {
+                $("#zoomType").html("xy");
+                board.attr.zoom.factorx = 1.25;
+                board.attr.zoom.factory = 1.25;
+            }
+        });
+
+        // browser window resizing *****************************
+        function resizeBoard() {
+            var bb = board.getBoundingBox();
+            // saves the boundaries of window turns keepAspectRatio to false (not square after resize)
+            board.resizeContainer($(window).width(), $(window).height());
+            board.setBoundingBox(bb);
+        };
+
+        var resizeTimer;
+        $(window).resize(function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                resizeBoard();
+            }, 200); // 200 ms delay
+        });
+        //*******************************************************
+ 
+    </script><!--/-->
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+*.sln
+*.config
+*.user
+*.csproj
+*.publicproj
+*.txt
+*.cs
+*.dll
+*.cache
+*.pdb
+*.suo
