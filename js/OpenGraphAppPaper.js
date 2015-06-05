@@ -8,10 +8,6 @@ var	movement=	new function(){};
 
 movement.x=	0;
 movement.y=	0;
-movement.magnitude= function()
-{
-	return Math.Sqrt((movement.x*movement.x)+(movement.y*movement.y));
-};
 
 // Called when the page is ready and loaded
 $(document).ready(function()
@@ -38,7 +34,7 @@ $(document).ready(function()
 	});
 	resizeBoard();
 	
-	$("#myBox").on("mousemove", onMobileMouseMovement);
+	$("#myBox").mousemove(onMobileMouseMovement);
 
 	// Called when the resetHomeZoom button has been clicked
 	$("#resetHomeZoom").click(function()
@@ -89,11 +85,10 @@ function resizeBoard()
 function resizeBoardMobile()
 {
 	var	bb=	board.getBoundingBox();
-	var	mentry=	$("#m-entry");
 	
 	board.resizeContainer($(window).width(), $(window).height()*0.75);
 	board.setBoundingBox(bb);
-	mentry.css("display", "block"
+	$("#m-entry").css("display", "block"
 	).css("top", $(window).height()*0.75
 	).css("width", $(window).width()
 	).css("height", $(window).height()*0.25);
@@ -102,11 +97,11 @@ function resizeBoardMobile()
 // Called when the window has been resized
 $(window).resize(function()
 {
-	bMobile=	$(window).width()<= 640;
+	bMobile=	($(window).width()<= 640);
 	
 	if(!bMobile)
 	{
-		resizeBoard();/*
+		resizeBoard();/* Don't know why you need a timer
 		clearTimeout(resizeTimer);
 		resizeTimer=	setTimeout(function()
 		{
@@ -136,7 +131,7 @@ function onMobileMouseMovement(e)
 	}
 	movement.x=	e.pageX;
 	movement.y=	e.pageY;
-	// Find out how to manipulate the graph by just mouse movement, the phones use movement instead of clicks
+	// Find out how to manipulate the graph by just mouse movement, the phones dont use clicks traditionally
 }
 
 // End of File

@@ -22,12 +22,8 @@ function updateEntry(entry, str)
 	nstr=	nstr.replace(")", "\\right)");
 	$(entry).find(".mathquill-editable").mathquill("write", nstr);
 	renderGraph(entry);
-	
-	if(bMobile)
-	{
-		$("#m-entry").find("textarea").val(str);
-		renderGraphMobile($("#m-entry")[0]);
-	}
+	$("#m-entry").find("textarea").val(str);
+	renderGraphMobile($("#m-entry")[0]);
 }
 
 // Changes the header of the page
@@ -62,7 +58,7 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	($(window).width()<= 640);
+	bMobile=	($(window).width()<= 640); // I can do better than this!
 	
 	if(!bMobile)
 	{
