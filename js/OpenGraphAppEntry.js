@@ -67,7 +67,7 @@ function renderGraph(inputObj)
 	var	txt=	$(inputObj).find(".mathquill-editable").mathquill("text");
 	var	convertedMath;
 	
-	txt=	fixInput(txt, inputObj);
+	txt=	fixInput(txt, inputObj).toLowerCase();
 	convertedMath=	mathjs(txt);
 	
 	try
@@ -92,7 +92,7 @@ function renderGraphMobile(inputObj)
 {
 	// Variables
 	var	userFunction;
-	var	txt=	$(inputObj).find("textarea").val();
+	var	txt=	$(inputObj).find("textarea").val().toLowerCase();
 	var	convertedMath=	mathjs(txt);
 	
 	try

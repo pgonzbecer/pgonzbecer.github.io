@@ -76,12 +76,12 @@ function detectMobile()
 		});
 		$("#shfuncs").show();
 		changeHeader("<em>OpenGraph <sub>&alpha; 0.1</sub></em>");
-		$("#m-entry").find("textarea").val("");
 		resizeBoard();
 		
 		return;
 	}
 	
+	renderGraphMobile($("#m-entry")[0]);
 	$(".entry").each(function(index, elem)
 	{
 		elem.style.visibility=	"hidden";
@@ -89,7 +89,6 @@ function detectMobile()
 		$(elem).hide();
 		removeFromGraph($(".entry")[index]);
 	});
-	//renderGraph($("#m-entry")[0]); // Comes out null and crashes for some reason
 	$("#shfuncs").hide();
 	resizeBoardMobile();
 	changeHeader("<em>OpenGraph Mobile <sub>&alpha; 0.1</sub></em>");
