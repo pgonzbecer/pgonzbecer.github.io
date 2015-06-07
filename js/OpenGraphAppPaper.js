@@ -34,8 +34,8 @@ $(document).ready(function()
 	});
 	resizeBoard();
 	
-	board.on("touchdown", onMobileDown);
-	board.on("touchmove", onMobileMovement);
+	board.on("down", onMobileDown);
+	board.on("move", onMobileMovement);
 
 	// Called when the resetHomeZoom button has been clicked
 	$("#resetHomeZoom").click(function()
@@ -136,7 +136,9 @@ function onMobileDown(e)
 	// Variables
 	var	mPos=	getMouseCoords(e, 0);
 	
-	$("#header").text(mPos);
+	
+	
+	$("#header").text(mPos.usrCoords);
 	//movement.x=	
 }
 
