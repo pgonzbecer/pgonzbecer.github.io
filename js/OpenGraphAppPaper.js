@@ -8,6 +8,7 @@ var	movement=	new function(){};
 
 movement.x=	null;
 movement.y=	null;
+movement.down=	false;
 
 // Called when the page is ready and loaded
 $(document).ready(function()
@@ -35,6 +36,7 @@ $(document).ready(function()
 	resizeBoard();
 	
 	board.on("down", onMobileDown);
+	board.on("up", function(){movement.down= false;});
 	board.on("move", onMobileMovement);
 
 	// Called when the resetHomeZoom button has been clicked
@@ -124,7 +126,7 @@ function getMouseCoords(e, i)
 	var	dx=	abPos[0]-cPos[0];
 	var	dy=	abPos[0]-cPos[0];
 	
-	return new JXG.Coords(JXG.COORDS_BY_SCREEN, [dx, dy], board);
+	return [dx, dy];//new JXG.Coords(JXG.COORDS_BY_SCREEN, [dx, dy], board);
 }
 
 // Called whenever there is a touch detected
@@ -136,11 +138,9 @@ function onMobileDown(e)
 	// Variables
 	var	mPos=	getMouseCoords(e, 0);
 	
-	movement.x=	mPos.usrCoords[1];
-	movement.y=	mPos.usrCoords[2];
-	
-	$("#header").text(mPos.srcCoords);
-	//movement.x=	
+	movement.x=	mPos[0];
+	movement.y=	mPos[1];
+	movement.down=	true;
 }
 
 // Called whenever there is a touched movement detected
@@ -148,14 +148,14 @@ function onMobileMovement(e)
 {
 	if(!bMobile)
 		return;
+	if(!movement.down)
+		return;
 	
 	// Variables
 	var	mPos=	getMouseCoords(e, 0);
 	
-	board.drag_dx=	mPos.usrCoords[1]-movement.x;
-	board.drag_dy=	mPos.usrCoords[2]-movement.y;
-	
-	board.fullUpdate();
+	board.moveOrigin(mPos[0]-movement.x, mPos[1]-movement.y);
+	$("#header").text(movement.x-mPos[0]);
 }
 
 // End of File
