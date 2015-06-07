@@ -7,7 +7,7 @@ $(document).ready(function()
 	$(window).resize(detectMobile);
 	if(location.hash!= "")
 		updateEntry($(".entry")[0], location.hash.substring(1));
-	changeHeader(navigator.platform);
+	changeHeader(navigator.appVersion);
 });
 
 // Writes into the given entry with the given string
