@@ -136,9 +136,10 @@ function onMobileDown(e)
 	// Variables
 	var	mPos=	getMouseCoords(e, 0);
 	
+	movement.x=	mPos.usrCoords[1];
+	movement.y=	mPos.usrCoords[2];
 	
-	
-	$("#header").text(mPos.usrCoords);
+	$("#header").text(mPos.srcCoords);
 	//movement.x=	
 }
 
@@ -147,6 +148,14 @@ function onMobileMovement(e)
 {
 	if(!bMobile)
 		return;
+	
+	// Variables
+	var	mPos=	getMouseCoords(e, 0);
+	
+	board.drag_dx=	mPos.usrCoords[1]-movement.x;
+	board.drag_dy=	mPos.usrCoords[2]-movement.y;
+	
+	board.fullUpdate();
 }
 
 // End of File
