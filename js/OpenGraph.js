@@ -45,12 +45,14 @@ function fadeEntries()
 			elem.style.visibility=	"hidden";
 			elem.style.opacity=	"0";
 			$(elem).hide(800);
+			$("#shfuncs").find(".glyphicon").removeClass("glyphicon-menu-down").addClass("glyphicon-menu-up");
 		}
 		else
 		{
 			elem.style.visibility=	"visible";
 			elem.style.opacity=	"1";
 			$(elem).show(800);
+			$("#shfuncs").find(".glyphicon").removeClass("glyphicon-menu-up").addClass("glyphicon-menu-down");
 		}
 	});
 }
@@ -58,7 +60,7 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
+	bMobile=	true;//(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
 	
 	if(!bMobile)
 	{

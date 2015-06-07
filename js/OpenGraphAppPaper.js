@@ -6,8 +6,8 @@ var	resizeTimer;
 var	bMobile;
 var	movement=	new function(){};
 
-movement.x=	0;
-movement.y=	0;
+movement.x=	null;
+movement.y=	null;
 
 // Called when the page is ready and loaded
 $(document).ready(function()
@@ -29,12 +29,13 @@ $(document).ready(function()
 		{
 			enabled: true,   // Allow panning
 			needTwoFingers: true, // panningis done with two fingers on touch devices
-			needshift: false, // mouse panning needs pressing of the shift key
+			needshift: false // mouse panning needs pressing of the shift key
 		}
 	});
 	resizeBoard();
 	
-	$("#myBox").mousemove(onMobileMouseMovement);
+	board.on("touchdown", onMobileDown);
+	board.on("touchmove", onMobileMovement);
 
 	// Called when the resetHomeZoom button has been clicked
 	$("#resetHomeZoom").click(function()
@@ -97,7 +98,7 @@ function resizeBoardMobile()
 // Called when the window has been resized
 $(window).resize(function()
 {
-	bMobile=	(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
+	bMobile=	true;//(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
 	
 	if(!bMobile)
 	{
@@ -114,24 +115,36 @@ $(window).resize(function()
 	}
 });
 
-// Called whenever there is a mouse movement within the mobile side of the grapher
-function onMobileMouseMovement(e)
+// Gets the mouse coordinates
+function getMouseCoords(e, i)
+{
+	// Variables
+	var	cPos=	board.getCoordsTopLeftCorner(e, i);
+	var	abPos=	JXG.getPosition(e, i);
+	var	dx=	abPos[0]-cPos[0];
+	var	dy=	abPos[0]-cPos[0];
+	
+	return new JXG.Coords(JXG.COORDS_BY_SCREEN, [dx, dy], board);
+}
+
+// Called whenever there is a touch detected
+function onMobileDown(e)
 {
 	if(!bMobile)
 		return;
 	
 	// Variables
-	var	ox;
-	var	oy;
+	var	mPos=	getMouseCoords(e, 0);
 	
-	if(movement.x!= 0)
-	{
-		ox=	movemnet.x;
-		oy=	movement.y;
-	}
-	movement.x=	e.pageX;
-	movement.y=	e.pageY;
-	// Find out how to manipulate the graph by just mouse movement, the phones dont use clicks traditionally
+	$("#header").text(mPos);
+	//movement.x=	
+}
+
+// Called whenever there is a touched movement detected
+function onMobileMovement(e)
+{
+	if(!bMobile)
+		return;
 }
 
 // End of File
