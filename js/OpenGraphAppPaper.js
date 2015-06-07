@@ -97,7 +97,7 @@ function resizeBoardMobile()
 // Called when the window has been resized
 $(window).resize(function()
 {
-	bMobile=	($(window).width()<= 640);
+	bMobile=	(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
 	
 	if(!bMobile)
 	{

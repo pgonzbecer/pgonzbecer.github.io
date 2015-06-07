@@ -7,7 +7,6 @@ $(document).ready(function()
 	$(window).resize(detectMobile);
 	if(location.hash!= "")
 		updateEntry($(".entry")[0], location.hash.substring(1));
-	changeHeader((navigator.appVersion.indexOf("Android")!= -1).toString());
 });
 
 // Writes into the given entry with the given string
@@ -59,7 +58,7 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	($(window).width()<= 640); // I can do better than this!
+	bMobile=	(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
 	
 	if(!bMobile)
 	{
