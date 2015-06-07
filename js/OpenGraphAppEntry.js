@@ -3,7 +3,6 @@
 // Variables
 var	colors=	['SlateGray', 'RoyalBlue', 'SeaGreen', 'Violet', 'Coral'];
 var	n=	0;
-var	pemdas=	new PemdasReader();
 
 // Called when the page is loaded up
 $(document).ready(function()
@@ -260,11 +259,6 @@ function onMobileEntryKeyUp(e)
 {
 	// Variables
 	var	currEntry=	$(e.target).parents("#m-entry")[0];
-	
-	if(e.keyCode=== 13)
-	{
-		alert(pemdas.readExponents($(currEntry).find("textarea").val()));
-	}
 	
 	renderGraphMobile(currEntry);
 }

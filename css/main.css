@@ -10,7 +10,7 @@ body
 {
 	margin-left:	10%;
 	margin-right:	10%;
-	min-width:	384px;
+	min-width:	1024px;
 }
 
 #header
@@ -36,19 +36,19 @@ body
 	line-height:	48px;
 }
 
-ul.nav li
+ul.top-nav li
 {
 	width:	50%;
 	float:	left;
 	background-color:	#3399ff;
 }
 
-ul.nav li a
+ul.top-nav li a
 {
 	color:	#ffffff;
 }
 
-ul.nav li a:hover
+ul.top-nav li a:hover
 {
 	color:	#3399ff;
 }
@@ -66,6 +66,7 @@ ul.nav li a:hover
 	height:	32px;
 	line-height:	32px;
 	border-top:	1px dashed #000000;
+	clear:	both;
 }
 
 .titleHeading
