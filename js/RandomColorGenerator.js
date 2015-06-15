@@ -260,7 +260,7 @@ function RandomColorGenerator()
 	}
 	
 	// Gets a random hex code representing a color excluding the given hex color
-	this.nextColor=	function(hexcolor)
+	this.nextColorExcluding=	function(hexcolor)
 	{
 		// Variables
 		var	hexcode=	this.nextColor();

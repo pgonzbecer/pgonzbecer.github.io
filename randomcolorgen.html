@@ -31,13 +31,15 @@
 			var spantext, box, boxcolorid;
 			
 			// Loads up all the necessary variables
-			function loadVars()
+			window.addEventListener("load", function()
 			{
+				try{
 				boxcolorid=	document.getElementById("boxcolorid");
 				box=	document.getElementById("box");
 				spantext=	document.getElementById("text");
 				nextColors();
-			}
+				}catch(e){alert(e.message);}
+			});
 			
 			// Gets the next colors for the color gen preview
 			function nextColors()
@@ -52,7 +54,7 @@
 			}
 		</script>
 	</head>
-	<body onload="loadVars();">
+	<body>
 		<div id="container">
 			<div id="header" onclick="sendTo('http://github.com/pgonzbecer/');">
 				<br />
