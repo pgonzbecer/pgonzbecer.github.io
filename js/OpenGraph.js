@@ -60,7 +60,7 @@ function fadeEntries()
 // Detects if the page is being used on a smaller screen
 function detectMobile()
 {
-	bMobile=	true;//(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
+	bMobile=	(navigator.appVersion.toLowerCase().indexOf("android"))!= -1; // Looks for only android
 	
 	if(!bMobile)
 	{
