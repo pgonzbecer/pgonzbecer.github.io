@@ -1,8 +1,8 @@
 // Created by Paul Gonzalez Becerra
 
-build=  (new function(args)
+build=  function(args)
 {
   console.log(args);
-});
+};
 
 // End of File
