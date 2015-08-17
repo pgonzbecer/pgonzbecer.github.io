@@ -7,7 +7,7 @@ build=  function(args)
     throw exception("No target located")
   
   // Variables
-  var target= getContent(args.target);
+  var target= $(getContent(args.target));
   
   if(args.innerHTML)
   {
