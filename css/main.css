@@ -44,4 +44,15 @@ body
 	color:	paleturquoise;
 }
 
+.project
+{
+	display:	block;
+	border-right:	2px solid cornflowerblue;
+}
+
+.project.code-green
+{
+	border-right-color:	palegreen;
+}
+
 /* End of File */
