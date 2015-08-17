@@ -2,7 +2,7 @@
 
 $(document).ready(function(args)
 {
-  $.build({
+  build({
     target: ".insert-nav",
     innerHTML:  getNavigation
   });
