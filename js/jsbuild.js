@@ -1,6 +1,6 @@
 // Created by Paul Gonzalez Becerra
 
-$.build=  (new function(args)
+build=  (new function(args)
 {
   console.log(args);
 });
