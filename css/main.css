@@ -44,6 +44,11 @@ body
 	color:	paleturquoise;
 }
 
+.content
+{
+	margin-top:	64px;
+}
+
 .project
 {
 	display:	block;
