@@ -24,7 +24,7 @@ $(document).ready(function(args)
 		replace:	[
 			{
 				target:	".insert-nav",
-				innerHTML:	getNavigation
+				node:	getNavigation
 			}
 		]
 	});

@@ -19,7 +19,8 @@
 	
 	ReplacementObject	{
 		target = string,
-		innerHTML = string
+		innerHTML = string,
+		node = string
 	}
 */
 
@@ -60,6 +61,11 @@ build=	function(args)
 			target=	$(args.replace[i].target);
 			if(!target[0])
 				continue;
+			if(args.replace[i].node)
+			{
+				target.after(args.replace[i].node);
+				target.remove();
+			}
 			if(args.replace[i].innerHTML)	target.html(getContent(args.replace[i].innerHTML, target.html()));
 		}
 	}
