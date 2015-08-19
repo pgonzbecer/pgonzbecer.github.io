@@ -1,7 +1,8 @@
 // Created by Paul Gonzalez Becerra
 
 /*
-	appendHead: [HeadAppendObject]
+	appendHead: [HeadAppendObject],
+	replace: [ReplacementObject]
 	
 	HeadAppendObject	{
 		tagName = string,
@@ -9,7 +10,16 @@
 			rel = string,
 			type = string,
 			href = string
+		#elseif(tagName is script)
+			src = string
+			type = string
+			content = function
 		#endif
+	}
+	
+	ReplacementObject	{
+		target = string,
+		innerHTML = string
 	}
 */
 
@@ -26,38 +36,41 @@ build=	function(args)
 			{
 				case "link":
 					node=	document.createElement("link");
-					node.setAttribute("rel", args.appendHead[i].rel);
-					node.setAttribute("type", args.appendHead[i].type);
-					node.setAttribute("href", args.appendHead[i].href);
+					if(args.appendHead[i].rel)	node.setAttribute("rel", getContent(args.appendHead[i].rel));
+					if(args.appendHead[i].type)	node.setAttribute("type", getContent(args.appendHead[i].type));
+					if(args.appendHead[i].href)	node.setAttribute("href", getContent(args.appendHead[i].href));
 					break;
+				case "script":
+					node=	document.createElement("script");
+					if(args.appendHead[i].src)	node.setAttribute("src", getContent(args.appendHead[i].src));
+					if(args.appendHead[i].type)	node.setAttribute("type", getContent(args.appendHead[i].type));
+					if(args.appendHead[i].content)	node.innerHTML=	args.appendHead[i].content;
 			}
+			document.head.appendChild(node);
 		}
-		document.head.appendChild(node);
 	}
 	
+	if(args.replace)
+	{
+		// Variables
+		var	target;
+		
+		for(var i= 0; i< args.replace.length; i++)
+		{
+			target=	$(args.replace[i].target);
+			if(!target[0])
+				continue;
+			if(args.replace[i].innerHTML)	target.html(getContent(args.replace[i].innerHTML, target.html()));
+		}
+	}
 	
-  console.log(args);
-  if(!args.target || $(args.target)== null)
-    throw exception("No target located")
-  
-  // Variables
-  var target= $(getContent(args.target));
-  
-  if(args.innerHTML)
-  {
-    // Variables
-    var ih= getContent(args.innerHTML);
-    
-    target.html(ih);
-  }
-  
-  function getContent(argument)
-  {
-    if(argument== null)
-      throw exception("Argument is null");
-    
-    return (($.isFunction(argument) ? argument(arguments) : argument))
-  }
+	function getContent(argument)
+	{
+		if(argument== null)
+			return argument;
+		
+		return (($.isFunction(argument) ? argument(arguments) : argument));
+	}
 };
 
 // End of File
