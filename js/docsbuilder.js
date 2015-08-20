@@ -34,8 +34,14 @@ $(document).ready(function(args)
 // Starts building the documentation
 function startBuildDocumentation(args)
 {
-	ajax.open("GET", reformat(args)+".json", true);
+	ajax.open("GET", reformat(args), true);
 	ajax.send();
+}
+
+// Reformats the arguments to have a file location baring name
+function reformat(args)
+{
+	return "docs/"+args.docname+"/"+(fileLoc.replace(/\-/g, "/")+".json";
 }
 
 // Builds the documentation with the given json
