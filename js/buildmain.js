@@ -2,11 +2,11 @@
 
 $(document).ready(function(args)
 {
-	JsBuild.setOrigin({
+	WebBuilder.setOrigin({
 		local:	"/C:/Users/Chams2.0/Documents/GitHub/pgonzbecer.github.io/",
 		remote:	"http://www.pgonzbecer.com/"
 	});
-	JsBuild.build({
+	WebBuilder.build({
 		appendHead:	[
 			{
 				tagName:	"link",

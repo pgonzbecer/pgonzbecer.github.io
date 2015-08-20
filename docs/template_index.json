@@ -1,0 +1,17 @@
+
+
+// IndexObject
+{
+	"title":	"",
+	"desc":	"",
+	"links":	[LinkObject],
+	"objects":	[DocumentationObject]
+}
+
+// LinkObject
+{
+	"href":	"",
+	"text":	"",
+	"desc":	"",
+	"alt":	""
+}

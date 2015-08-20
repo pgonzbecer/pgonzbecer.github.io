@@ -6,7 +6,7 @@
 	<head>
 		<title>Documentation - pgonzbecer</title>
 		<script src="js/jquery-1.9.1.js"></script>
-		<script src="js/jsbuild.js"></script>
+		<script src="js/webbuilder.js"></script>
 		<script src="js/buildmain.js"></script>
 		<script src="js/docsbuilder.js"></script>
 	</head>
@@ -23,6 +23,24 @@
 					<a href="http://github.com/pgonzbecer/GDToolkit/"><span class="btn btn-default">GitHub</span></a>
 				</li>
 			</ul>
+			
+			<div class="example">
+				<!-- Title /--><h1>GDToolkit Apex</h1>
+				<script>
+					// Variables
+					var	ajax=	new XMLHttpRequest();
+					var	text;
+					
+					ajax.onreadystatechange=	function()
+					{
+						if(ajax.readyState== 4 && ajax.status== 200)
+							console.log(ajax.responseText);
+					}
+					
+					ajax.open("GET", "docs/GDToolkit/index.json", true);
+					ajax.send();
+				</script>
+			</div>
 		</div>
 		<div class="footer"></div>
 	</body>

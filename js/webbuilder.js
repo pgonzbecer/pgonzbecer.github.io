@@ -27,7 +27,7 @@
 */
 
 // Variables
-var JsBuild=	(new function()
+var WebBuilder=	(new function()
 {
 	// Variables
 	var	localSite=	"";
@@ -105,7 +105,7 @@ var JsBuild=	(new function()
 		if(argument== null)
 			return argument;
 		
-		return (($.isFunction(argument) ? argument(JsBuild) : argument));
+		return (($.isFunction(argument) ? argument(WebBuilder) : argument));
 	}
 	
 	// Returns the path you gave, given that it is a local path, relative to the origin of the site, for both local or online
