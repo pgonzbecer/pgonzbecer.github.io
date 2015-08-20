@@ -48,7 +48,7 @@ function reformat(args)
 function buildDocumentation(json)
 {
 	console.log(json);
-	$(".title").html(json.title);
+	$(".title").html(title);
 }
 
 // Called when the ajax has done something
@@ -59,7 +59,7 @@ function onAjaxRequest()
 	if(ajax.readyState== 4 && ajax.status== 200)
 	{
 		console.log(ajax.responseText);
-		buildDocumentation(JSON.parse(ajax.responseText));
+		buildDocumentation(responseText);//JSON.parse(ajax.responseText));
 	}
 }
 
