@@ -1,63 +1,123 @@
 /* Created by Paul Gonzalez Becerra */
 
+
+
 body
+
 {
 	background-color:	azure;
+
 }
+
+
 
 .navbar
+
 {
+
 	border-bottom:	2px solid cornflowerblue;
+
 	background-color:	black;
+
 	color:	whitesmoke;
+
 	min-height:	64px;
+
 }
+
+
 
 .logo-text
+
 {
 	height:	64px;
+
 	line-height:	64px;
+
 	font-weight:	bold;
+
 	padding-left:	8px;
+
 	padding-right:	8px;
+
 }
+
+
 
 .navbar .navbar-header
+
 {
 	margin-right:	8px;
+
 }
+
+
 
 .navbar ul.nav li
+
 {
+
 	margin-left:	4px;
+
 	margin-right:	4px;
+
 	margin-top:	8px;
+
 }
+
+
 
 .navbar ul.nav li a
+
 {
 	color:	azure;
+
 }
+
+
 
 .navbar ul.nav li a:hover
+
 {
 	color:	paleturquoise;
+
 }
+
+
 
 .content
+
 {
 	margin-top:	72px;
+
 }
+
 
 .project
+
 {
 	display:	block;
+
 	border-right:	2px solid cornflowerblue;
+
 }
 
+
+
 .project.code-green
+
 {
 	border-right-color:	palegreen;
+
 }
+
+.footer
+{
+	text-align:	center;
+	font-size:	12px;
+	font-weight:	bold;
+}
+
+
 
 /* End of File */

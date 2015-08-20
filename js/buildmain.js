@@ -2,7 +2,11 @@
 
 $(document).ready(function(args)
 {
-	build({
+	JsBuild.setOrigin({
+		local:	"/C:/Users/Chams2.0/Documents/GitHub/pgonzbecer.github.io/",
+		remote:	"http://www.pgonzbecer.com/"
+	});
+	JsBuild.build({
 		appendHead:	[
 			{
 				tagName:	"link",
@@ -16,6 +20,13 @@ $(document).ready(function(args)
 				type:	"text/css",
 				href:	"css/main.css"
 			},
+
+			{
+				tagName:	"link",
+				rel:	"icon",
+				type:	"image/x-icon",
+				href:	"images/favicon.ico"
+			},
 			{
 				tagName:	"script",
 				src:	"js/bootstrap.js"
@@ -25,6 +36,10 @@ $(document).ready(function(args)
 			{
 				target:	".insert-nav",
 				node:	getNavigation
+			},
+			{
+				target:	".footer",
+				innerHTML:	"Paul Gonzalez-Becerra &copy; 2015."
 			}
 		]
 	});
@@ -35,24 +50,24 @@ function getNavigation(args)
 	return (
 		"<nav class='navbar navbar-default navbar-fixed-top'>"+
 			"<div class='container-fluid'>"+
-					"<div class='navbar-header'>"+
-						"<span class='logo-text'>{ pgonzbecer }</span>"+
-						"<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#nbc' aria-expanded='false'>"+
-							"<span class='sr-only'>Toggle navigation</span>"+
-							"<span class='icon-bar'></span>"+
-							"<span class='icon-bar'></span>"+
-							"<span class='icon-bar'></span>"+
-						"</button>"+
-					"</div>"+
-					"<div class='collapse navbar-collapse' id='nbc'>"+
-						"<ul class='nav navbar-nav'>"+
-							"<li><a href='index.html'>Home</a></li>"+
-							"<li><a href='projects.html'>Projects</a></li>"+
-							"<li><a href='docs.html'>Documentations</a></li>"+
-							"<li><a href='contact.html'>Contact</a></li>"+
-						"</ul>"+
-					"</div>"+
+				"<div class='navbar-header'>"+
+					"<span class='logo-text'>{ pgonzbecer }</span>"+
+					"<button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#nbc' aria-expanded='false'>"+
+						"<span class='sr-only'>Toggle navigation</span>"+
+						"<span class='icon-bar'></span>"+
+						"<span class='icon-bar'></span>"+
+						"<span class='icon-bar'></span>"+
+					"</button>"+
 				"</div>"+
+				"<div class='collapse navbar-collapse' id='nbc'>"+
+					"<ul class='nav navbar-nav'>"+
+						"<li><a href='"+args.fromOriginPath("index.html")+"'>Home</a></li>"+
+						"<li><a href='"+args.fromOriginPath("projects.html")+"'>Projects</a></li>"+
+						"<li><a href='"+args.fromOriginPath("documentation.html")+"'>Documentations</a></li>"+
+						"<li><a href='"+args.fromOriginPath("contact.html")+"'>Contact</a></li>"+
+					"</ul>"+
+				"</div>"+
+			"</div>"+
 		"</nav>"
 	);
 }
