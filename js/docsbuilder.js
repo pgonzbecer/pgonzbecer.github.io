@@ -35,8 +35,12 @@ $(document).ready(function(args)
 function startBuildDocumentation(args)
 {
 	console.log(reformat(args));
-	ajax.open("GET", "docs/GDToolkit/index.json"/*reformat(args).toString()*/, false);
-	ajax.send();
+	try
+	{
+		ajax.open("GET", reformat(args).toString(), true);
+		ajax.send();
+	}catch(e){console.log(e);}
+	console.log("IN");
 }
 
 // Reformats the arguments to have a file location baring name
