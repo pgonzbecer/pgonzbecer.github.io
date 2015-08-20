@@ -55,8 +55,6 @@ function buildDocumentation(json)
 // Called when the ajax has done something
 function onAjaxRequest()
 {
-	console.log(ajax.readyState);
-	console.log(ajax.status);
 	if(ajax.readyState== 4 && ajax.status== 200)
 	{
 		console.log(ajax.responseText);
