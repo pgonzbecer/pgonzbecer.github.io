@@ -21,11 +21,10 @@ $(document).ready(function(args)
 			switch(splits[0].toLowerCase())
 			{
 				case "docname":	docname=	splits[1];	break;
-				case "sl":	fileLoc=	splits[1];	break;
 			}
 		}
 		
-		startBuildDocumentation({docname: docname, loc: fileLoc});
+		startBuildDocumentation({docname: docname});
 	}
 });
 
@@ -34,22 +33,36 @@ function startBuildDocumentation(args)
 {
 	try
 	{
-		ajax.open("GET", reformat(args).toString(), true);
+		ajax.open("GET", unformat(args).toString(), true);
 		ajax.send();
 	}catch(e){console.log(e);}
 }
 
 // Reformats the arguments to have a file location baring name
-function reformat(args)
+function unformat(args)
 {
-	return ("docs/"+args.docname+"/"+(args.loc.replace(/\-/g, "/"))+".json");
+	return ("docs/"(+args.docname.replace(/\-/g, "/"))+".json");
 }
 
 // Builds the documentation with the given json
 function buildDocumentation(json)
 {
-	console.log(json);
-	$(".title").html(json.title);
+	// Variables
+	var	idoc=	$(".doc-interface");
+	var	table;
+	var	temp;
+	
+	idoc.find(".title").html(json.title);
+	idoc.find(".desc").html(json.desc);
+	
+	for(var i= 0; i< json.links.length; i++)
+	{
+		table=	idoc.find(".links");
+		table.append("<div class='row'><div class='col-md-1'></div><div class='col-md-11'>"+
+			"<a href='?docname='"+json.links[i].href+"' alt='"+json.links[i].alt+"'>"+
+			json.links[i].text+"</a></div></div>"
+		);
+	}
 }
 
 // Called when the ajax has done something
@@ -57,7 +70,6 @@ function onAjaxRequest()
 {
 	if(ajax.readyState== 4 && ajax.status== 200)
 	{
-		console.log(ajax.responseText);
 		buildDocumentation(JSON.parse(ajax.responseText));
 	}
 }

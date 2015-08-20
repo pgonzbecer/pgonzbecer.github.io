@@ -3,13 +3,13 @@
 	"desc":	"This is a documentation page for the Game Engine API, GDToolkit",
 	"links":	[
 		{
-			"href":	"Core-GameState",
+			"href":	"GDToolkit-Core-GameState",
 			"text":	"GameState",
 			"desc":	"A class to be used be used for a certain rendering and updating state.",
 			"alt":	"GameState"
 		},
 		{
-			"href":	"Core-GameStateManager",
+			"href":	"GDToolkit-Core-GameStateManager",
 			"text":	"GameStateManager",
 			"desc":	"A class that manages game states to be able to render and update different states",
 			"alt":	"GameStateManager"
