@@ -34,7 +34,8 @@ $(document).ready(function(args)
 // Starts building the documentation
 function startBuildDocumentation(args)
 {
-	ajax.open("GET", "docs/GDToolkit/index.json"/*reformat(args).toString()*/, true);
+	console.log(reformat(args));
+	ajax.open("GET", "docs/GDToolkit/index.json"/*reformat(args).toString()*/, false);
 	ajax.send();
 }
 
