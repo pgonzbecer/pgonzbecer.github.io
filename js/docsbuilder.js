@@ -55,9 +55,9 @@ function buildDocumentation(json)
 	idoc.find(".title").html(json.title);
 	idoc.find(".desc").html(json.desc);
 	
+	table=	idoc.find(".links");
 	for(var i= 0; i< json.links.length; i++)
 	{
-		table=	idoc.find(".links");
 		table.append("<div class='row'><div class='col-md-1'></div><div class='col-md-11'>"+
 			"<a href='?docname='"+json.links[i].href+"' alt='"+json.links[i].alt+"'>"+
 			json.links[i].text+"</a></div></div>"
