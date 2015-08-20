@@ -34,7 +34,11 @@ function startBuildDocumentation(args)
 	try
 	{
 		ajax=	new XMLHttpRequest();
-		ajax.onreadystatechanged=	onAjaxRequest;
+		ajax.onreadystatechanged=	function()
+		{
+			console.log(ajax.readyState);
+			console.log(ajax.status);
+		};
 		ajax.open("GET", reformat(args).toString(), true);
 		ajax.send();
 	}catch(e){console.log(e);}
