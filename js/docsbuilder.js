@@ -33,7 +33,8 @@ function startBuildDocumentation(args)
 {
 	try
 	{
-		ajax.open("GET", unformat(args).toString(), true);
+		console.log(unformat(args));
+		ajax.open("GET", unformat(args), true);
 		ajax.send();
 	}catch(e){console.log(e);}
 }
@@ -41,7 +42,7 @@ function startBuildDocumentation(args)
 // Reformats the arguments to have a file location baring name
 function unformat(args)
 {
-	return ("docs/"+(+args.docname.replace(/\-/g, "/"))+".json");
+	return ("docs/"+(args.docname.replace(/\-/g, "/"))+".json");
 }
 
 // Builds the documentation with the given json
