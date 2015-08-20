@@ -41,7 +41,7 @@ function startBuildDocumentation(args)
 // Reformats the arguments to have a file location baring name
 function reformat(args)
 {
-	return ("docs/"+args.docname+"/"+(fileLoc.replace(/\-/g, "/"))+".json");
+	return ("docs/"+args.docname+"/"+(args.loc.replace(/\-/g, "/"))+".json");
 }
 
 // Builds the documentation with the given json
