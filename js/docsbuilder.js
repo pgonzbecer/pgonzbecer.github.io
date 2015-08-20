@@ -5,6 +5,8 @@ var	ajax;
 
 $(document).ready(function(args)
 {
+	ajax=	new XMLHttpRequest();
+	ajax.onreadystatechange=	onAjaxRequest();
 	if(location.search)
 	{
 		// Variables
@@ -30,19 +32,11 @@ $(document).ready(function(args)
 // Starts building the documentation
 function startBuildDocumentation(args)
 {
-	console.log(reformat(args));
 	try
 	{
-		ajax=	new XMLHttpRequest();
-		ajax.onreadystatechanged=	function()
-		{
-			console.log(ajax.readyState);
-			console.log(ajax.status);
-		};
 		ajax.open("GET", reformat(args).toString(), true);
 		ajax.send();
 	}catch(e){console.log(e);}
-	console.log("IN");
 }
 
 // Reformats the arguments to have a file location baring name
@@ -55,7 +49,7 @@ function reformat(args)
 function buildDocumentation(json)
 {
 	console.log(json);
-	$(".title").html(title);
+	$(".title").html(json.title);
 }
 
 // Called when the ajax has done something
@@ -66,7 +60,7 @@ function onAjaxRequest()
 	if(ajax.readyState== 4 && ajax.status== 200)
 	{
 		console.log(ajax.responseText);
-		buildDocumentation(responseText);//JSON.parse(ajax.responseText));
+		buildDocumentation(JSON.parse(ajax.responseText));
 	}
 }
 
