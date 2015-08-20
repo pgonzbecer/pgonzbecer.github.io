@@ -6,7 +6,7 @@ var	ajax;
 $(document).ready(function(args)
 {
 	ajax=	new XMLHttpRequest();
-	ajax.onreadystatechange=	onAjaxRequest();
+	ajax.onreadystatechange=	onAjaxRequest;
 	if(location.search)
 	{
 		// Variables
