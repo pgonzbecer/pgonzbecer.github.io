@@ -47,6 +47,7 @@ function reformat(args)
 // Builds the documentation with the given json
 function buildDocumentation(json)
 {
+	console.log(json);
 	$(".title").html(json.title);
 }
 
