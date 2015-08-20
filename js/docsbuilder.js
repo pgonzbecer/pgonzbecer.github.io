@@ -7,7 +7,6 @@ $(document).ready(function(args)
 {
 	ajax=	new XMLHttpRequest();
 	
-	ajax.onreadystatechanged=	onAjaxRequest;
 	
 	if(location.search)
 	{
@@ -37,6 +36,7 @@ function startBuildDocumentation(args)
 	console.log(reformat(args));
 	try
 	{
+		ajax.onreadystatechanged=	onAjaxRequest;
 		ajax.open("GET", reformat(args).toString(), true);
 		ajax.send();
 	}catch(e){console.log(e);}
