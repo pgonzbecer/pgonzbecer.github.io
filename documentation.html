@@ -24,23 +24,23 @@
 				</li>
 			</ul>
 			
-			<div class="example">
-				<!-- Title /--><h1>GDToolkit Apex</h1>
-				<script>
-					// Variables
-					var	ajax=	new XMLHttpRequest();
-					var	text;
-					
-					ajax.onreadystatechange=	function()
-					{
-						if(ajax.readyState== 4 && ajax.status== 200)
-							console.log(ajax.responseText);
-					}
-					
-					ajax.open("GET", "docs/GDToolkit/index.json", true);
-					ajax.send();
-					console.log(ajax.responseText);
-				</script>
+			<div class="doc-interface">
+				<h1 class="title">Apex</h1>
+				<p class="desc well">
+					Lorum ipsum
+				</p>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-11">Name</div>
+					</div>
+					<!--
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-11"></div>
+						</div>
+					/-->
+				</div>
 			</div>
 		</div>
 		<div class="footer"></div>
