@@ -34,7 +34,7 @@ $(document).ready(function(args)
 // Starts building the documentation
 function startBuildDocumentation(args)
 {
-	ajax.open("GET", reformat(args), true);
+	ajax.open("GET", reformat(args).toString(), true);
 	ajax.send();
 }
 
