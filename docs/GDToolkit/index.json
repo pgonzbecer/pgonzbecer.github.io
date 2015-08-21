@@ -1,19 +1,17 @@
 {
-	"title":	"GDToolkit Documentation Apex",
-	"desc":	"This is a documentation page for the Game Engine API, GDToolkit",
-	"links":	[
+	"title":	"GDToolkit Documentation",
+	"desc":	"This is a documentation page for the Game Engine API, GDToolkit.",
+	"tables":	[
 		{
-			"href":	"GDToolkit-Core-GameState",
-			"text":	"GameState",
-			"desc":	"A class to be used be used for a certain rendering and updating state.",
-			"alt":	"GameState"
-		},
-		{
-			"href":	"GDToolkit-Core-GameStateManager",
-			"text":	"GameStateManager",
-			"desc":	"A class that manages game states to be able to render and update different states",
-			"alt":	"GameStateManager"
+			"title":	"Namespaces",
+			"type":	"namespace",
+			"content":	[
+				{
+					"text":	"GDToolkit.Core Namespace",
+					"href":	"GDToolkit-Core-index",
+					"desc":	"A namespace for the core of the toolkit"
+				}
+			]
 		}
-	],
-	"objects":	[]
+	]
 }

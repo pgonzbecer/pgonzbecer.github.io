@@ -4,14 +4,23 @@
 {
 	"title":	"",
 	"desc":	"",
-	"links":	[LinkObject],
-	"objects":	[DocumentationObject]
+	"tables":	[TableObject]
+}
+
+// TableObject
+{
+	"title":	"",
+	"type":	"",
+	"content":	[Object]
 }
 
 // LinkObject
 {
 	"href":	"",
-	"text":	"",
-	"desc":	"",
 	"alt":	""
+}
+
+// RemarkObject
+{
+	"desc":	""
 }
