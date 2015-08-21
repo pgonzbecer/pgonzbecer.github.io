@@ -83,8 +83,8 @@ function buildDocumentation(json)
 				break;
 			case "classes":
 				str+=	"<div class='col-xs-1 col-header'></div>";
-				str+=	"<div class='col-xs-5 col-header'></div>";
-				str+=	"<div class='col-xs-6 col-header'></div>";
+				str+=	"<div class='col-xs-5 col-header'>Name</div>";
+				str+=	"<div class='col-xs-6 col-header'>Description</div>";
 				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
 				{
@@ -92,7 +92,7 @@ function buildDocumentation(json)
 					colordif=	!colordif;
 					str+=	"<div class='col-xs-1'>";
 					if(json.tables[h].content[k].remarks!= "")
-						str+=	"<a href='#"+json.tables[h].content[k].remarksAnchor+"'><span class='glyphicon glyphicon-list-alt'></span></a>";
+						str+=	"<a href='#"+json.tables[h].content[k].remarksAnchor+"'><span class='glyphicon glyphicon-list-alt text-center'></span></a>";
 					str+=	"</div>";
 					str+=	"<div class='col-xs-5 class-link'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
