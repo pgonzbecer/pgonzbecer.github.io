@@ -85,6 +85,7 @@ function buildDocumentation(json)
 		}
 	}
 	idoc.append(str);
+	idoc.show(360);
 }
 
 // Formates the given hyperlink reference

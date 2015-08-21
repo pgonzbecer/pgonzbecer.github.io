@@ -101,4 +101,9 @@ body
 	cursor:	pointer;
 }
 
+.doc-interface
+{
+	display:	none;
+}
+
 /* End of File */
