@@ -52,7 +52,8 @@ function buildDocumentation(json)
 	var str;
 	var	colordif=	true;
 	
-	console.log(json);
+	$("#home-page").hide();
+	
 	idoc.html("");
 	idoc.append("<span class='index-title'>"+json.title+"</span>");
 	idoc.append("<p class='index-desc well'>"+json.desc+"</p>");
@@ -67,7 +68,7 @@ function buildDocumentation(json)
 		{
 			case "namespace":
 				str+=	"<div class='col-xs-1'></div>";
-				str+=	"<div class='col-xs-5'>Namespaces</div>";
+				str+=	"<div class='col-xs-5' style='text-align: right;'>Namespaces</div>";
 				str+=	"<div class='col-xs-6'>Description</div>";
 				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
