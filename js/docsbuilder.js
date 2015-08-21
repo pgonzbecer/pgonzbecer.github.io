@@ -49,8 +49,7 @@ function buildDocumentation(json)
 {
 	// Variables
 	var	idoc=	$(".doc-interface");
-	var	table;
-	var	temp, temp2;
+	var str;
 	
 	console.log(json);
 	idoc.html("");
@@ -59,34 +58,30 @@ function buildDocumentation(json)
 	
 	for(var h= 0; h< json.tables.length; h++)
 	{
-		table=	document.createElement("div");
-		temp=	document.createElement("span"); // Creates the title
-		temp.setAttribute("class", "title");
-		temp.innerHTML=	json.tables[h].title;
-		table.appendChild(temp);
-		temp=	document.createElement("div"); // Creates the row
-		temp.setAttribute("class", "row");
+		str=	"<div>";
+		str+=	"<span class='title'>"+json.tables[h].title+"</span>";
+		str+=	"<div class='row'>";
 		
 		switch(json.tables[h].type.toLowerCase())
 		{
 			case "namespace":
-				temp2=	document.createElement("div"); // Creates the column headers
-				temp2.setAttribute("class", "col-md-1");
-				temp.appendChild(temp2);
-				temp2=	document.createElement("div");
-				temp2.setAttribute("class", "col-md-11");
-				temp2.innerHTML=	"Namespaces";
-				temp.appendChild(temp2);
+				str+=	"<div class='col-md-1'></div>";
+				str+=	"<div class='col-md-11'>Namespaces</div>";
+				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
 				{
-					
+					str+=	"<div class='row'>";
+					str+=	"<div class='col-md-1'></div>";
+					str+=	"<div class='col-md-11'><a href='?docname="+
+						json.tables[h].content[k].href+"' alt='"+
+						json.tables[h].content[k].desc+"'>"+
+						json.tables[h].content[k].text+"</a></div>";
+					str+=	"</div>";
 				}
 				break;
 		}
-		
-		table.appendChild(temp);
 	}
-	idoc.append(table);
+	idoc.append(str);
 }
 
 // Called when the ajax has done something
