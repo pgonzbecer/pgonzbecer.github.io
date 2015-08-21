@@ -50,6 +50,7 @@ function buildDocumentation(json)
 	// Variables
 	var	idoc=	$(".doc-interface");
 	var str;
+	var	colordif=	true;
 	
 	console.log(json);
 	idoc.html("");
@@ -71,7 +72,8 @@ function buildDocumentation(json)
 				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
 				{
-					str+=	"<div class='row'>";
+					str+=	"<div class='row color-"+((colordif) ? "light" : "dark")+"'>";
+					colordif=	!colordif;
 					str+=	"<div class='col-xs-1'></div>";
 					str+=	"<div class='col-xs-5'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
