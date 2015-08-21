@@ -60,7 +60,7 @@ function buildDocumentation(json)
 	for(var i= 0; i< json.links.length; i++)
 	{
 		table.append("<div class='row'><div class='col-md-1'></div><div class='col-md-11'>"+
-			"<a href='?docname="+json.links[i].href+" alt="+json.links[i].alt+">"+
+			"<a href='?docname="+json.links[i].href+"' alt='"+json.links[i].alt+"'>"+
 			json.links[i].text+"</a></div></div>"
 		);
 	}
