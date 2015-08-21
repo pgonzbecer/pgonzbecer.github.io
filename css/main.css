@@ -76,7 +76,6 @@ body
 .color-light a
 {
 	color:	white;
-	text-decoration:	underline;
 	font-style:	italics;
 }
 
@@ -89,7 +88,6 @@ body
 .color-dark a
 {
 	color:	black;
-	text-decoration:	underline;
 	font-style:	italics;
 }
 
