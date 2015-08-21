@@ -70,12 +70,14 @@ body
 .color-light
 {
 	background-color:	gray;
-	color:	white;
+	color:	whitesmoke;
 }
 
 .color-light a
 {
-	color:	linen;
+	color:	white;
+	text-decoration:	underline;
+	font-style:	italics;
 }
 
 .color-dark
@@ -86,7 +88,9 @@ body
 
 .color-dark a
 {
-	color:	darkgray;
+	color:	black;
+	text-decoration:	underline;
+	font-style:	italics;
 }
 
 /* End of File */
