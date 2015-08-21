@@ -14,13 +14,18 @@
 	"content":	[Object]
 }
 
-// LinkObject
+// NamespaceObject
 {
+	"text":	"",
 	"href":	"",
-	"alt":	""
+	"desc":	""
 }
 
-// RemarkObject
+// ClassObject
 {
-	"desc":	""
+	"text":	"",
+	"href":	"",
+	"desc":	"",
+	"remarks":	"",
+	"remarksAnchor":	""
 }
