@@ -101,26 +101,4 @@ body
 	cursor:	pointer;
 }
 
-.color-light .namespace-link:hover
-{
-	background-color: gray;
-	color:	whitesmoke;
-}
-
-.color-light .namespace-link:hover a
-{
-	color:	whitesmoke;
-}
-
-.color-dark .namespace-link:hover
-{
-	background-color:	whitesmoke;
-	color:	black;
-}
-
-.color-dark .namespace-link:hover a
-{
-	color:	black;
-}
-
 /* End of File */
