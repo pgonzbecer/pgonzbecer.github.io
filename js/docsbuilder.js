@@ -55,7 +55,7 @@ function buildDocumentation(json)
 	console.log(json);
 	idoc.html("");
 	idoc.append("<span class='index-title'>"+json.title+"</span>");
-	idoc.append("<span class='index-desc well'>"+json.desc+"</span>");
+	idoc.append("<p class='index-desc well'>"+json.desc+"</p>");
 	
 	for(var h= 0; h< json.tables.length; h++)
 	{
