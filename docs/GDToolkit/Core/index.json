@@ -1,8 +1,13 @@
 {
-	"type":	"namespace",
 	"title":	"GDToolkit.Core Namespace",
-	"desc":	"A namespace that has most of the core things used in the GDToolkit",
-	"links":	[
-		
+	"desc":	"A namespace for the core stuff of the toolkit",
+	"tables":	[
+		{
+			"title":	"Classes",
+			"types":	"nested-objects",
+			"content":	[
+				
+			]
+		}
 	]
 }

@@ -52,8 +52,6 @@ function buildDocumentation(json)
 	var str;
 	var	colordif=	true;
 	
-	$("#home-page").hide();
-	
 	idoc.html("");
 	idoc.append("<span class='index-title'>"+json.title+"</span>");
 	idoc.append("<p class='index-desc well'>"+json.desc+"</p>");
@@ -82,6 +80,9 @@ function buildDocumentation(json)
 					str+=	"</div>";
 				}
 				break;
+			case "nested-objects":
+				str+=	"</div>"; // Closes row
+				break;
 		}
 	}
 	idoc.append(str);
@@ -99,6 +100,7 @@ function onAjaxRequest()
 {
 	if(ajax.readyState== 4 && ajax.status== 200)
 	{
+		$("#home-page").hide();
 		buildDocumentation(JSON.parse(ajax.responseText));
 	}
 }
