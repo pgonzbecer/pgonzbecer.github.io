@@ -91,12 +91,12 @@ body
 	font-style:	italics;
 }
 
-.namespace-link, .class-link
+.namespace-link
 {
 	text-align:	right;
 }
 
-.namespace-link:hover, .class-link:hover
+.namespace-link:hover
 {
 	cursor:	pointer;
 }
