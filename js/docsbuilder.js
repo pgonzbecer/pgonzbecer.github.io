@@ -78,7 +78,7 @@ function buildDocumentation(json)
 					str+=	"<div class='col-xs-5 namespace-link'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
 					str+=	"<div class='col-xs-6'>"+json.tables[h].content[k].desc+"</div>";
-					str+=	"</div>";
+					str+=	"</div>"; // Closes row
 				}
 				break;
 			case "classes":
@@ -97,12 +97,13 @@ function buildDocumentation(json)
 					str+=	"<div class='col-xs-5 class-link'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
 					str+=	"<div class='col-xs-6'>"+json.tables[h].content[k].desc+"</div>";
+					str+=	"</div>"; // Closes row
 				}
 				break;
 		}
 	}
 	idoc.append(str);
-	idoc.show(360);
+	idoc.show(480);
 }
 
 // Formates the given hyperlink reference
