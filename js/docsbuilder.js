@@ -66,16 +66,16 @@ function buildDocumentation(json)
 		{
 			case "namespace":
 				str+=	"<div class='col-xs-1'></div>";
-				str+=	"<div class='col-xs-7'>Namespaces</div>";
-				str+=	"<div class='col-xs-4'>Description</div>";
+				str+=	"<div class='col-xs-5'>Namespaces</div>";
+				str+=	"<div class='col-xs-6'>Description</div>";
 				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
 				{
 					str+=	"<div class='row'>";
 					str+=	"<div class='col-xs-1'></div>";
-					str+=	"<div class='col-xs-7'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
+					str+=	"<div class='col-xs-5'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
-					str+=	"<div class='col-xs-4'>"+json.tables[h].content[k].desc+"</div>";
+					str+=	"<div class='col-xs-6'>"+json.tables[h].content[k].desc+"</div>";
 					str+=	"</div>";
 				}
 				break;
