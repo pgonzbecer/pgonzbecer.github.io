@@ -33,7 +33,6 @@ function startBuildDocumentation(args)
 {
 	try
 	{
-		console.log(unformat(args));
 		ajax.open("GET", unformat(args), true);
 		ajax.send();
 	}catch(e){console.log(e);}
@@ -53,8 +52,10 @@ function buildDocumentation(json)
 	var	table;
 	var	temp, temp2;
 	
-	idoc.find("#index-title").html(json.title);
-	idoc.find("#index-desc").html(json.desc);
+	console.log(json);
+	idoc.html("");
+	idoc.append("<span class='index-title'>"+json.title+"</span>");
+	idoc.append("<span class='index-desc well'>"+json.desc+"</span>");
 	
 	for(var h= 0; h< json.tables.length; h++)
 	{
