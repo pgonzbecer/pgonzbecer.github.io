@@ -73,10 +73,20 @@ body
 	color:	white;
 }
 
+.color-light a
+{
+	color:	linen;
+}
+
 .color-dark
 {
 	background-color:	whitesmoke;
 	color:	black;
+}
+
+.color-dark a
+{
+	color:	darkgray;
 }
 
 /* End of File */
