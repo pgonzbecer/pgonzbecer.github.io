@@ -65,15 +65,15 @@ function buildDocumentation(json)
 		switch(json.tables[h].type.toLowerCase())
 		{
 			case "namespace":
-				str+=	"<div class='col-md-1'></div>";
-				str+=	"<div class='col-md-11'>Namespaces</div>";
+				str+=	"<div class='col-md-1 col-sm-1'></div>";
+				str+=	"<div class='col-md-11 col-sm-11'>Namespaces</div>";
 				str+=	"</div>"; // Closes row
 				for(var k= 0; k< json.tables[h].content.length; k++)
 				{
 					str+=	"<div class='row'>";
-					str+=	"<div class='col-md-1'></div>";
-					str+=	"<div class='col-md-11'><a href='?docname="+
-						json.tables[h].content[k].href+"' alt='"+
+					str+=	"<div class='col-md-1 col-sm-1'></div>";
+					str+=	"<div class='col-md-11 col-sm-11'><a href='?docname="+
+						format(json.tables[h].content[k].href)+"' alt='"+
 						json.tables[h].content[k].desc+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
 					str+=	"</div>";
@@ -82,6 +82,12 @@ function buildDocumentation(json)
 		}
 	}
 	idoc.append(str);
+}
+
+// Formates the given hyperlink reference
+function format(href)
+{
+	return (href.replace(/\./g, "-"));
 }
 
 // Called when the ajax has done something
