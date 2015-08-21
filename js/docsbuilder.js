@@ -75,7 +75,7 @@ function buildDocumentation(json)
 					str+=	"<div class='row color-"+((colordif) ? "light" : "dark")+"'>";
 					colordif=	!colordif;
 					str+=	"<div class='col-xs-1'></div>";
-					str+=	"<div class='col-xs-5'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
+					str+=	"<div class='col-xs-5 namespace-link'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
 					str+=	"<div class='col-xs-6'>"+json.tables[h].content[k].desc+"</div>";
 					str+=	"</div>";

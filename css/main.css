@@ -69,26 +69,58 @@ body
 
 .color-light
 {
-	background-color:	gray;
-	color:	whitesmoke;
+	background-color:	whitesmoke;
+	color:	black;
 }
 
 .color-light a
 {
-	color:	white;
+	color:	black;
 	font-style:	italics;
 }
 
 .color-dark
 {
-	background-color:	whitesmoke;
-	color:	black;
+	background-color:	gray;
+	color:	whitesmoke;
 }
 
 .color-dark a
 {
-	color:	black;
+	color:	whitesmoke;
 	font-style:	italics;
+}
+
+.namespace-link
+{
+	text-align:	right;
+}
+
+.namespace-link:hover
+{
+	cursor:	pointer;
+}
+
+.color-light .namespace-link:hover
+{
+	background-color: gray;
+	color:	whitesmoke;
+}
+
+.color-light .namespace-link:hover a
+{
+	color:	whitesmoke;
+}
+
+.color-dark .namespace-link:hover
+{
+	background-color:	whitesmoke;
+	color:	black;
+}
+
+.color-dark .namespace-link:hover a
+{
+	color:	black;
 }
 
 /* End of File */
