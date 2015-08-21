@@ -92,7 +92,7 @@ function buildDocumentation(json)
 					colordif=	!colordif;
 					str+=	"<div class='col-xs-1'>";
 					if(json.tables[h].content[k].remarks!= "")
-						str+=	"<a href='"+json.tables[h].content[k].remarksAnchor+"<span class='glyphicon glyphicon-list-alt'></span></a>";
+						str+=	"<a href='#"+json.tables[h].content[k].remarksAnchor+"'><span class='glyphicon glyphicon-list-alt'></span></a>";
 					str+=	"</div>";
 					str+=	"<div class='col-xs-5 class-link'><a href='?docname="+format(json.tables[h].content[k].href)+"'>"+
 						json.tables[h].content[k].text+"</a></div>";
