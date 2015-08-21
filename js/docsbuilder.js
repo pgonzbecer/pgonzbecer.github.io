@@ -52,6 +52,7 @@ function buildDocumentation(json)
 	var str;
 	var	colordif;
 	
+	console.log(json);
 	idoc.html("");
 	idoc.append("<span class='index-title'>"+json.title+"</span>");
 	idoc.append("<p class='index-desc well'>"+json.desc+"</p>");
