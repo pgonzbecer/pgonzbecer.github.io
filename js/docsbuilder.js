@@ -103,7 +103,7 @@ function buildDocumentation(json)
 				break;
 		}
 	}
-	idoc.append(str);
+	idoc.html(str);
 	idoc.show(480);
 }
 
