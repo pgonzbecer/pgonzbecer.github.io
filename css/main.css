@@ -134,4 +134,15 @@ body
 	clear:	both;
 }
 
+ul.doc-stuffs
+{
+	list-style-type:	none;
+}
+
+ul.doc-stuffs li
+{
+	width:	100;
+	display:	block;
+}
+
 /* End of File */
