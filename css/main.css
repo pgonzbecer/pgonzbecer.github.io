@@ -137,6 +137,7 @@ body
 ul.doc-stuffs
 {
 	list-style-type:	none;
+	margin:	0px;
 }
 
 ul.doc-stuffs li
