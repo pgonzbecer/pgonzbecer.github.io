@@ -53,6 +53,9 @@ body
 {
 	display:	block;
 	border-right:	2px solid cornflowerblue;
+	margin-left:	25px;
+	margin-right:	25px;
+	margin-top:	4px;
 }
 
 .project.code-green
