@@ -112,7 +112,19 @@ body
 	height:	25%;
 }
 
-.project
+.project-image
+{
+	width:	25%;
+	float:	left;
+}
+
+.desc
+{
+	width:	75%;
+	float:	left;
+}
+
+.project-footer
 {
 	clear:	both;
 }
