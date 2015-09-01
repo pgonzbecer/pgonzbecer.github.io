@@ -5,6 +5,11 @@ body
 	background-color:	azure;
 }
 
+.well
+{
+	background-color:	white;
+}
+
 .navbar
 {
 	border-bottom:	2px solid cornflowerblue;
