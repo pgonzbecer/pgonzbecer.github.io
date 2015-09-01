@@ -53,6 +53,7 @@ body
 {
 	display:	block;
 	border-right:	2px solid cornflowerblue;
+	border-left:	2px solid cornflowerblue;
 	margin-left:	2%;
 	margin-right:	2%;
 	width:	96%;
