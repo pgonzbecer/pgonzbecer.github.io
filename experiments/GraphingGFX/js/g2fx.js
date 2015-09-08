@@ -41,22 +41,22 @@ function Segment(options)
 	
 	if(options.ptA)
 	{
-		ptA.x=	options.ptA.x;
-		ptA.y=	options.ptA.y;
+		this.ptA.x=	options.ptA.x;
+		this.ptA.y=	options.ptA.y;
 	}
 	if(options.ax)
-		ptA.x=	options.ax;
+		this.ptA.x=	options.ax;
 	if(options.ay)
-		ptA.y=	option.ay;
+		this.ptA.y=	option.ay;
 	if(options.ptB)
 	{
-		ptB.x=	options.ptB.x;
-		ptB.y=	options.ptB.y;
+		this.ptB.x=	options.ptB.x;
+		this.ptB.y=	options.ptB.y;
 	}
 	if(options.bx)
-		ptB.x=	options.bx;
+		this.ptB.x=	options.bx;
 	if(options.by)
-		ptB.y=	options.by;
+		this.ptB.y=	options.by;
 }
 
 // End of File
