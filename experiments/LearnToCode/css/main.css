@@ -117,14 +117,14 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 .feed .feed-heading
 {
 	display:	block;
-	width:	100%;
+	width:	96%;
 	height:	24px;
 	font-size:	20px;
 	line-height:	24px;
 	font-weight:	bold;
 	background-color:	#393939;
 	color:	#499c22;
-	padding-left:	12px;
+	padding-left:	4%;
 }
 
 .feed .feed-heading .timestamp
