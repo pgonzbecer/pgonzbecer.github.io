@@ -55,6 +55,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 .stopper
 {
 	clear:	both;
+	margin-top:	4px;
 }
 
 .content
