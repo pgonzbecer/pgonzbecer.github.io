@@ -1,0 +1,135 @@
+/* Created by Paul Gonzalez Becerra */
+
+body
+{
+	margin:	0px;
+	padding:	0px;
+	background:	#5ab47b;
+	min-width:	750px;
+	font-family:	arial;
+}
+
+a:link, a:visited
+{
+	text-decoration:	none;
+	color:	#627b62;
+}
+
+nav.gn ul, .internal-links ul
+{
+	list-style-type:	none;
+	margin:	0px;
+	padding:	0px;
+}
+
+nav.gn ul li
+{
+	width:	25%;
+	height:	32px;
+	text-align:	center;
+	font-size:	24px;
+	display:	block;
+	line-height:	32px;
+	float:	left;
+}
+
+nav.gn ul li a
+{
+	display:	block;
+	width:	100%;
+	height:	32px;
+	line-height:	32px;
+	text-align:	center;
+	font-size:	24px;
+	background-color:	#393939;
+	color:	#419c62;
+	text-decoration:	none;
+}
+
+nav.gn ul li a:hover, .internal-links ul li a:hover
+{
+	background-color:	#317b4a;
+	color:	#111111;
+}
+
+.content
+{
+	clear:	both;
+}
+
+.footer
+{
+	clear:	both;
+	text-align:	center;
+	color:	#393939;
+}
+
+.col-1
+{
+	width:	25%;
+	position:	relative;
+	top:	0px;
+	left:	0px;
+}
+
+.col-2
+{
+	width:	74%;
+	position:	relative;
+	top:	0px;
+	left:	26%;
+}
+
+.internal-links ul li
+{
+	width:	100%;
+	height:	32px;
+	display:	block;
+}
+
+.internal-links ul li a
+{
+	width:	100%;
+	height:	32px;
+	display:	block;
+	color:	#419c62;
+	background-color:	#393939;
+	text-align:	center;
+	text-decoration:	none;
+	font-size:	24px;
+	line-height:	32px;
+}
+
+.feed
+{
+	border-left:	1px #393939 solid;
+	border-right:	1px #393939 solid;
+	border-bottom:	1px #393939 solid;
+}
+
+.feed .feed-heading
+{
+	display:	block;
+	width:	100%;
+	height:	24px;
+	font-size:	20px;
+	line-height:	24px;
+	font-weight:	bold;
+	background-color:	#393939;
+	color:	#499c22;
+}
+
+.feed .feed-heading .timestamp
+{
+	font-size:	10px;
+	font-weight:	normal;
+	float:	right;
+	font-family:	times;
+}
+
+.feed .feed-content
+{
+	
+}
+
+/* End of File */
