@@ -133,4 +133,9 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	padding:	4px;
 }
 
+.feed .feed-footer
+{
+	content:	DERP;
+}
+
 /* End of File */
