@@ -46,7 +46,7 @@ nav.gn ul li
 nav.gn ul li a, .internal-links ul li a
 {
 	display:	block;
-	width:	98%;
+	width:	100%;
 	height:	32px;
 	line-height:	32px;
 	text-align:	center;
