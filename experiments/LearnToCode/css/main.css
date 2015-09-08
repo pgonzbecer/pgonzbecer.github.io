@@ -59,6 +59,12 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	text-decoration:	none;
 }
 
+.internal-links ul li a
+{
+	border:	1px solid black;
+	width:	99%;
+}
+
 .stopper
 {
 	clear:	both;
