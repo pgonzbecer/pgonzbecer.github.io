@@ -110,9 +110,8 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 
 .feed
 {
-	border-left:	1px #393939 solid;
-	border-right:	1px #393939 solid;
-	border-bottom:	1px #393939 solid;
+	border:	1px #393939 4a4a52;
+	border-top:	none;
 }
 
 .feed .feed-heading
