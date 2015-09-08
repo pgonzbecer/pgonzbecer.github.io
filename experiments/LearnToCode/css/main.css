@@ -3,11 +3,11 @@
 body
 {
 	margin:	0px;
-	padding:	0px;/*
+	padding:	0px;
 	background:	-webkit-linear-gradient(right, #4aa452, #3183c5);
 	background:	-o-linear-gradient(right, #4aa452, #3183c5);
 	background:	-moz-linear-gradient(right, #4aa452, #3183c5);
-	background:	linear-gradient(right, #4aa452, #3183c5);*/
+	background:	linear-gradient(right, #4aa452, #3183c5);
 	background-color:	#3183c5;
 	min-width:	750px;
 	font-family:	arial;
@@ -58,8 +58,8 @@ nav.gn ul li a, .internal-links ul li a
 
 nav.gn ul li a:hover, .internal-links ul li a:hover
 {
-	background-color:	#3183c5;
-	color:	#101820;
+	/*background-color:	#3183c5;*/
+	color:	#4aa452;
 	text-decoration:	none;
 }
 
