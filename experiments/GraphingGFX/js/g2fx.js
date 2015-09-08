@@ -33,8 +33,8 @@ function Point2(options)
 function Segment(options)
 {
 	// Variables
-	this.ptA=	new Point2();
-	this.ptB=	new Point2();
+	this.ptA=	new Point2({});
+	this.ptB=	new Point2({});
 	
 	if(options.ptA)
 	{
