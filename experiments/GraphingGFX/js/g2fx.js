@@ -18,7 +18,11 @@ g2fx.create=  function(type, id, options)
 	{
 		this.render=	function(obj)
 		{
-			console.log(obj);
+			if(obj.getPlotPoints== null)
+				throw exception("Object is non-renderable");
+			
+			// Variables
+			var	plottablePoint=	obj.getPlotPoints(segments);
 		};
 	}
 };
@@ -31,6 +35,15 @@ function Point2(options)
 	// Variables
 	this.x=	((options.x) ? options.x : 0);
 	this.y=	((options.y) ? options.y : 0);
+	
+	// Gets the plot points of the point
+	this.getPlotPoints=	function(segments)
+	{
+		return [{
+			x:	this.x,
+			y:	this.y
+		}];
+	};
 }
 
 function Segment(options)
@@ -57,6 +70,14 @@ function Segment(options)
 		this.ptB.x=	options.bx;
 	if(options.by)
 		this.ptB.y=	options.by;
+	
+	// Gets the plot points
+	this.getPlotPoints=	function(segments)
+	{
+		return [
+			{x: 0,y: 0}
+		];
+	};
 }
 
 // End of File
