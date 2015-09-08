@@ -37,6 +37,7 @@ nav.gn ul li
 	display:	block;
 	line-height:	32px;
 	float:	left;
+	color:	black;
 }
 
 nav.gn ul li a, .internal-links ul li a
