@@ -50,10 +50,10 @@ function Line(options)
 		ptB.x=	options.ptB.x;
 		ptB.y=	options.ptB.y;
 	}
-	if(options.ax)
-		ptB.x=	options.ax;
-	if(options.ay)
-		ptB.y=	options.ay;
+	if(options.bx)
+		ptB.x=	options.bx;
+	if(options.by)
+		ptB.y=	options.by;
 }
 
 // End of File
