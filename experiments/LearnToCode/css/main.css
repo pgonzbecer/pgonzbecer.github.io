@@ -133,7 +133,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 
 .feed .feed-content
 {
-	margin-bottom:	8px;
+	padding-bottom:	12px;
 	padding:	4px;
 	background-color:	#202020;
 }
