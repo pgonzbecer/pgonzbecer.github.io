@@ -4,6 +4,9 @@ body
 {
 	margin:	0px;
 	padding:	0px;
+	background:	-webkit-linear-gradient(top, #4aa452, #101820);
+	background:	-o-linear-gradient(top, #4aa452, #101820);
+	background:	-moz-linear-gradient(top, #4aa452, #101820);
 	background:	linear-gradient(top, #4aa452, #101820);
 	min-width:	750px;
 	font-family:	arial;
