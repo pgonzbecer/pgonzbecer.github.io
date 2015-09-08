@@ -133,6 +133,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	font-weight:	normal;
 	float:	right;
 	font-family:	times;
+	margin-right:	16px;
 }
 
 .feed .feed-content
