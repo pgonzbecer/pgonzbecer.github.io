@@ -42,7 +42,7 @@ nav.gn ul li
 nav.gn ul li a, .internal-links ul li a
 {
 	display:	block;
-	width:	100%;
+	width:	98%;
 	height:	32px;
 	line-height:	32px;
 	text-align:	center;
@@ -50,6 +50,7 @@ nav.gn ul li a, .internal-links ul li a
 	background-color:	#4a4a52;
 	color:	#94d5ff;
 	text-decoration:	none;
+	border:	1% solid black;
 }
 
 nav.gn ul li a:hover, .internal-links ul li a:hover
@@ -91,12 +92,6 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	width:	74%;
 	float:	left;
 	margin-left:	1%;
-}
-
-.internal-links ul
-{
-	border:	1px solid #101820;
-	width:	98%;
 }
 
 .internal-links ul li
