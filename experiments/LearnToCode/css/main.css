@@ -4,7 +4,7 @@ body
 {
 	margin:	0px;
 	padding:	0px;
-	background:	#4aa452;
+	background:	linear-gradient(top, #4aa452, #101820);
 	min-width:	750px;
 	font-family:	arial;
 	color:	white;
