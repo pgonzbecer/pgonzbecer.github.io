@@ -3,11 +3,12 @@
 body
 {
 	margin:	0px;
-	padding:	0px;
+	padding:	0px;/*
 	background:	-webkit-linear-gradient(left, #4aa452, #3183c5);
 	background:	-o-linear-gradient(left, #4aa452, #3183c5);
 	background:	-moz-linear-gradient(left, #4aa452, #3183c5);
-	background:	linear-gradient(left, #4aa452, #3183c5);
+	background:	linear-gradient(left, #4aa452, #3183c5);*/
+	background-color:	#3183c5;
 	min-width:	750px;
 	font-family:	arial;
 	color:	white;
