@@ -135,11 +135,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 {
 	margin-bottom:	8px;
 	padding:	4px;
-}
-
-.feed .feed-footer
-{
-	content:	DERP;
+	background-color:	#202020;
 }
 
 /* End of File */
