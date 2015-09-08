@@ -30,7 +30,7 @@ function Point2(options)
 	this.y=	((options.y) ? options.y : 0);
 }
 
-function Line(options)
+function Segment(options)
 {
 	// Variables
 	this.ptA=	new Point2();
