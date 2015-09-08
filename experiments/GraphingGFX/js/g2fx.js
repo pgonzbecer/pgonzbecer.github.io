@@ -25,6 +25,9 @@ g2fx.create=  function(type, id, options)
 
 function Point2(options)
 {
+	if(options== null)
+		options=	{};
+	
 	// Variables
 	this.x=	((options.x) ? options.x : 0);
 	this.y=	((options.y) ? options.y : 0);
@@ -33,8 +36,8 @@ function Point2(options)
 function Segment(options)
 {
 	// Variables
-	this.ptA=	new Point2({});
-	this.ptB=	new Point2({});
+	this.ptA=	new Point2();
+	this.ptB=	new Point2();
 	
 	if(options.ptA)
 	{
