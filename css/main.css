@@ -154,9 +154,11 @@ ul.doc-stuffs li
 
 .heading
 {
-	padding:	12%;
+	padding-left:	12%;
 	width:	88%;
 	font-size:	24px;
+	font-family:	arial;
+	font-weight:	bold;
 	height:	32px;
 	line-height:	32px;
 }
@@ -164,6 +166,7 @@ ul.doc-stuffs li
 .timestamp
 {
 	text-align:	right;
+	font-size:	12px;
 }
 
 /* End of File */
