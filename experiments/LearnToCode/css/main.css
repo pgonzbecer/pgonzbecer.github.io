@@ -95,6 +95,12 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	margin-left:	1%;
 }
 
+.internal-links ul
+{
+	border:	1% solid #101820;
+	width:	98%;
+}
+
 .internal-links ul li
 {
 	width:	100%;
