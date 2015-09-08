@@ -52,6 +52,11 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 	color:	#111111;
 }
 
+.stopper
+{
+	clear:	both;
+}
+
 .content
 {
 	clear:	both;
