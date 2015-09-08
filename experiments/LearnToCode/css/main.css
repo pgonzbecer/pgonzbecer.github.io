@@ -55,6 +55,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 .content
 {
 	clear:	both;
+	margin-top:	40px;
 }
 
 .footer
@@ -67,17 +68,13 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 .col-1
 {
 	width:	25%;
-	position:	relative;
-	top:	0px;
-	left:	0px;
+	float:	left;
 }
 
 .col-2
 {
 	width:	74%;
-	position:	relative;
-	top:	0px;
-	left:	26%;
+	float:	left;
 }
 
 .internal-links ul li
@@ -129,7 +126,7 @@ nav.gn ul li a:hover, .internal-links ul li a:hover
 
 .feed .feed-content
 {
-	
+	margin-bottom:	8px;
 }
 
 /* End of File */
