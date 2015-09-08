@@ -4,10 +4,10 @@ body
 {
 	margin:	0px;
 	padding:	0px;
-	background:	-webkit-linear-gradient(right, #4aa452, #101820);
-	background:	-o-linear-gradient(right, #4aa452, #101820);
-	background:	-moz-linear-gradient(right, #4aa452, #101820);
-	background:	linear-gradient(right, #4aa452, #101820);
+	background:	-webkit-linear-gradient(right, #4aa452, #3183c5);
+	background:	-o-linear-gradient(right, #4aa452, #3183c5);
+	background:	-moz-linear-gradient(right, #4aa452, #3183c5);
+	background:	linear-gradient(right, #4aa452, #3183c5);
 	min-width:	750px;
 	font-family:	arial;
 	color:	white;
@@ -51,13 +51,13 @@ nav.gn ul li a, .internal-links ul li a
 	text-align:	center;
 	font-size:	24px;
 	background-color:	#4a4a52;
-	color:	#94d5ff;
+	color:	#3183c5;
 	text-decoration:	none;
 }
 
 nav.gn ul li a:hover, .internal-links ul li a:hover
 {
-	background-color:	#94d5ff;
+	background-color:	#3183c5;
 	color:	#101820;
 	text-decoration:	none;
 }
