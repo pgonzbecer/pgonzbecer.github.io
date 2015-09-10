@@ -16,11 +16,12 @@ a:link, a:visited
 {
 	color:	#ff8b4a;
 	background-color:	#d4d5dd;
+	border:	1px solid #62bde6;
 }
 
 .btn-pgb a
 {
-	color:	#ff8b4a;
+	color:	#ee7b18;
 }
 
 .well
