@@ -3,7 +3,8 @@
 $(document).ready(function(args)
 {
 	WebBuilder.setOrigin({
-		local:	"/C:/Users/Chams2.0/Documents/GitHub/pgonzbecer.github.io/",
+		//local:	"/C:/Users/Chams2.0/Documents/GitHub/pgonzbecer.github.io/",
+		local:	"/C:/Users/FuLagann/Documents/GitHub/pgonzbecer.github.io/",
 		remote:	"http://www.pgonzbecer.com/"
 	});
 	WebBuilder.build({

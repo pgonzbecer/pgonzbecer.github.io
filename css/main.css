@@ -4,11 +4,18 @@ body
 {
 	background-color:	#3183c5;
 	color:	white;
+	font-size:	16px;
+}
+
+a:link, a:visited
+{
+	color:	#94d5ff;
 }
 
 .well
 {
 	background-color:	#4a4a52;
+	border:	none;
 }
 
 .text-info
@@ -81,6 +88,7 @@ body
 	text-align:	center;
 	font-size:	12px;
 	font-weight:	bold;
+	color:	#d4d4d4;
 }
 
 .color-light
@@ -164,14 +172,19 @@ ul.doc-stuffs li
 	font-size:	24px;
 	font-family:	arial;
 	font-weight:	bold;
-	height:	32px;
 	line-height:	32px;
 }
 
 .timestamp
 {
-	text-align:	right;
+	text-align:	center;
+	line-height:	24px;
 	font-size:	12px;
+	height:	24px;
+	float:	right;
+	width:	13%;
+	border:	1px solid #a49cac;
+	min-width:	154px;
 }
 
 /* End of File */
