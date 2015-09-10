@@ -57,8 +57,8 @@ body
 .project
 {
 	display:	block;
-	border-right:	2px solid cornflowerblue;
-	border-left:	2px solid cornflowerblue;
+	border-right:	2px solid #e67b7b7;
+	border-left:	2px solid #e44d4d;
 	margin-left:	2%;
 	margin-right:	2%;
 	width:	96%;
