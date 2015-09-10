@@ -12,6 +12,12 @@ a:link, a:visited
 	color:	#94d5ff;
 }
 
+.btn-pgb
+{
+	color:	darkslategray;
+	background-color:	linen;
+}
+
 .well
 {
 	background-color:	#4a4a52;
