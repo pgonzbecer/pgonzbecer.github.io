@@ -12,16 +12,11 @@ a:link, a:visited
 	color:	#94d5ff;
 }
 
-.btn-pgb
-{
-	color:	#ff8b4a;
-	background-color:	#d4d5dd;
-	border:	1px solid #62bde6;
-}
-
-.btn-pgb a
+a.btn-pgb
 {
 	color:	#ee7b18;
+	background-color:	#d4d5dd;
+	border:	1px solid #62bde6;
 }
 
 .well
