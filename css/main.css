@@ -2,7 +2,7 @@
 
 body
 {
-	background-color:	azure;
+	background-color:	#3183c5;
 }
 
 .well
@@ -12,7 +12,7 @@ body
 
 .navbar
 {
-	border-bottom:	2px solid cornflowerblue;
+	border-bottom:	2px solid azure;
 	background-color:	black;
 	color:	whitesmoke;
 	min-height:	64px;
