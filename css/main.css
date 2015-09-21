@@ -19,7 +19,7 @@ a.btn-pgb
 	border:	1px solid #ffffff;
 }
 
-a.btn-pgb
+a.btn-pgb:hover
 {
 	color:	#94d4ff;
 	background-color:	#315a83;
