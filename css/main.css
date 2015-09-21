@@ -16,12 +16,14 @@ a.btn-pgb
 {
 	color:	#ffffff;
 	background-color:	#315a83;
-	border:	1px solid #000000;
+	border:	1px solid #ffffff;
 }
 
 a.btn-pgb
 {
 	color:	#94d4ff;
+	background-color:	#315a83;
+	border-color:	#ffffff;
 }
 
 .well
