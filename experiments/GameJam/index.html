@@ -18,6 +18,7 @@
 			.text-info	{	color:	#101820;	text-indent:	16px;	}
 			.code-block	{	word-spacing:	4px;	font-family:	monospace;	margin-left: 48px;}
 			.indent-1	{	display:	block;	text-indent:	16px;	}
+			.indent-2	{	display:	block;	text-indent:	32px;	}
 			.ccc-blue	{	color:	#3183c5;	}
 			.ccc-string	{	color:	#7b62d4;	}
 			.ccc-comment	{	color:	#4aa452;	}
@@ -197,7 +198,31 @@
 				</div>
 				<div class="desc">
 					<p class="text-info">
-						Blah blah, lorem ipsum.
+						Even though JavaScript uses automatic variable over data type, it still supports
+						an object oriented programming style. Although it would be more of just a pseudo
+						version of it. There are multiple ways to create a class/object:
+						<dl>
+							<dt>JSON Method:</dt>
+							<dd class="text-info">
+								JSON just means JavaScript Object Notation, but writing an actual
+								JSON file is slightly different. Example below:
+							</dd>
+							<div class="code-block">
+								<span class="ccc-comment">// Variables</span><br/>
+								<span class="ccc-blue">var</span> obj = {<br/>
+								<span class="indent-1"><span class="ccc-func">init</span>: <span class="ccc-blue">function</span>() {</span>
+								<span class="indent-2">
+									<span class="ccc-blue">this</span>.myVar =
+									<span class="ccc-string">"To use functions or variables from the same object, you must put 'this' "</span>;
+								</span>
+								<span class="indent-2"><span class="ccc-func">alert</span>(myVar);</span>
+								<span class="indent-1">},</span>
+								<span class="indent-1">myVar: 4</span>
+								};
+								<br /><br />
+								obj.<span class="ccc-func">init</span>();<br/>
+							</div>
+						</dl>
 					</p>
 				</div>
 			</div>
