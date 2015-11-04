@@ -6,6 +6,49 @@
 	<head>
 		<title>Paul's Projects</title>
 		<link rel="stylesheet" href="css/main.css" />
+		<script>
+			function addPresentationImages(id, imgs)
+			{
+				// Variables
+				var	insert=	document.getElementsByClassName("presentation")[id];
+				
+				for(var i= 0; i< imgs.length; i++)
+					insert.innerHTML+=	"<img class='presentation-icon' src='"+imgs[i].img+"'"+
+					" onclick=\"viewImage({caption:'"+imgs[i].caption+"',img:'"+imgs[i].img+"'}, "+i+", "+id+");\" />";
+			}
+			
+			function viewImage(imgclass, index, id)
+			{
+				if(document.getElementsByClassName("view-img-block").length> 0)
+					return;
+				
+				document.getElementsByTagName("body")[0].innerHTML+=	"<div class='view-img-block'>"+
+					"<span class='close' onclick='closeViewImage();'>X</span>"+
+					"<span class='left prevnext'><span onclick='nextImg("+id+","+(index-1)+");' class='circle'>&lt;</span></span>"+
+					"<span class='right prevnext'><span onclick='nextImg("+id+","+(index+1)+");' class='circle'>&gt;</span></span>"+
+					"<center><span class='heading caption'>"+imgclass.caption+"</span></center>"+
+					"<center><img class='blownup' src='"+imgclass.img+"' /></center>"+
+				"</div>";
+			}
+			
+			function nextImg(id, index)
+			{
+				// Variables
+				var	picons=	document.getElementsByClassName("presentation")[id].getElementsByClassName("presentation-icon");
+				
+				if(index< 0)
+					index=	picons.length-1;
+				if(index>= picons.length)
+					index=	0;
+				closeViewImage();
+				picons[index].onclick();
+			}
+			
+			function closeViewImage()
+			{
+				document.getElementsByTagName("body")[0].removeChild(document.getElementsByClassName("view-img-block")[0]);
+			}
+		</script>
 	</head>
 	
 	<body>
@@ -28,11 +71,30 @@
 					<span class="website">Website: <a href="http://www.opengraphingcalculator.com">www.opengraphingcalculator.com</a></span>
 					<span class="presentation">
 						<script>
-							addPresentationImages(
-								"imgs/favicon_opengraph.ico"
+							this.addPresentationImages(
+								0,
+								[
+									{
+										caption:	"Simple Trigonometric Function",
+										img:	"imgs/opengraph-pres-1.png"
+									},
+									{
+										caption:	"Function Arithmetic",
+										img:	"imgs/opengraph-pres-2.png"
+									},
+									{
+										caption:	"Function Composition",
+										img:	"imgs/opengraph-pres-4.png"
+									},
+									{
+										caption:	"Dynamic Geometry Grapher",
+										img:	"imgs/opengraph-pres-3.png"
+									}
+								]
 							);
 						</script>
 					</span>
+					<span class="presentation-tag">Pictures:</span>
 				</div>
 				<div style="clear:both;"></div>
 				<p class="desc">

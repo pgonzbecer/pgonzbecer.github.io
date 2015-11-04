@@ -18,6 +18,12 @@ a:link:hover, a:visited:hover
 	color:	#6ab4e6;
 }
 
+hr
+{
+	border-color:	#101820;
+	border-top:	none;
+}
+
 #header
 {
 	width:	100%;
@@ -102,7 +108,39 @@ a:link:hover, a:visited:hover
 
 @media screen and (max-width: 600px)
 {
+	#header
+	{
+		height:	auto;
+	}
 	
+	#logo
+	{
+		float:	none;
+		text-align:	center;
+		width:	100%;
+	}
+	
+	#nav
+	{
+		width:	100%;
+	}
+	
+	#nav ul
+	{
+		margin:	0px;
+	}
+	
+	#nav ul li
+	{
+		float:	none;
+		width:	100%;
+	}
+	
+	#nav ul li a
+	{
+		border-right:	none;
+		border-bottom:	1px solid #101820;
+	}
 }
 
 .heading
@@ -143,10 +181,16 @@ a:link:hover, a:visited:hover
 
 .project .presentation
 {
-	width:	128px;
+	width:	auto;
 	height:	16px;
 	float:	right;
-	background-color:	green;
+	margin-right:	16px;
+}
+
+.project .presentation-tag
+{
+	height:	16px;
+	float:	right;
 	margin-right:	16px;
 }
 
@@ -168,6 +212,99 @@ a:link:hover, a:visited:hover
 	text-align:	center;
 	display:	block;
 	font-size:	0.8em;
+}
+
+.img-thumbnail
+{
+	width:	128px;
+	height:	128px;
+}
+
+.img-circle
+{
+	border-radius:	50%;
+}
+
+.small-text
+{
+	font-size:	12px;
+}
+
+.presentation-icon
+{
+	width:	16px;
+	height:	16px;
+}
+
+.view-img-block
+{
+	width:	90vw;
+	height:	90vh;
+	background-color:	#3183c5;
+	border:	1px solid #101820;
+	z-index:	48;
+	position:	absolute;
+	top:	5%;
+	left:	8vh;
+	margin:	0px;
+}
+
+span.close
+{
+	font-family:	lucida console;
+	font-size:	20px;
+	position:	absolute;
+	top:	8px;
+	right:	16px;
+}
+
+span.close:hover, .presentation-icon:hover, .prevnext .circle:hover
+{
+	cursor:	pointer;
+}
+
+img.blownup
+{
+	margin-top:	32px;
+	text-align:	center;
+}
+
+span.caption
+{
+	margin-top:	8px;
+}
+
+.left
+{
+	position:	absolute;
+	left:	16px;
+}
+
+.right
+{
+	position:	absolute;
+	right:	16px;
+}
+
+.prevnext
+{
+	width:	40px;
+	font-size:	40px;
+	font-weight:	bold;
+	text-align:	center;
+	line-height:	40px;
+	color:	#3183c5;
+	top:	50%;;
+}
+
+.circle
+{
+	border-radius:	50%;
+	background-color:	red;
+	width:	40px;
+	height:	40px;
+	display:	block;
+	background-color:	#fff6ff;
 }
 
 /* End of File */
