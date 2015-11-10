@@ -5,101 +5,53 @@
 <html>
 	<head>
 		<title>Contact Paul</title>
-		<link rel="stylesheet" href="css/bootstrap.css" />
 		<link rel="stylesheet" href="css/main.css" />
-		<link rel="icon" type="x-icon" href="images/favicon.ico" />
-		<script src="js/jquery-1.9.1.js"></script>
-		<script src="js/bootstrap.js"></script>
-		<meta name="keywords" content="Contact, Paul, Gonzalez, Becerra, Gonzalez-Becerra, Paul Gonzalez, Paul Gonzalez-Becerra, pgonzbecer, programmer, developer, computer programmer, computers, dev, game dev, game developer, games, applications, application developer, app dev" />
-		<meta name="description" content="This page is how to contact Paul Gonzalez-Becerra" />
-		<meta name="author" content="Paul Gonzalez-Becerra" />
+		<link rel="icon" type="x-icon" href="imgs/favicon.ico" />
 	</head>
+	
 	<body>
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<span class="logo-text">{ pgonzbecer }</span>
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nbc" aria-expanded="false">
-						<span class="sr-only">Toggle Navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="nbc">
-					<ul class="nav navbar-nav">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="projects.html">Projects</a></li>
-						<li><a href="documentation.html">Documentations</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div class="content">
-			
-			<div class="well project">
-				<span class="h2">About me</span><br/>
-				<div class="text-info">
-					<img src="images/paul.jpeg" class="img-thumbnail img-circle" style="float: right;" />
-						<p>
-							&emsp;&emsp;I am from a small town about half an hour south of Fresno, CA called
-							<a href="https://www.google.com/maps/place/Visalia,+CA/">Visalia</a>. I learned how to program at a young age, and developed that
-							skill throughout childhood and into adulthood. My desired job is to be an Inventor, unspecific of course, and as I developed the
-							art of programming, I concentrated that desire into a Computer Programmer / Game Developer. I'm a gamer at heart, and it is what
-							brought me to programming. I currently go to school at <a href="http://www.cos.edu/">College of the Sequoias</a>, getting a B.S.
-							degree in Computer Science, aiming for M.S. and/or PhD. While at the same time trying to get a dual certificate in
-							<a href="http://www.cos.edu/Admissions/ClassSearch/Documents/2014-2015%20General%20Catalog.pdf#page=245">Computer &amp; Information
-							Systems</a> and <a href="http://www.cos.edu/Admissions/ClassSearch/Documents/2015-2016%20General%20Catalog.pdf#page=233">Computer
-							Programming &amp; Information Systems</a>.
-						</p>
-					</div>
-				</div>
-			</div>
-			
-			<div class="well project">
-				<span class="h2">How to contact me</span><br/>
-				
-				<div class="text-info">
-					<p>
-						&emsp;&emsp;The best way to contact me is via e-mail [ pgonzbecer@gmail.com ]. I check
-						it regularly, on average about 4 times a day. But since I have more than one
-						way to technically contact me, I will provide them all by the following list:
-					</p>
-					<ul>
-						<li><strong>E-Mail</strong>: pgonzbecer@gmail.com</li>
-						<li><strong>GitHub</strong>: <a href="http://www.github.com/pgonzbecer/">pgonzbecer</a></li>
-						<li><strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/pgonzbecer/">Paul Gonzalez-Becerra</a></li>
-						<li><strong>FreeLancer</strong>: <a href="https://www.freelancer.com/u/PGonzBecer.html">PGonzBecer</a></li>
-						<li><strong>Facebook</strong>: <a href="https://www.facebook.com/people/Paul-Gonzalez-Becerra/100004267842956">Paul Gonzalez</a></li>
-						<li><strong>Twitter</strong>: <a href="https://twitter.com/PGonzBecer">@PGonzBecer</a></li>
-					</ul>
-					<p>
-						&emsp;&emsp;Do note that the way I ordered these is from most frequently checked, with E-Mail and GitHub being (almost) everyday to Facebook
-						and Twitter being (almost) once a month/year. And if you do contact me, please entail in the message, who you are and what your
-						business is. Thank you.
-					</p>
-				</div>
-				
-			</div>
-			
-			<div class="well project">
-				<span class="h2">Report a bug, a crash, or an idea.</span><br/>
-				
-				<div class="text-info">
-					<p>
-						&emsp;&emsp;Because I am human, and I make plenty of mistakes. Most of them will pretty much be overlooked, if you have a bug or crash to
-						report I will usually provide a spot for you to funnel those in. At the same time, if you have an idea to improve or add to whatever it is
-						that I created you that same spot for bugs and crashes will be used for that too.
-					</p>
-					<p>
-						&emsp;&emsp;With that being said, to report something on this site you can go to the
-						<a href="https://www.github.com/pgonzbecer/pgonzbecer.github.io/issues">GitHub Repository</a> and post an issue there.
-					</p>
-				</div>
+		<div id="header">
+			<div id="logo">pgonzbecer</div>
+			<div id="nav">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="projects.html">Projects</a></li>
+					<li><a href="contact.html">Contact Info</a></li>
+				</ul>
 			</div>
 		</div>
-		<div class="footer">Copyright &copy; Paul Gonzalez-Becerra 2015.</div>
+		<div class="content">
+			<span class="heading">About Me</span>
+			<img src="imgs/paul.jpeg" class="img-thumbnail img-circle" style="float: right;" />
+			<p style="text-indent:16px;">
+				Hello, I am a technomancer named Paul. I have 7+ years of computer
+				programming on my belt, plus 1+ years of
+				<a href="http://www.opengl.org/">OpenGL</a>,
+				<a href="http://www.openal.org/">OpenAL</a>, and
+				<a href="http://www.libsdl.org/">SDL</a>.
+				With this knowledge I am constructing a
+				<a href="http://www.github.com/pgonzbecer/apis-bundle">game
+				engine</a>, alongside with a game. Because being a gamer ultimately
+				lead me to become the computer programming wizard that I am today.
+				I am currently going to school at
+				<a href="http://www.cos.edu/">College of the Sequoias</a> pursuing
+				a Master's Degree and possibly Ph.D. in Computer Science. I work
+				for my math professor,
+				<a href="https://plus.google.com/+JohnRedden">John Redden</a>, who
+				under the company name of
+				<a href="http://www.edunetsystems.com/">EduNetSystems</a>.
+			</p>
+		</div>
+		<div class="content">
+			<span class="heading">Contact Me At</span>
+			<p>
+				Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pgonzbecer@gmail.com&emsp;<span class="small-text">(Most preferred method of contact)</span><br/>
+				LinkedIn:&nbsp;<a href="http://www.linkedin.com/in/pgonzbecer/">www.linkedin.com/in/pgonzbecer</a><br/>
+				GitHub:&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.github.com/pgonzbecer/">www.github.com/pgonzbecer</a>
+			</p>
+			<div class="contract-work">Currently too busy to do contract work</div>
+		</div>
+		<div id="footer">&copy; Paul Gonzalez-Becerra 2015.</div>
 	</body>
 </html>
 
