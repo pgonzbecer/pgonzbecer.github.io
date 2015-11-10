@@ -90,7 +90,7 @@ hr
 {
 	width:	92%;
 	min-height:	128px;
-	background-color:	#e6e6ff;
+	background-color:	#aad4aa;
 	margin:	8px auto 0px auto;
 	border-radius:	16px;
 	color:	#101820;
@@ -228,6 +228,11 @@ hr
 .small-text
 {
 	font-size:	12px;
+}
+
+.presentation
+{
+	border:	1px solid #101820;
 }
 
 .presentation-icon
