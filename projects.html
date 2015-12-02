@@ -6,16 +6,16 @@
 	<head>
 		<title>Paul's Projects</title>
 		<link rel="stylesheet" href="css/main.css" />
-		<link rel="icon" type="x-icon" href="imgs/favicon.ico" />
+		<link rel="icon" type="x-icon" href="images/favicon.ico" />
 		<script>
-			function addPresentationImages(id, imgs)
+			function addPresentationImages(id, images)
 			{
 				// Variables
 				var	insert=	document.getElementsByClassName("presentation")[id];
 				
-				for(var i= 0; i< imgs.length; i++)
-					insert.innerHTML+=	"<img class='presentation-icon' src='"+imgs[i].img+"'"+
-					" onclick=\"viewImage({caption:'"+imgs[i].caption+"',img:'"+imgs[i].img+"'}, "+i+", "+id+");\" />";
+				for(var i= 0; i< images.length; i++)
+					insert.innerHTML+=	"<img class='presentation-icon' src='"+images[i].img+"'"+
+					" onclick=\"viewImage({caption:'"+images[i].caption+"',img:'"+images[i].img+"'}, "+i+", "+id+");\" />";
 			}
 			
 			function viewImage(imgclass, index, id)
@@ -129,7 +129,7 @@
 		<div class="content">
 			<div class="project">
 				<span class="heading">
-					<img class="icon" src="imgs/favicon_opengraph.ico" />Open Graphing Calculator
+					<img class="icon" src="images/favicon_opengraph.ico" />Open Graphing Calculator
 				</span>
 				<div class="contributor-box">
 					<span class="website">
@@ -144,19 +144,19 @@
 								[
 									{
 										caption:	"Simple Trigonometric Function",
-										img:	"imgs/opengraph-pres-1.png"
+										img:	"images/opengraph-pres-1.png"
 									},
 									{
 										caption:	"Function Arithmetic",
-										img:	"imgs/opengraph-pres-2.png"
+										img:	"images/opengraph-pres-2.png"
 									},
 									{
 										caption:	"Function Composition",
-										img:	"imgs/opengraph-pres-4.png"
+										img:	"images/opengraph-pres-4.png"
 									},
 									{
 										caption:	"Dynamic Geometry Grapher",
-										img:	"imgs/opengraph-pres-3.png"
+										img:	"images/opengraph-pres-3.png"
 									}
 								]
 							);
