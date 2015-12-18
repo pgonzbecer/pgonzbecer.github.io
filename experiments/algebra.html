@@ -1,0 +1,146 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<!-- BEGIN:Head; /-->
+		<title>pgonzbecer</title>
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/main.css">
+		<link rel="icon" type="x-icon" href="../images/favicon.ico"/>
+		<!-- END:Head; /-->
+		
+		<style>
+			#output
+			{
+				color:	#fff4ff;
+				font-style:	italic;
+				font-size:	16px;
+			}
+			
+			.coefficient
+			{
+				color:	#d4d4d4;
+			}
+			
+			.variable
+			{
+				color:	#90ffd4;
+			}s
+		</style>
+		<script type="text/javascript">
+			window.addEventListener("load", function(){
+				document.getElementById("input").addEventListener("keyup", function(args)
+				{
+					document.getElementById("output").innerHTML=	parseEquation(args.target.value);
+				});
+			});
+			
+			function parseEquation(str)
+			{
+				// Variables
+				var	h=	0;
+				var	kCoefficient=	-1;
+				var	c=	0;
+				var	a=	[];
+				
+				while(true)
+				{
+					c=	str.charCodeAt(h);
+					
+					if(c>= 48 && c<= 57 && kCoefficient== -1)
+						kCoefficient=	h;
+					if((c< 48 || c> 57) && kCoefficient!= -1)
+					{
+						a.push({
+							start:	kCoefficient,
+							end:	h,
+							type:	"coefficient"
+						});
+						kCoefficient=	-1;
+					}
+					if(((c>= 65 && c<= 90) || (c>= 97 && c<= 122)))
+					{
+						a.push({
+							start:	h,
+							end:	h+1,
+							type:	"variable"
+						});
+					}
+					h++;
+					
+					if(h>= str.length && kCoefficient!= -1)
+					{
+						a.push({
+							start:	kCoefficient,
+							end: h,
+							type:	"coefficient"
+						});
+						break;
+					}
+					if(h>= str.length)
+						break;
+				}
+				
+				try
+				{
+					for(var i= a.length-1; i>= 0; i--)
+					{
+						str=	str.substring(0, a[i].start)+"<span class='"+a[i].type+"'>"+str.substring(a[i].start, a[i].end)+"</span>"+str.substring(a[i].end);
+					}
+				}catch(e){console.log(e);}
+				
+				return str;
+			}
+		</script>
+	</head>
+	
+	<body>
+		<!-- BEGIN:Nav-Update; /-->
+		<nav class="navbarc">
+			<span class="logo">pgonzbecer</span>
+			<span class="collapsible navbarc-right">
+				<span class="items">
+					<a href="contact.html">About / Contact Me</a>
+					<a href="docs.html">API Documentation</a>
+					<a href="portfolio.html">Projects &amp; Portfolio</a>
+					<a href="index.html">Home</a>
+				</span>
+			</span>
+			<div style="clear:both;"></div>
+		</nav>
+		<!-- END:Nav-Update; /-->
+		
+		<div id="content-tabs">
+			<!--<span class="tab" name="test-1">TEST_TAB_1</span>/-->
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+		<div id="content">
+			<div class="tabcontent visible" name="eq">
+				<center>
+					<span class="h3">Type in an algebraic equation</span>
+					<br /><br />
+					<input type="text" id="input" placeholder="y=25x-44" style="color:#101820;"/>
+					<br /><br />
+					<output id="output">
+						<span class="variable">y</span>=
+						<span class="coefficient">25</span><span class="variable">x</span>
+						-
+						<span class="coefficient">44</span>
+					</output>
+				</center>
+			</div>
+		</div>
+		
+		<!-- BEGIN:Footer; /-->
+		<footer>
+			Copyright Paul Gonzalez-Becerra 2015.
+		</footer>
+		<!-- END:Footer; /-->
+	</body>
+</html>
+
+<!-- End of File /-->
