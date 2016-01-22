@@ -1,0 +1,112 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<!-- BEGIN:Head; /-->
+		<title>pgonzbecer</title>
+		<link rel="stylesheet" href="../../css/bootstrap.css">
+		<link rel="stylesheet" href="../../css/main.css">
+		<link rel="icon" type="x-icon" href="../../images/favicon.ico"/>
+		<!-- END:Head; /-->
+		
+		<script src="../../js/tabs.js"></script>
+	</head>
+	
+	<body>
+		<!-- BEGIN:Nav-Update; /-->
+		<nav class="navbarc">
+			<span class="logo">pgonzbecer</span>
+			<span class="collapsible navbarc-right">
+				<span class="items">
+					<a href="../../contact.html">About / Contact Me</a>
+					<a href="../index.html">API Documentation</a>
+					<a href="../../portfolio.html">Projects &amp; Portfolio</a>
+					<a href="../..index.html">Home</a>
+				</span>
+			</span>
+			<div style="clear:both;"></div>
+		</nav>
+		<!-- END:Nav-Update; /-->
+		
+		<div id="content-tabs">
+			<!--<span class="tab" name="test-1">TEST_TAB_1</span>/-->
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+		<div id="content">
+			<div class="tabcontent visible" name="tab-1">
+				<center><span class="h2">ITree&lt;<span class="cc-b">T</span>&gt;</span></center>
+				<span class="subtitle">
+					<span class="acc">public</span>
+					<span class="objtype">interface</span>
+				</span>
+				
+				<div></div>
+				<!--
+				<span class="h4">Field Variables</span>
+				<div class="objtable">N/A</div>
+				
+				<span class="h4">Constructors</span>
+				<div class="objtable">N/A</div>
+				
+				<span class="h4">Properties</span>
+				<div class="objtable">N/A</div>
+				
+				<span class="h4">Events</span>
+				<div class="objtable">N/A</div>
+				/-->
+				<span class="h4">Methods</span>
+				<div class="objtable">
+					<table class="table table-bordered table-obj">
+						<tr>
+							<th><center>Returns</center></th>
+							<th><center>Name</center></th>
+							<th><center>Description</center></th>
+						</tr>
+						<tr> <!-- insert /-->
+							<td><span class="cc-o">void</span></td>
+							<td>insert<span class="cc-g">(</span><span class="cc-y">ref</span> <span class="cc-b">T</span> item<span class="cc-g">)</span></td>
+							<td>Inserts the given item into the tree</td>
+						</tr>
+						<tr> <!-- get /-->
+							<td><span class="cc-o">bool</span></td>
+							<td>get<span class="cc-g">(</span><span class="cc-o">int</span> hash, <span class="cc-y">out</span> <span class="cc-b">T</span> item<span class="cc-g">)</span></td>
+							<td>Gets the item from the given hash code, returns true if the item is found</td>
+						</tr>
+						<tr>
+							<td><span class="cc-b">T</span></td>
+							<td>get<span class="cc-g">(</span><span class="cc-o">int</span> hash<span class="cc-g">)</span></td>
+							<td>Gets the item from the given hash code</td>
+						</tr>
+						<tr> <!-- destroy /-->
+							<td><span class="cc-o">void</span></td>
+							<td>destroy<span class="cc-g">()</span></td>
+							<td>Destroys the tree</td>
+						</tr>
+						<tr> <!-- display /-->
+							<td><span class="cc-o">void</span></td>
+							<td>display<span class="cc-g">()</span></td>
+							<td>Dispalys the tree</td>
+						</tr>
+						<tr> <!-- forEach /-->
+							<td><span class="cc-o">void</span></td>
+							<td>forEach<span class="cc-g">(</span><span class="cc-b">RefEvent</span>&lt;<span class="cc-b">T</span>&gt; refEvent<span class="cc-g">)</span></td>
+							<td>Iterates through the tree and calls back the event for a seamless foreach loop</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<!-- BEGIN:Footer; /-->
+		<footer>
+			Copyright Paul Gonzalez-Becerra 2015.
+		</footer>
+		<!-- END:Footer; /-->
+	</body>
+</html>
+
+<!-- End of File /-->

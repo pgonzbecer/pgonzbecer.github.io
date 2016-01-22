@@ -8,6 +8,31 @@ body
 	padding:	0px;
 }
 
+.table-obj td:first-child
+{
+	text-align:	right;
+}
+
+.cc-o, .acc
+{
+	color:	orange;
+}
+
+.cc-b
+{
+	color:	#6ab4e6;
+}
+
+.cc-y, .objtype
+{
+	color:	#ffc500;
+}
+
+.cc-g
+{
+	color:	#d4d4d4;
+}
+
 .navbarc
 {
 	height:	32px;
