@@ -13,6 +13,7 @@ body
 	border-radius:	50%;
 	width:	128px;
 	padding:	4px;
+	shape-outside:	circle();
 }
 
 .table-obj td:first-child
