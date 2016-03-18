@@ -1,0 +1,62 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../../css/bootstrap.css" />
+		
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		
+		<script>
+			$(window).load(function()	{
+				$(".input").keyup(function(args)	{
+					$(".output").html($(".input").val());
+					try	{
+						$(".output.evaluate").html(eval($(".input").val()));
+					}catch(e){}
+				});
+			});
+		</script>
+		
+		<style>
+			body
+			{
+				background-color:	linen;
+				color:	royalblue;
+			}
+			
+			.input
+			{
+				width:	35%;
+			}
+			
+			.input::-webkit-input-placeholder
+			{
+				text-align:	center;
+			}
+			
+			.highlight
+			{
+				color:	red;
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<center>
+				<br/><br/>
+				<span class="h1">Open Solve</span>
+				<br/><br/>
+				<input class="input" type="text" placeholder="enter math equation here..." autofocus="true"/>
+				<br/><br/>
+				<div class="output"></div>
+				<div class="output evaluate"></div>
+			</center>
+		</div>
+	</body>
+</html>
+
+<!-- End of File /-->
