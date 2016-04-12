@@ -1,0 +1,366 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			body	{
+				margin:	0px;
+				font-family:	lucida console;
+			}
+			
+			.radioheads	{
+				position:	relative;
+				top:	0px;
+				height:	48px;
+			}
+			
+			.radioheads_1	{
+				position:	absolute;
+				top:	0px;
+				width:	25%;
+			}
+			
+			.radioheads_2	{
+				position:	absolute;
+				left:	25%;
+			}
+			
+			#table	{
+				padding:	4px;
+				background-color:	black;
+				position:	absolute;
+				top:	64px;
+				width:	10px;
+				height:	10px;
+			}
+			
+			.cell	{
+				background-color:	white;
+				width:	64px;
+				height:	64px;
+				margin:	6px;
+			}
+			.cell .dijkstra_path,
+			.cell .astar_path_g,
+			.cell .astar_path_h,
+			.cell .astar_path_f,
+			.cell .follow_path	{
+				display:	block;
+				position:	absolute;
+				width:	24px;
+				height:	16px;
+				display:	none;
+			}
+			.cell .dijkstra_path	{
+				color:	red;
+				left:	20px;
+				top:	24px;
+				display:	block;
+			}
+			.cell .astar_path_h	{
+				background-color:	lightblue;
+				right:	4px;
+				top:	4px;
+			}
+			.cell .astar_path_g	{
+				background-color:	palegreen;
+				left:	4px;
+				bottom:	4px;
+			}
+			.cell .astar_path_f	{
+				background-color:	pink;
+				bottom:	4px;
+				right:	4px;
+			}
+			.cell .follow_path	{
+				color:	navy;
+				top:	4px;
+				left:	4px;
+			}
+		</style>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<title>Search Algorithms Demo</title>
+		<script>
+			$(window).load(function(args)	{
+				// Variables
+				var	widthTextbox=	$("#widthamt")[0];
+				var	heightTextbox=	$("#heightamt")[0];
+				var	radio=	$(".search_algorithm");
+				
+				$(widthTextbox).keyup(changeTableSize);
+				$(heightTextbox).keyup(changeTableSize);
+				$(window).mousemove(function(args)	{
+					resetRadius(args);
+					args.isMoved=	true;
+					movedMouse(args);
+				});
+				$(window).click(function(args)	{
+					args.isMoved=	false;
+					movedMouse(args);
+				});
+				$("#radius_size").change(resetRadius);
+				for(var i= 0; i< radio.length; i++)
+				{
+					radio[i].addEventListener("change", function(args)	{
+						// Variables
+						var	dijkstra=	document.getElementsByClassName("dijkstra_path");
+						var	astarG=	document.getElementsByClassName("astar_path_g");
+						var	astarH=	document.getElementsByClassName("astar_path_h");
+						var	astarF=	document.getElementsByClassName("astar_path_f");
+						var	followPath=	document.getElementsByClassName("follow_path");
+						
+						switch(args.target.getAttribute("idname"))
+						{
+							case "dijkstra":
+								for(var i= 0; i< dijkstra.length; i++)
+								{
+									dijkstra[i].style.display=	"block";
+									astarG[i].style.display=	"none";
+									astarH[i].style.display=	"none";
+									astarF[i].style.display=	"none";
+									followPath[i].style.display=	"none";
+								}
+								break;
+							case "astar":
+								for(var i= 0; i< dijkstra.length; i++)
+								{
+									dijkstra[i].style.display=	"none";
+									astarG[i].style.display=	"block";
+									astarH[i].style.display=	"block";
+									astarF[i].style.display=	"block";
+									followPath[i].style.display=	"block";
+								}
+								break;
+						}
+					});
+				}
+				
+				widthTextbox.value=	10;
+				heightTextbox.value=	10;
+				changeTableSize();
+				
+				function movedMouse(args)	{
+					if(!args.isMoved && $("#track_movement")[0].checked) // Did not move and is checked
+						return;
+					if(args.isMoved && !$("#track_movement")[0].checked) // Did move and is checked
+						return;
+					
+					// Variables
+					var	cell=	isWithinGrid(args.clientX, args.clientY);
+					
+					if(cell.id== -1)
+						return;
+					
+					cell.grid[cell.id].style.backgroundColor=	"paleturquoise";
+					destroyPaths(cell.grid);
+					if(isDijkstraSelected())
+					{
+						doDijkstraSearch(
+							parseInt(cell.grid[cell.id].getAttribute("data-x")),
+							parseInt(cell.grid[cell.id].getAttribute("data-y")),
+							1*widthTextbox.value,
+							1*heightTextbox.value,
+							0,
+							parseInt($("#radius_num").text()),
+							cell.grid
+						);
+					}
+				}
+				
+				function resetRadius(args)	{
+					$("#radius_num").text(parseInt(13*($("#radius_size").val()/100)+3));
+				}
+				
+				function destroyPaths(grid)	{
+					for(var i= 0; i< grid.length; i++)
+					{
+						$(grid[i]).find(".dijkstra_path")[0].innerHTML=	-1;
+						$(grid[i]).find(".astar_path_g")[0].innerHTML=	-1;
+						$(grid[i]).find(".astar_path_h")[0].innerHTML=	-1;
+						$(grid[i]).find(".astar_path_f")[0].innerHTML=	-1;
+						$(grid[i]).find(".follow_path")[0].innerHTML=	-1;
+						$(grid[i]).find(".dijkstra_path").css({color:"red"});
+						if(grid[i].getAttribute("is-obsticle")!= null)
+							$(grid[i]).css({backgroundColor:"brown"});
+						else
+							$(grid[i]).css({backgroundColor: "white"});
+					}
+				}
+				
+				function doDijkstraSearch(x, y, w, h, currRadius, maxRadius, grid)	{
+					if(isObstructed_dijkstra(x, y, w, h, currRadius, maxRadius, grid))
+						return;
+					
+					$(grid[getPosition(x, y, w, h)]).find(".dijkstra_path")[0].innerHTML=	currRadius;
+					$(grid[getPosition(x, y, w, h)]).find(".dijkstra_path").css({color:"navy"});
+					$(grid[getPosition(x, y, w, h)]).css({backgroundColor: "paleturquoise"});
+					
+					doDijkstraSearch(x, y+1, w, h, currRadius+1, maxRadius, grid);
+					doDijkstraSearch(x+1, y, w, h, currRadius+1, maxRadius, grid);
+					doDijkstraSearch(x, y-1, w, h, currRadius+1, maxRadius, grid);
+					doDijkstraSearch(x-1, y, w, h, currRadius+1, maxRadius, grid);
+				}
+				
+				function isObstructed_dijkstra(x, y, w, h, currRadius, maxRadius, grid)	{
+					if(x< 0 || x>= w)
+						return true;
+					if(y< 0 || y>= h)
+						return true;
+					
+					// Variables
+					var	pathnum=	parseInt($(grid[getPosition(x, y, w, h)]).find(".dijkstra_path")[0].innerHTML);
+					
+					if(pathnum< currRadius && pathnum!= -1)
+						return true;
+					if(currRadius> maxRadius)
+						return true;
+					if(grid[getPosition(x, y, w, h)].getAttribute("is-obsticle")!= null)
+						return true;
+					
+					return false;
+				}
+				
+				function getPosition(x, y, w, h)	{
+					return x+y*w;
+				}
+				
+				function isDijkstraSelected()	{
+					return true;
+				}
+				
+				function getOffset(elem)
+				{
+					return	{
+						x:	elem.offsetLeft,
+						y:	elem.offsetTop,
+						width:	elem.offsetWidth,
+						height:	elem.offsetHeight
+					};
+				}
+					
+				function isWithinGrid(x, y)	{
+					// Variables
+					var	grid=	$(".cell");
+					var	offset;
+					
+					for(var i= 0; i< grid.length; i++)
+					{
+						offset=	getOffset(grid[i]);
+						if(x< offset.x || x> offset.x+offset.width)
+							continue;
+						if(y< offset.y+64 || y> offset.y+offset.height+64)
+							continue;
+						
+						return {
+							id:	i,
+							grid:	grid
+						};
+					}
+					
+					return {
+						id:	-1,
+						grid:	null
+					};
+				}
+				
+				function changeTableSize(args)	{
+					try	{
+						if(parseInt(widthTextbox.value)< 1)
+						{
+							widthTextbox.value=	1;
+							changeTableSize(args);
+							return;
+						}
+						else if(parseInt(widthTextbox.value)> 20)
+						{
+							widthTextbox.value=	20;
+							changeTableSize(args);
+							return;
+						}
+						if(parseInt(heightTextbox.value)< 1)
+						{
+							heightTextbox.value=	1;
+							changeTableSize(args);
+							return;
+						}
+						else if(parseInt(heightTextbox.value)> 20)
+						{
+							heightTextbox.value=	20;
+							changeTableSize(args);
+							return;
+						}
+						
+						if(widthTextbox.value== "")
+							return;
+						if(heightTextbox.value== "")
+							return;
+					}catch(e){console.log(e);return;}
+					
+					// Variables
+					var	table=	document.getElementById("table");
+					
+					table.innerHTML=	"";
+					
+					table.style.width=	(68*widthTextbox.value)+"px";
+					table.style.height=	(68*heightTextbox.value)+"px";
+					for(var h= 0; h< 1*widthTextbox.value; h++)
+					{
+						for(var k= 0; k< 1*heightTextbox.value; k++)
+						{
+							table.innerHTML+=	"<div class='cell' data-x='"+k+"' data-y='"+h+"' style='"+getStyle(h, k)+
+								((Math.random()< 0.25) ? "background-color:brown;' is-obsticle='true'" : "'")+">"+
+								"<span class='dijkstra_path'>-1</span>"+
+								"<span class='astar_path_g'>-1</span>"+
+								"<span class='astar_path_h'>-1</span>"+
+								"<span class='astar_path_f'>-1</span>"+
+								"<span class='follow_path'>-1</span>"+
+							"</div>";
+						}
+					}
+					
+					function getStyle(x, y)	{
+						return (
+							"position:absolute;"+
+							"top:"+(68*y)+"px;"+
+							"left:"+(68*x)+"px;"
+						);
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div class="input">
+			Width: <input type="text" placeholder="1-20" id="widthamt">
+			Height: <input type="text" placeholder="1-20" id="heightamt"><br/>
+			<div class="radioheads">
+				<div class="radioheads_1">
+					<input type="radio" checked="true" idname="dijkstra" name="search_algorithm" class="search_algorithm" />Dijkstra Search<br/>
+					<!--
+						Dont know how to implement this yet
+						<input type="radio" idname="astar" name="search_algorithm" class="search_algorithm" />A* Search<br/>
+					/-->
+				</div>
+				<div class="radioheads_2">
+					<input type="checkbox" id="track_movement" />Track Movement<br/>
+					<input type="range" id="radius_size" value="10" /> <span id="radius_num">4</span>
+				</div>
+			</div>
+		</div>
+		<div id="table">
+			<!--
+			<div class="cell" data-x="0" data-y="0">
+				<span class="dijkstra_path">-1</span>
+				<span class="astar_path_g">-1</span><br/>
+				<span class="astar_path_h">-1</span>
+				<span class="astar_path_f">-1</span>
+				<span class="follow_path"><-1</span>
+			</div>
+			/-->
+		</div>
+	</body>
+</html>
+
+<!-- End of File /-->

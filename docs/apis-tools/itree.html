@@ -66,10 +66,15 @@
 							<th><center>Name</center></th>
 							<th><center>Description</center></th>
 						</tr>
-						<tr> <!-- insert /-->
+						<tr> <!-- destroy /-->
 							<td><span class="cc-o">void</span></td>
-							<td>insert<span class="cc-g">(</span><span class="cc-y">ref</span> <span class="cc-b">T</span> item<span class="cc-g">)</span></td>
-							<td>Inserts the given item into the tree</td>
+							<td>destroy<span class="cc-g">()</span></td>
+							<td>Destroys the tree</td>
+						</tr>
+						<tr> <!-- forEach /-->
+							<td><span class="cc-o">void</span></td>
+							<td>forEach<span class="cc-g">(</span><span class="cc-b">RefEvent</span>&lt;<span class="cc-b">T</span>&gt; refEvent<span class="cc-g">)</span></td>
+							<td>Iterates through the tree and calls back the event for a seamless foreach loop</td>
 						</tr>
 						<tr> <!-- get /-->
 							<td><span class="cc-o">bool</span></td>
@@ -81,20 +86,10 @@
 							<td>get<span class="cc-g">(</span><span class="cc-o">int</span> hash<span class="cc-g">)</span></td>
 							<td>Gets the item from the given hash code</td>
 						</tr>
-						<tr> <!-- destroy /-->
+						<tr> <!-- insert /-->
 							<td><span class="cc-o">void</span></td>
-							<td>destroy<span class="cc-g">()</span></td>
-							<td>Destroys the tree</td>
-						</tr>
-						<tr> <!-- display /-->
-							<td><span class="cc-o">void</span></td>
-							<td>display<span class="cc-g">()</span></td>
-							<td>Dispalys the tree</td>
-						</tr>
-						<tr> <!-- forEach /-->
-							<td><span class="cc-o">void</span></td>
-							<td>forEach<span class="cc-g">(</span><span class="cc-b">RefEvent</span>&lt;<span class="cc-b">T</span>&gt; refEvent<span class="cc-g">)</span></td>
-							<td>Iterates through the tree and calls back the event for a seamless foreach loop</td>
+							<td>insert<span class="cc-g">(</span><span class="cc-y">ref</span> <span class="cc-b">T</span> item<span class="cc-g">)</span></td>
+							<td>Inserts the given item into the tree</td>
 						</tr>
 					</table>
 				</div>
