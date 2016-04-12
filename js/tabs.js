@@ -13,6 +13,12 @@ window.addEventListener("load", function()	{
 		// Variables
 		var	ct=	document.getElementsByClassName("tabcontent");
 		var	index=	-1;
+		var	dsclasses=	document.getElementById("content-tabs").getElementsByClassName("tab");
+		
+		for(var i= 0; i< dsclasses.length; i++)
+			dsclasses[i].setAttribute("class", "tab");
+		
+		this.setAttribute("class", "tab selected-tab");
 		
 		for(var i= 0; i< ct.length; i++)
 		{
