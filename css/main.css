@@ -1,212 +1,65 @@
 /* Created by Paul Gonzalez Becerra */
 
-body
+.front-and-center
 {
-	background-color:	#d4d4d4;
-	color:	#304048;
-	margin:	0px;
-	padding:	0px;
+	width:	100%;
+	line-height:	100px;
+	text-align:	center;
 }
 
-.icon-thumbnail
+.square
 {
-	border-radius:	50%;
-	width:	128px;
-	padding:	4px;
-	shape-outside:	circle();
-}
-
-.table-obj td:first-child
-{
-	text-align:	right;
-}
-
-.cc-o, .acc
-{
-	color:	orange;
-}
-
-.cc-b
-{
-	color:	#6ab4e6;
-}
-
-.cc-y, .objtype
-{
-	color:	#ffc500;
-}
-
-.cc-g
-{
-	color:	#d4d4d4;
-}
-
-.navbarc
-{
-	height:	32px;
-	background-color:	#324048;
-	border-bottom:	1px solid #ffc500;
+	min-height:	32px;
 	line-height:	32px;
-	width:	100%;
 }
 
-.navbarc .navbarc-right
+.padded
 {
-	float:	right;
-	display:	block;
-	width:	75%;
+	padding:	16px;
 }
 
-.navbarc .items
+.code-excerpt
 {
-	display:	block;
-	width:	100%;
-}
-
-.navbarc .items a
-{
-	display:	block;
-	padding:	0px 8px;
-	margin-right:	16px;
-	float:	right;
-	text-align:	center;
-	color:	#324048;
-	line-height:	20px;
-	height:	20px;
-	margin-top:	6px;
-	background-color:	#6ab4e6;
-	border-radius:	8px;
-}
-
-.navbarc .items a:hover
-{
-	text-decoration:	none;
-	background-color:	#ffc500;
-	color:	#324048;
-}
-
-.logo
-{
-	text-shadow: 0px 0px 4px #6ab4e6;
-	font-family:	lucida console;
-	font-style:	italic;
-	font-weight:	bold;
-	font-size:	18px;
-	margin-left:	32px;
-	color:	#d4d4d4;
-}
-
-#content-tabs
-{
-	margin-top:	32px;
-	margin-left:	10%;
-	margin-right:	10%;
-	width:	80%;
-}
-
-#content-tabs .tab
-{
-	display:	block;
-	min-width:	125px;
-	margin-left:	4px;
-	padding-bottom:	4px;
-	float:	right;
-	text-align:	center;
-}
-
-#content-tabs:hover .selected-tab
-{
-	background-color:	#d4d4d4;
-	color:	#324048;
-}
-
-#content-tabs .tab:hover
-{
-	cursor:	pointer;
-	background-color:	#324048;
-	color:	#d4d4d4;
-}
-
-#content
-{
-	margin:	0px 10% 32px 10%;
-	width:	80%;
-	padding:	1% 2%;
-	min-height:	64px;
-	background-color:	#324048;
+	background-color:	#333333;
 	color:	#ffffff;
+	border-radius:	3px;
+	padding:	2px 4px;
+	font-size:	90%;
+	font-family:	Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.tabcontent
-{
-	display:	none;
-}
+/* Color Codes */
+.cc-xout		{	color:	#a4a4a4;	}
+.cc-inst		{	color:	lime;	}
+.cc-type		{	color:	yellow;	}
+.cc-cmnt		{	color:	#00ffff;	}
+.cc-name		{	background-color:	ghostwhite;	color:	black;	}
+.cc-public		{	background-color:	#0c7b96;	color:	white;	}
+.cc-protected	{	background-color:	#88368b;	color:	white;	}
+.cc-desc		{	background-color:	#686c75;	color:	white;	}
+.cc-more		{	background-color:	#9eaebb;	color:	white;	}
 
-.selected-tab
-{
-	background-color:	#324048;
-	color:	#d4d4d4;
-}
+a.cc-link		{	color:	white;	}
+a.cc-link:hover	{	color:	white;	}
 
-.tabcontent a
-{
-	color:	#ffc500;
-}
+/* Rainbow Colors */
+.rc-red		{	background-color:	red;	color:	white;	}
+.rc-orange	{	background-color:	orange;	color:	white;	}
+.rc-yellow	{	background-color:	yellow;	color:	black;	}
+.rc-green	{	background-color:	green;	color:	white;	}
+.rc-blue	{	background-color:	blue;	color:	white;	}
+.rc-teal	{	background-color:	teal;	color:	white;	}
+.rc-purple	{	background-color:	purple;	color:	white;	}
 
-.tabcontent.visible
-{
-	display:	block;
-}
-
-footer
-{
-	text-align:	center;
-	font-size:	14px;
-	font-family:	lucida console;
-}
-
-.website_pageview
-{
-	width:	35%;
-	float:	left;
-}
-
-.website_desc
-{
-	width:	64%;
-	float:	left;
-	padding-left: 1%;
-}
-
-.website_pageview img
-{
-	width:	100%;
-	height:	100%;
-	transition:	box-shadow 320ms;
-}
-
-.website_pageview img:hover
-{
-	box-shadow: 0px 0px 16px #fff4ff;
-}
-
-.copyright-disclaimer
-{
-	padding-top: 16px;
-	position:	relative;
-	bottom:	0px;
-	text-align:	center;
-	color:	#6ab4e6;
-}
-
-.tabcontent .project
-{
-	margin-top:	32px;
-}
-
-.tabcontent .project:first-child
-{
-	margin-top:	0px;
-}
+/* Pastel Colors */
+.pc-tan				{	background-color:	#f7eace;	color:	black;	}
+.pc-lavender		{	background-color:	#a4a0c5;	color:	black;	}
+.pc-dream			{	background-color:	#bbe0d9;	color:	black;	}
+.pc-seafoam			{	background-color:	#85d2ca;	color:	black;	}
+.pc-storm			{	background-color:	#9eaebb;	color:	black;	}
+.pc-amethyst		{	background-color:	#88368b;	color:	white;	}
+.pc-thunder			{	background-color:	#928f8a;	color:	white;	}
+.pc-slate			{	background-color:	#686c75;	color:	white;	}
+.pc-ocean			{	background-color:	#0c7b96;	color:	white;	}
 
 /* End of File */

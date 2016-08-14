@@ -1,0 +1,130 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Paul's Homepage</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		
+		<script src="../js/jquery.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="h4 center-block text-center">
+				Documentation
+				<br/>
+				<br/>
+				public class <span class="cc-xout">Dungeon20.Engine.Core.</span>GameExt
+				<br/>
+				inherits
+				<a href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Game">
+					<span class="cc-xout">Microsoft.Xna.Framework.</span>Game
+				</a>
+			</div> <!-- Header:	Documentation /-->
+			
+			<div class="row" role="button" data-toggle="collapse" href="#variables">
+				<div class="col-md-12 square rc-teal"><center>Variables</center></div>
+			</div> <!-- Header:	Variables /-->
+			<div class="collapse in" id="variables">
+				
+				<!-- Code Excerpt Variables /-->
+				
+				<div class="row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<!-- gdm /-->
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_GraphicsDeviceManager">GraphicsDeviceManager</a>
+							gdm;
+							<span class="cc-cmnt">// The graphics device that renders everything in the game</span>
+							<br/>
+							<!-- gameState /-->
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-core-igamestate.html">IGameState</a>
+							gameState;
+							<span class="cc-cmnt">// An object that the game calls for rendering, updating, and handling input</span>
+							<br/>
+							<!-- modManager /-->
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-modulation-modmanager.html">ModManager</a>
+							modManager;
+							<span class="cc-cmnt">// A class that manages any modification dlls</span>
+							<br/>
+							<!-- clearColor /-->
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Color">Color</a>
+							clearColor;
+							<span class="cc-cmnt">// Color of the background whenever the game's screen is cleared</span>
+							<br/>
+						</div>
+					</div>
+				</div>
+				
+			</div> <!-- Variables /-->
+			
+			<!--
+			<div class="row" role="button" data-toggle="collapse" href="#methods">
+				<div class="col-md-12 square rc-teal"><center>Methods</center></div>
+			</div>
+			<div class="collapse in" id="methods">
+				<div class="row" role="button" data-toggle="collapse" href="#m-name">
+					<div class="col-md-3 square cc-protected">protected static virtual void</div>
+					<div class="col-md-3 square cc-name">nameOfFunction</div>
+					<div class="col-md-6 square cc-desc">Description of function</div>
+				</div>
+				<div id="m-name" class="collapse row">
+					<div class="col-md-12 pc-storm">
+						
+					</div>
+				</div>
+				<div class="row" role="button" data-toggle="collapse" href="#m-name2">
+					<div class="col-md-3 square cc-public">public static virtual Player</div>
+					<div class="col-md-3 square cc-name">nameOfFunction2</div>
+					<div class="col-md-6 square cc-desc">Creates a player</div>
+				</div>
+				<div id="m-name2" class="collapse row">
+					<div class="col-md-12 padded pc-storm">
+						<div class="code-excerpt">
+							<span class="cc-cmnt">// Creates a player</span><br/>
+							<span class="cc-inst">public</span>
+							<span class="cc-type">static</span>
+							<span class="cc-inst">virtual</span>
+							Player
+							createPlayer(<span class="cc-type">string</span>
+							name,
+							<span class="cc-type">string</span>
+							class);
+						</div>
+						<br/>
+						<br/>
+						
+						<span class="h4">Parameters:</span>
+						<br/>
+						
+						<p><kbd>name</kbd> - Pertains to the name of the player</p>
+						<p><kbd>class</kbd> - Class of the player</p>
+						<br/>
+						
+						<span class="h4">Returns: </span>
+						<kbd>Player</kbd>
+						<br/>
+						<br/>
+						
+						<span class="h4">Remarks: </span>
+						<br/>
+						Highly unstable!
+						<br/>
+					</div>
+				</div>
+			</div> <!-- Methods /-->
+			<br/>
+		</div>
+	</body>
+</html>
+
+<!-- End of File /-->

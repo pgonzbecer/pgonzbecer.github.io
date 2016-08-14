@@ -4,49 +4,127 @@
 
 <html>
 	<head>
-		<!-- BEGIN:Head; /-->
-		<title>pgonzbecer</title>
-		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="icon" type="x-icon" href="images/favicon.ico"/>
-		<!-- END:Head; /-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Paul's Homepage</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
 		
-		<script src="js/tabs.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 	
 	<body>
-		<!-- BEGIN:Nav-Update; /-->
-		<nav class="navbarc">
-			<span class="logo">pgonzbecer</span>
-			<span class="collapsible navbarc-right">
-				<span class="items">
-					<a href="about.html">About / Contact Me</a>
-					<a href="docs/index.html">API Documentation</a>
-					<a href="portfolio.html">Projects &amp; Portfolio</a>
-					<a href="index.html">Home</a>
-				</span>
-			</span>
-			<div style="clear:both;"></div>
-		</nav>
-		<!-- END:Nav-Update; /-->
-		
-		<div id="content-tabs">
-			<!--<span class="tab" name="test-1">TEST_TAB_1</span>/-->
+		<div class="container front-and-center h3">
+			Welcome to Paul's Website
 		</div>
-		
-		<div style="clear:both;"></div>
-		
-		<div id="content">
-			<div class="tabcontent visible" name="tab-1">
-				Something something, reworking my website because I am not a designer.
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 square rc-red"></div>
+				<div class="col-md-3 square rc-green"></div>
+				<div class="col-md-3 square rc-blue"></div>
+				<div class="col-md-3 square rc-yellow"></div>
 			</div>
+			<div class="row">
+				<div class="col-md-3 square rc-purple"></div>
+				<div class="col-md-3 square rc-orange"></div>
+				<div class="col-md-3 square rc-teal"></div>
+				<div class="col-md-3 square pc-tan"></div>
+			</div>
+			<br/>
+			<span class="h4">Documentation</span>
+			<br/>
+			<div class="row" role="button" data-toggle="collapse" href="#properties">
+				<div class="col-md-12 square rc-teal"><center>Properties</center></div>
+			</div>
+			<div class="collapse in" id="properties">
+				<div class="row" role="button" data-toggle="collapse" href="#p-name">
+					<div class="col-md-3 square pc-seafoam">public static virtual void</div>
+					<div class="col-md-3 square pc-dream">nameOfFunction</div>
+					<div class="col-md-6 square pc-amethyst">Description of function</div>
+				</div>
+				<div id="p-name" class="collapse row">
+					<div class="col-md-12 square pc-storm">
+						
+					</div>
+				</div>
+				<div class="row" role="button" data-toggle="collapse" href="#p-name2">
+					<div class="col-md-3 square pc-seafoam">public static virtual Player</div>
+					<div class="col-md-3 square pc-dream">player</div>
+					<div class="col-md-6 square pc-amethyst">Gets the player</div>
+				</div>
+				<div id="p-name2" class="collapse row">
+					<div class="col-md-12 square pc-storm">
+						<kbd>get : enabled</kbd> <kbd>set : protected</kbd>
+						<br/>
+						
+						<span class="h4">Returns: </span>
+						<kbd>Player</kbd>
+						<br/>
+						
+						<span class="h4">Remarks: </span>
+						<p>
+							
+							Highly unstable!
+						</p>
+					</div>
+				</div>
+			</div> <!-- Properties /-->
+			<div class="row" role="button" data-toggle="collapse" href="#methods">
+				<div class="col-md-12 square rc-teal"><center>Methods</center></div>
+			</div>
+			<div class="collapse in" id="methods">
+				<div class="row" role="button" data-toggle="collapse" href="#m-name">
+					<div class="col-md-3 square cc-protected">protected static virtual void</div>
+					<div class="col-md-3 square cc-name">nameOfFunction</div>
+					<div class="col-md-6 square cc-desc">Description of function</div>
+				</div>
+				<div id="m-name" class="collapse row">
+					<div class="col-md-12 pc-storm">
+						
+					</div>
+				</div>
+				<div class="row" role="button" data-toggle="collapse" href="#m-name2">
+					<div class="col-md-3 square cc-public">public static virtual Player</div>
+					<div class="col-md-3 square cc-name">nameOfFunction2</div>
+					<div class="col-md-6 square cc-desc">Creates a player</div>
+				</div>
+				<div id="m-name2" class="collapse row">
+					<div class="col-md-12 padded pc-storm">
+						<div class="code-excerpt">
+							<span class="cc-cmnt">// Creates a player</span><br/>
+							<span class="cc-inst">public</span>
+							<span class="cc-type">static</span>
+							<span class="cc-inst">virtual</span>
+							Player
+							createPlayer(<span class="cc-type">string</span>
+							name,
+							<span class="cc-type">string</span>
+							class);
+						</div>
+						<br/>
+						<br/>
+						
+						<span class="h4">Parameters:</span>
+						<br/>
+						
+						<p><kbd>name</kbd> - Pertains to the name of the player</p>
+						<p><kbd>class</kbd> - Class of the player</p>
+						<br/>
+						
+						<span class="h4">Returns: </span>
+						<kbd>Player</kbd>
+						<br/>
+						<br/>
+						
+						<span class="h4">Remarks: </span>
+						<br/>
+						Highly unstable!
+						<br/>
+					</div>
+				</div>
+			</div> <!-- Methods /-->
+			<br/>
 		</div>
-		
-		<!-- BEGIN:Footer; /-->
-		<footer>
-			Copyright Paul Gonzalez-Becerra 2015-2016.
-		</footer>
-		<!-- END:Footer; /-->
 	</body>
 </html>
 
