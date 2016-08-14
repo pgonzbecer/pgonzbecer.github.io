@@ -30,40 +30,467 @@
 			<div class="row" role="button" data-toggle="collapse" href="#variables">
 				<div class="col-md-12 square rc-teal"><center>Variables</center></div>
 			</div> <!-- Header:	Variables /-->
-			<div class="collapse in" id="variables">
+			<div class="collapse" id="variables">
 				
-				<!-- Code Excerpt Variables /-->
+				<!-- cameras /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-selectionlist.html">SelectionList</a>&lt;<a class="cc-link" href="dungeon20-engine-core-camera.html">Camera</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-cameras">
+						<div class="col-md-3 square ">cameras</div>
+						<div class="col-md-6 square">A list of cameras that the game can use</div>
+					</div>
+				</div>
 				
-				<div class="row">
+				<div id="v-cameras" class="collapse row">
 					<div class="col-md-12 padded cc-more">
 						<div class="code-excerpt">
-							<!-- gdm /-->
 							<span class="cc-inst">public</span>
-							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_GraphicsDeviceManager">GraphicsDeviceManager</a>
-							gdm;
-							<span class="cc-cmnt">// The graphics device that renders everything in the game</span>
-							<br/>
-							<!-- gameState /-->
-							<span class="cc-inst">public</span>
-							<a class="cc-link" href="dungeon20-engine-core-igamestate.html">IGameState</a>
-							gameState;
-							<span class="cc-cmnt">// An object that the game calls for rendering, updating, and handling input</span>
-							<br/>
-							<!-- modManager /-->
-							<span class="cc-inst">public</span>
-							<a class="cc-link" href="dungeon20-engine-modulation-modmanager.html">ModManager</a>
-							modManager;
-							<span class="cc-cmnt">// A class that manages any modification dlls</span>
-							<br/>
-							<!-- clearColor /-->
-							<span class="cc-inst">public</span>
-							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Color">Color</a>
-							clearColor;
-							<span class="cc-cmnt">// Color of the background whenever the game's screen is cleared</span>
-							<br/>
+							<a class="cc-link" href="dungeon20-engine-util-selectionlist.html">SelectionList</a>&lt;<a class="cc-link" href="dungeon20-engine-core-camera.html">Camera</a>&gt;
+							cameras;
 						</div>
 					</div>
 				</div>
+				<!-- End cameras /-->
+				
+				<!-- clearColor /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Color">Color</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-clearColor">
+						<div class="col-md-3 square ">clearColor</div>
+						<div class="col-md-6 square">The color the game uses as background when clearing up the screen</div>
+					</div>
+				</div>
+				
+				<div id="v-clearColor" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Color">Color</a>
+							clearColor;
+						</div>
+					</div>
+				</div>
+				<!-- End clearColor /-->
+				
+				<!-- drawEvent /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-core-delegates.html">UpdateEvent</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-drawEvent">
+						<div class="col-md-3 square ">drawEvent</div>
+						<div class="col-md-6 square">Called whenever the game is rendering</div>
+					</div>
+				</div>
+				
+				<div id="v-drawEvent" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-core-delegates.html">UpdateEvent</a>
+							drawEvent;
+						</div>
+					</div>
+				</div>
+				<!-- End drawEvent /-->
+				
+				<!-- effects /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Effect">Effect</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-effects">
+						<div class="col-md-3 square">effects</div>
+						<div class="col-md-6 square">A storage of all the effects within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-effects" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Effect">Effect</a>&gt;
+							effects;
+						</div>
+					</div>
+				</div>
+				<!-- End effects /-->
+				
+				<!-- fonts /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_SpriteFont">SpriteFont</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-fonts">
+						<div class="col-md-3 square">fonts</div>
+						<div class="col-md-6 square">A storage of all the fonts within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-fonts" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_SpriteFont">SpriteFont</a>&gt;
+							fonts;
+						</div>
+					</div>
+				</div>
+				<!-- End fonts /-->
+				
+				<!-- gameState /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-core-igamestate.html">IGameState</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-gameState">
+						<div class="col-md-3 square">gameState</div>
+						<div class="col-md-6 square">An object that the game calls for rendering, updating, and handling input</div>
+					</div>
+				</div>
+				
+				<div id="v-gameState" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-core-igamestate.html">IGameState</a>
+							gameState;
+						</div>
+					</div>
+				</div>
+				<!-- End gameState /-->
+				
+				<!-- gdm /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_GraphicsDeviceManager">GraphicsDeviceManager</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-gdm">
+						<div class="col-md-3 square">gdm</div>
+						<div class="col-md-6 square">The graphics device that renders everything in the game</div>
+					</div>
+				</div>
+				
+				<div id="v-gdm" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_GraphicsDeviceManager">GraphicsDeviceManager</a>
+							gdm;
+						</div>
+					</div>
+				</div>
+				<!-- End gdm /-->
+				
+				<!-- gui /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-gui-guimanager.html">GuiManager</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-gui">
+						<div class="col-md-3 square">gui</div>
+						<div class="col-md-6 square">Manages the game's gui</div>
+					</div>
+				</div>
+				
+				<div id="v-gui" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-gui-guimanager.html">GuiManager</a>
+							gui;
+						</div>
+					</div>
+				</div>
+				<!-- End gui /-->
+				
+				<!-- inputArgs /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-core-inputargs.html">InputArgs</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-inputArgs">
+						<div class="col-md-3 square ">inputArgs</div>
+						<div class="col-md-6 square">The input the player has entered</div>
+					</div>
+				</div>
+				
+				<div id="v-inputArgs" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon-engine-core-inputargs.html">InputArgs</a>
+							inputArgs;
+						</div>
+					</div>
+				</div>
+				<!-- End inputArgs /-->
+				
+				<!-- inputEvent /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-core-delegates.html">InputEvent</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-inputEvent">
+						<div class="col-md-3 square ">inputEvent</div>
+						<div class="col-md-6 square">Called whenever the game is updating, used for handling input</div>
+					</div>
+				</div>
+				
+				<div id="v-inputEvent" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-core-delegates.html">InputEvent</a>
+							inputEvent;
+						</div>
+					</div>
+				</div>
+				<!-- End inputEvent /-->
+				
+				<!-- models /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Model">Model</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-models">
+						<div class="col-md-3 square">models</div>
+						<div class="col-md-6 square">A storage of all the models within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-models" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Model">Model</a>&gt;
+							models;
+						</div>
+					</div>
+				</div>
+				<!-- End models /-->
+				
+				<!-- modManager /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-modulation-modmanager.html">ModManager</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-modManager">
+						<div class="col-md-3 square ">modManager</div>
+						<div class="col-md-6 square">A class that manages any modification dlls</div>
+					</div>
+				</div>
+				
+				<div id="v-modManager" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-modulation-modmanager.html">ModManager</a>
+							modManager;
+						</div>
+					</div>
+				</div>
+				<!-- End modManager /-->
+				
+				<!-- registry /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-registry.html">Registry</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-registry">
+						<div class="col-md-3 square ">registry</div>
+						<div class="col-md-6 square">Used to insert objects for later use</div>
+					</div>
+				</div>
+				
+				<div id="v-registry" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-registry.html">Registry</a>
+							registry;
+						</div>
+					</div>
+				</div>
+				<!-- End registry /-->
+				
+				<!-- songs /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_Song">Song</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-songs">
+						<div class="col-md-3 square">songs</div>
+						<div class="col-md-6 square">A storage of all the songs within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-songs" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_Song">Song</a>&gt;
+							songs;
+						</div>
+					</div>
+				</div>
+				<!-- End songs /-->
+				
+				<!-- sounds /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_SoundEffect">SoundEffect</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-sounds">
+						<div class="col-md-3 square">sounds</div>
+						<div class="col-md-6 square">A storage of all the sounds within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-sounds" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_SoundEffect">SoundEffect</a>&gt;
+							sounds;
+						</div>
+					</div>
+				</div>
+				<!-- End sounds /-->
+				
+				<!-- sprites /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="dungeon20-engine-core-sprite.html">Sprite</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-sprites">
+						<div class="col-md-3 square">sprites</div>
+						<div class="col-md-6 square">A storage of all the sprites within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-sprites" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="dungeon20-engine-core-sprite.html">Sprite</a>&gt;
+							sprites;
+						</div>
+					</div>
+				</div>
+				<!-- End sprites /-->
+				
+				<!-- textures /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Texture2D">Texture2D</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-textures">
+						<div class="col-md-3 square">textures</div>
+						<div class="col-md-6 square">A storage of all the textures within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-textures" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Texture2D">Texture2D</a>&gt;
+							textures;
+						</div>
+					</div>
+				</div>
+				<!-- End textures /-->
+				
+				<!-- updateEvent /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-core-delegate.html">UpdateEvent</a>
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-updateEvent">
+						<div class="col-md-3 square ">updateEvent</div>
+						<div class="col-md-6 square">Called whenever the game is updating</div>
+					</div>
+				</div>
+				
+				<div id="v-updateEvent" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-core-delegate.html">UpdateEvent</a>
+							updateEvent;
+						</div>
+					</div>
+				</div>
+				<!-- End updateEvent /-->
+				
+				<!-- videos /-->
+				<div class="row cc-even">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_Video">Video</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-videos">
+						<div class="col-md-3 square">videos</div>
+						<div class="col-md-6 square">A storage of all the videos within the game</div>
+					</div>
+				</div>
+				
+				<div id="v-videos" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-hashtable.html">HashTable</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Media_Video">Video</a>&gt;
+							videos;
+						</div>
+					</div>
+				</div>
+				<!-- End videos /-->
+				
+				<!-- views /-->
+				<div class="row cc-odd">
+					<div class="col-md-3 square">
+						public
+						<a class="cc-link" href="dungeon20-engine-util-selectionlist.html">SelectionList</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Viewport">Viewport</a>&gt;
+					</div>
+					<div role="button" data-toggle="collapse" href="#v-views">
+						<div class="col-md-3 square ">views</div>
+						<div class="col-md-6 square">A list of viewports that the game can use</div>
+					</div>
+				</div>
+				
+				<div id="v-views" class="collapse row">
+					<div class="col-md-12 padded cc-more">
+						<div class="code-excerpt">
+							<span class="cc-inst">public</span>
+							<a class="cc-link" href="dungeon20-engine-util-selectionlist.html">SelectionList</a>&lt;<a class="cc-link" href="http://www.monogame.net/documentation/?page=T_Microsoft_Xna_Framework_Graphics_Viewport">Viewport</a>&gt;
+							views;
+						</div>
+					</div>
+				</div>
+				<!-- End views /-->
 				
 			</div> <!-- Variables /-->
 			

@@ -38,9 +38,17 @@
 .cc-protected	{	background-color:	#88368b;	color:	white;	}
 .cc-desc		{	background-color:	#686c75;	color:	white;	}
 .cc-more		{	background-color:	#9eaebb;	color:	white;	}
+.cc-odd			{	background-color:	ghostwhite;	color:	black;	}
+.cc-even		{	background-color:	#686c75;	color:	white;	}
+
+.cc-odd > div:first-child, .cc-even > div:first-child	{	text-align:	right;	}
 
 a.cc-link		{	color:	white;	}
-a.cc-link:hover	{	color:	white;	}
+a.cc-link:hover		{	color:	white;	}
+.cc-odd a.cc-link		{	color:	black;	}
+.cc-odd a.cc-link:hover	{	color:	black;	}
+.cc-even a.cc-link		{	color:	white;	}
+.cc-even a.cc-link:hover	{	color:	white;	}
 
 /* Rainbow Colors */
 .rc-red		{	background-color:	red;	color:	white;	}
