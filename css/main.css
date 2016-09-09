@@ -1,5 +1,22 @@
 /* Created by Paul Gonzalez Becerra */
 
+.tabled-list
+{
+	list-style-type:	none;
+}
+
+.tabled-list.list-a
+{
+	text-align:	right;
+}
+
+.thumbnail-link
+{
+	width:	164px;
+	height:	128px;
+	margin-top:	16px;
+}
+
 .front-and-center
 {
 	width:	100%;
