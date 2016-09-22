@@ -1,0 +1,171 @@
+<!-- Created by Paul Gonzalez Becerra /-->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Paul's D&amp;D Game</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		
+		<script src="../js/jquery.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		
+		<style>
+			.dnd-map
+			{
+				width:	100%;
+				height:	100%;
+			}
+			
+			body	{	background-color:	#d4d4d4;	}
+			
+			.container	{	background-color:	white;	}
+			
+			p:not(.fourth-wall-breaker)	{	text-indent:	56px;	font-family:	arial;	font-size:	16px;	}
+			
+			.fourth-wall-breaker	{	color:	blue;	text-indent:	0px;	}
+		</style>
+	</head>
+	
+	<body>
+		<div class="navbar container">
+			<div class="dropdown">
+				<ul class="nav navbar-nav">
+					<li>
+						<a id="vangard-nav" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Vangard<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="vangard-nav">
+							<li><a href="index.html#londo">Londo</a></li>
+							<li><a href="index.html#kings-fort">King's Fort</a></li>
+							<li><a href="index.html#sand-hollow">Sand Hollow</a></li>
+							<li><a href="index.html#eastport">Eastport</a></li>
+							<li><a href="index.html#cliffton">Cliffton</a></li>
+							<li><a href="index.html#roseburg">Roseburg</a></li>
+							<li><a href="index.html#helena">Helena</a></li>
+							<li><a href="index.html#charleston">Charleston</a></li>
+							<li><a href="index.html#oakdale">Oakdale</a></li>
+							<li><a href="index.html#four-creeks">Four Creeks</a></li>
+							<li><a href="index.html#emerald-fort">Emerald Fort</a></li>
+							<li><a href="index.html#corrinthia">Corrinthia</a></li>
+							<li><a href="index.html#fort-siegman">Fort Siegman</a></li>
+							<li><a href="index.html#atspire">Atspire</a></li>
+							<li><a href="index.html#lham">Lham</a></li>
+							<li><a href="index.html#parax">Parax</a></li>
+							<li><a href="index.html#baston">Baston</a></li>
+							<li><a href="index.html#kingsville">kingsville</a></li>
+							<li><a href="index.html#fredrickstown">Fredrickstown</a></li>
+							<li><a href="index.html#east-town">East Town</a></li>
+							<li><a href="index.html#lancaster">Lancaster</a></li>
+							<li><a href="index.html#astoria">Astoria</a></li>
+						</ul>
+					</li>
+					<li>
+						<a id="people-nav" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							People<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="people-nav">
+							<li><a href="#king-fredrick-iv">King Fredrick IV</a></li>
+							<li><a href="#gg-siegman">Siegman, the Fierce</a></li>
+							<li><a href="#gg-daniel">Daniel, the Nimble</a></li>
+							<li><a href="#gg-corrinth">Corrinth, the Strong</a></li>
+							<li><a href="#gg-isabella">Isabella, the Strategist</a></li>
+							<li><a href="#gg-worryn">Worryn, the Wise</a></li>
+							<li><a href="#gg-charles">Charles, the Diplomat</a></li>
+							<li><a href="#mike-bar">Michael, the Barkeep</a></li>
+							<li><a href="#valice-bros">Kevin and Keith, the Valice Brothers</a></li>
+							<li><a href="#cl-sarenrae">Clerics of Sarenrae, Lilliana and Jerald</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="container">
+			<a name="king-fredrick-iv"></a>
+			<div class="row"><div class="col-md-12 h2">King Fredrick IV</div></div>
+			<div class="row">
+				<div class="col-md-12"><p>The current king of Vangard.</p></div>
+			</div>
+			<a name="gg-siegman"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Siegman, the Fierce</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>A legendary general that is said to always be the first in battle and the last to leave</p>
+				</div>
+			</div>
+			<a name="gg-daniel"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Daniel, the Nimble</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>The military's legendary spy.</p>
+				</div>
+			</div>
+			<a name="gg-corrinth"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Corrinth, the Strong</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>The strongest of the six generals, she would both destroy her enemy and
+					shield her allies</p>
+				</div>
+			</div>
+			<a name="gg-isabella"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Isabella, the Strategist</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>Legends say that she is one of the smartest strategist in history.</p>
+				</div>
+			</div>
+			<a name="gg-worryn"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Worryn, the Wise</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>The oldest and yet wisest man in the military.</p>
+				</div>
+			</div>
+			<a name="gg-charles"></a>
+			<div class="row"><div class="col-md-12 h2">Grand General Charles, the Diplomat</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>Legend talks about Charles about the man with the Silver Tongue.</p>
+				</div>
+			</div>
+			<a name="mike-bar"></a>
+			<div class="row"><div class="col-md-12 h2">Michael, the Barkeep</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>Michael is just a simple barkeep. Though he never really expresses emotion and
+					talks with such a monotone voice, he aids everyone with finding work. Such as clearing out a cave
+					filled with goblins or something.</p>
+				</div>
+			</div>
+			<a name="valice-bros"></a>
+			<div class="row"><div class="col-md-12 h2">Kevin and Keith, the Valice Brothers</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>Kevin is an arrogant Fighter who loves to compete against others. He passes his
+					time by working at the Valice Inn with his father, working on odd jobs that the pub
+					puts up every once in a while, or by getting violently drunk. Keith, the younger brother, is
+					a Bard who plays for the drunks over at the pub. He is more of a diplomat than his
+					brother, though he will always go on odd jobs with his bigger brother to make sure
+					he is ok.</p>
+				</div>
+			</div>
+			<a name="cl-sarenrae"></a>
+			<div class="row"><div class="col-md-12 h2">The Clerics of Sarenrae, Lilliana and Jerald</div></div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>These clerics are located at the church, they are healing
+					clerics so they will heal whomever asks. Lilliana is the mother to Kevin
+					and Keith, she has asked you before to take care of her children if you ever see
+					them on one of your quests. Jerald on the other hand was once evil, he has then
+					put that aside and redeemed himself as a healer. Although you still don't know
+					who he used to work for or what exactly he did.</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<!-- End of File /-->
