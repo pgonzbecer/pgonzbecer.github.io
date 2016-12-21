@@ -1,0 +1,176 @@
+Class:	Mathematician
+Description:
+Role:
+Hit Die:	1d8
+Alignment:	Any
+Table 1-1:
+	Lv		|	BAB		|	Fort	|	Reflex	|	Will	|	Features
+	1st			+0			+0			+0			+2			Learn Theorem, Student
+	2nd			+1			+0			+0			+3			Euclidian Planning
+	3rd			+1			+1			+1			+3			Learn Theorem
+	4th			+2			+1			+1			+4			Guassian Methodology (+Int to Attack)
+	5th			+2			+1			+1			+4			Learn Theorem
+	6th			+3			+2			+2			+5			Preemptive Planning
+	7th			+3			+2			+2			+5			Learn Theorem
+	8th			+4			+2			+2			+6			Guassian Methodology (+Int to Saves)
+	9th			+4			+3			+3			+6			Learn Theorem
+	10th		+5			+3			+3			+7			Study Disipline
+	11th		+5			+3			+3			+7			Learn Theorem
+	12th		+6/+1		+4			+4			+8			Guassian Methodology (+Int to Damage)
+	13th		+6/+1		+4			+4			+8			Learn Theorem
+	14th		+7/+2		+4			+4			+9			Study Disipline
+	15th		+7/+2		+5			+5			+9			Learn Theorem
+	16th		+8/+3		+5			+5			+10			Guassian Methodology (+Int to Checks)
+	17th		+8/+3		+5			+5			+10			Learn Theorem
+	18th		+9/+4		+6			+6			+11			Study Disipline
+	19th		+9/+4		+6			+6			+11			Learn Theorem
+	20th		+10/+5		+6			+6			+12			Teacher, Guassian Methodology (+Int to Certain Theorem)
+
+Class Features:
+	Weapon and Armor Proficiencies:
+		Mathematicians are proficient with all simple and martial weapons.
+		They are also proficient with leather armor and non-tower shields.
+	
+	Learn Theorem:
+		A mathematician cannot go without learning some kind of theorem.
+		For every odd level, the mathematician will learn a new theorem.
+		Look at the list of Theorems for more.
+	
+	Student:
+		At 1st level, the Mathematician can use Wizard spells, but must
+		learn them by reading and studying scrolls of the spell. Studying
+		a spell takes 8 hours.
+	
+	Euclidian Planning:
+		At 2nd level you can take 2d3 rounds to give your party +4 on any
+		check for (Mathematician level)d12 rounds.
+	
+	Guassian Methodology:
+		At every 4th level, you learn how to use Guassian Methodologies.
+		At level 4, you can add your Int mod to your attack rolls. At
+		level 8, you can add your Int mod to any kind of Saving throw.
+		At level 12, you can add your Int mod to your damage roll. At
+		level 16, you can add your Int mod to any skill check. At level
+		20 every 4th level thereafter you can add your Int mod to a
+		specifically chosen Theorem that adds to something.
+	
+	Preemptive Planning:
+		At 6th level, the Mathematician can plan for attack, must be out of
+		combat to use. By doing so he will gain +12 to his first attack roll.
+	
+	Study Disipline:
+		Starting at 10th level, the Mathematician can study a specific disipline.
+		Engineering, Applied Math, Statistics, Cryptologist, Strategist, and
+		Accountant. Look at the list of Disiplines to see the features acquired at
+		10th, 14th, and 18th level.
+	
+	Teacher:
+		At 20th level, any part member within 25 feet can use any Theorems known
+		by the Mathematician. If a party member uses a theorem, the next time
+		the Mathematician uses the theorem its effects are doubled. If the
+		Mathematician uses a class feature other than a Theorem he can also give
+		the benefits to all part members within 15 feet.
+	
+Theorems:
+	Statistical Analysis:
+		+4 to any Knowledge checks. +12 if the rank is past or equal to 10.
+	
+	Statistical Advantage over Criticals:
+		+2 circumstance bonus to critical threats.
+	
+	Statistical Advantage over Attacks:
+		Add half your Int mod rounded up to your attack rolls. If you exceed the
+		DC by 5, +1 to your next damage roll.
+	
+	Statistical Advantage over Dodging:
+		+1 to AC and +4 to reflex Saves
+	
+	Law of Big Numbers:
+		You can take half of whichever dice you use. If you do this you lower your
+		AC by 1 until your next turn.
+	
+	Law of Cosines:
+		Double your rolls and seperate them. Square each and add them together.
+		Square root it and round it up. That will be your true roll.
+	
+	LaGrange Multiplies:
+		Half your roll then multiply that by the amount of allies in a 15 foot
+		radius.
+	
+	Green's Theorem:
+		Get the distance between you and the target in both the X and Y axis.
+		Add Xd3 + Yd3 to your damage roll.
+	
+	Three Steps:
+		+10 to Perception while moving.
+
+Disiplines:
+	Engineering:
+		Engineering Prowess (10th Level):
+			Gives +10 to Knowledge Engineering, Knowledge Dungeneering, and any
+			kind of Crafting.
+		
+		Material Knowledge (14th Level):
+			The DC to destroy objects made of stone and iron is lowered by 10. Any
+			enemies made of stone or iron are suseptible to being destroyed like
+			an object.
+			
+		Computational Power(18th Level):
+			Add +2 lightning damage to damage rolls. Adds another +2 for each
+			ally within 5ft.
+	
+	Applied Math:
+		Knowledge of Trigonometry (10th Level):
+			Add +1 to AC, +2 to Critical Rolls, and +3 to Attack Rolls.
+		
+		Knowledge of Geometry (14th Level):
+			-4 to target's AC and +8 for any checks made on the target's status
+			
+		Knowledge of Physics (18th Level):
+			+12 to Acrobatics, Climb, Fly, Ride, and Swim checks. +8 to Reflex
+			Saves.
+			
+	Statician:
+		(10th Level):
+			
+		(14th Level):
+			
+		Increased Outcome (18th Level):
+			Decrease the any DC by 4.
+			
+	Cryptologist:
+		Security Researcher(10th Level):
+			+10 to Disable Device, Linguistics, and Escape Artist.
+		
+		Security Enforcer(14th Level):
+			You are able to lock any device, the DC for this is the Mathematician
+			level + Disable Device Skill Bonus. You are able to speak any language
+			even if you don't know it. You can do this only by talking to someone
+			who speaks it for an hour and study their speech patterns.
+		
+		Security Master(18th Level):
+			+10 to Perception, Sense Motive, Sleight of Hand, and Stealth Checks. 
+			
+	Strategist:
+		Always Prepared (10th Level):
+			+10 to Perception checks and Initiative.
+			
+		Know when to Strike(14th Level):
+			If you are attacked and the attack missed or you successfully made a
+			reflex save, you can make a quick attack at half the damage normally
+			dealt rounded up.
+			
+		First to Strike (18th Level):
+			If you spot an enemy for the first time and enter combat, you may have
+			a free turn before initiative has started.
+			
+	Accountant:
+		Compoounded Interest (10th Level):
+			Any money found is doubled. +15 to Appraise.
+			
+		Bribery (14th Level):
+			You can give 4d12 gp to an enemy to help persuade them to stop attacking.
+			You can give another 12d12 gp to persuade them to fight alongside you.
+			
+		Keen Eye for Money (18th Level):
+			When you defeated an enemy, you may gain an additional 4d12 gp as a reward.
