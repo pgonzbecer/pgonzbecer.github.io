@@ -1,38 +1,37 @@
 /* Created by Paul Gonzalez Becerra */
 
-.tabled-list
-{
-	list-style-type:	none;
+.side-panel .project:nth-child(2n+1) {
+	background-color: rgba(244, 244, 244, 244);
 }
 
-.tabled-list.list-a
-{
-	text-align:	right;
+.project .desc {
+	padding: 8px;
+	text-indent: 16px;
 }
 
-.thumbnail-link
-{
-	width:	164px;
-	height:	128px;
-	margin-top:	16px;
+.project .images img {
+	width: 45%;
+	height: 35%;
 }
 
-.front-and-center
-{
-	width:	100%;
-	line-height:	100px;
-	text-align:	center;
+.project .footer {
+	text-align: center;
 }
 
-.square
-{
-	min-height:	32px;
-	line-height:	32px;
+.project .links span, .made-with span {
+	margin-right: 8px;
 }
 
-.padded
-{
-	padding:	16px;
+.project .links a {
+	color: black;
+}
+
+.project .links a:hover {
+	color: cornflowerblue;
+}
+
+.project, .side-panel {
+	margin-top: 32px;
 }
 
 .code-excerpt
