@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Teas Testing Random Sheet</title>
+		<link rel="stylesheet" type="text/css" href="..\katex\katex.css" />
+		<script src="..\js\jquery.js"></script>
+		<script src="..\katex\katex.js"></script>
+		<style>
+			.question-number	{
+				width: 5%;
+				float: left;
+			}
+			.question-text {
+				width: 95%;
+				height: 144px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="output">
+			<h2>Practice Questions</h2>
+		</div>
+		<script>
+			// Fraction class
+			function Fraction(num, denom)	{
+				// Variables
+				this.numerator=	num;
+				this.denominator=	denom;
+				
+				// Methods
+				this.clone=	function()	{
+					return new Fraction(this.numerator, this.denominator);
+				};
+				
+				this.scale=	function(n)	{
+					this.numerator*=	n;
+					this.denominator*=	n;
+				};
+				
+				this.simplify=	function()	{
+					// Variables
+					var	max=	Math.max(this.numerator, this.denominator);
+					
+					for(var i= 1; i<= max; i++)	{
+						if(this.numerator%i== 0 && this.denominator%i== 0)	{
+							this.numerator/=	i;
+							this.denominator/=	i;
+						}
+					}
+				};
+				
+				this.toString=	function()	{
+					return this.toLaTex();
+				};
+				
+				this.toLaTex=	function()	{
+					if(this.numerator== this.denominator)	{
+						return "1";
+					}
+					if(this.denominator== 1)	{
+						return this.numerator.toString();
+					}
+					return "\\frac{"+this.numerator+"}{"+this.denominator+"}";
+				};
+				
+				this.add=	function(frac)	{
+					// Variables
+					var	temp=	this.clone();
+					var	temp2=	frac.clone();
+					
+					temp.scale(frac.denominator);
+					temp2.scale(this.denominator);
+					
+					temp.numerator+=	temp2.numerator;
+					
+					temp.simplify();
+					
+					return temp;
+				};
+				
+				this.subtract=	function(frac)	{	return this.add(-frac);	};
+				
+				this.multiply=	function(frac)	{
+					return new Fraction(
+						this.numerator*frac.numerator,
+						this.denominator*frac.denominator
+					);
+				}
+				
+				this.divide=	function(frac)	{
+					if(frac.numerator== 0)
+						return new Fraction(0, 1);
+					
+					return new Fraction(
+						this.numerator*frac.denominator,
+						this.denominator*frac.denominator
+					);
+				};
+				
+				this.simplify();
+			}
+			
+			function EquationA()	{
+				// Variables
+				var	isFractionA=	(Math.random()>= 0.75);
+				var	isFractionB=	(Math.random()>= 0.75);
+				this.coefficientA=	(!isFractionA ?
+					Math.trunc(19*Math.random())+1 :
+					new Fraction(
+						Math.trunc(19*Math.random())+1,
+						Math.trunc(19*Math.random())+1
+					)
+				);
+				this.coefficientB=	(!isFractionB ?
+					Math.trunc(19*Math.random())+1 :
+					new Fraction(
+						Math.trunc(19*Math.random())+1,
+						Math.trunc(19*Math.random())+1
+					)
+				);
+				this.constantA=	((Math.random()<=0.90) ?
+					Math.trunc(19*Math.random())+1 :
+					new Fraction(
+						Math.trunc(19*Math.random())+1,
+						Math.trunc(19*Math.random())+1
+					)
+				);
+				this.constantB=	((Math.random()<=0.90) ?
+					Math.trunc(19*Math.random())+1 :
+					new Fraction(
+						Math.trunc(19*Math.random())+1,
+						Math.trunc(19*Math.random())+1
+					)
+				);
+				this.plusA=	(Math.random()<= 0.5);
+				this.plusB=	(Math.random()<= 0.5);
+				
+				this.toLaTex=	function()	{
+					return (
+						((this.coefficientA== 1 || this.coefficientA.toString()== "\\frac{1}{1}") ?
+							"x" :
+							this.coefficientA+"x "
+						)+
+						(this.plusA ? "+" : "-")+
+						" "+
+						((this.constantB.toString()== "\\frac{1}{1}") ?
+							1 :
+							this.constantB
+						)+" = "+
+						((this.coefficientB== 1 || this.coefficientB.toString()== "\\frac{1}{1}") ?
+							"x" :
+							this.coefficientB+"x "
+						)+
+						(this.plusB ? "+" : "-")+
+						" "+
+						((this.constantB.toString()== "\\frac{1}{1}") ?
+							1 :
+							this.constantB
+						)
+					);
+				};
+			}
+			
+			function createQuestion(index)	{
+				// Variables
+				var	question=	$(document.createElement("div"));
+				var	questionText=	$(document.createElement("div"));
+				var	questionNumber=	$(document.createElement("div"));
+				var	eq=	new EquationA();
+				
+				question.addClass("question");
+				questionNumber.addClass("question-number");
+				questionText.addClass("question-text");
+				
+				questionNumber.html(index+") ");
+				katex.render(eq.toLaTex(), questionText[0]);
+				
+				question.append(questionNumber);
+				question.append(questionText);
+				
+				return question;
+			}
+			
+			// Variables
+			var	output=	$("#output");
+			
+			for(var i= 0; i< 5; i++)
+				output.append(createQuestion(i+1));
+		</script>
+	</body>
+</html>
