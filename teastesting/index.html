@@ -78,7 +78,20 @@
 					return temp;
 				};
 				
-				this.subtract=	function(frac)	{	return this.add(-frac);	};
+				this.subtract=	function(frac)	{
+					// Variables
+					var	temp=	this.clone();
+					var	temp2=	frac.clone();
+					
+					temp.scale(frac.denominator);
+					temp2.scale(this.denominator);
+					
+					temp.numerator-=	temp2.numerator;
+					
+					temp.simplify();
+					
+					return temp;
+				};
 				
 				this.multiply=	function(frac)	{
 					return new Fraction(
@@ -93,7 +106,7 @@
 					
 					return new Fraction(
 						this.numerator*frac.denominator,
-						this.denominator*frac.denominator
+						this.denominator*frac.numerator
 					);
 				};
 				
