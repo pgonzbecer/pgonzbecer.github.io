@@ -31,8 +31,31 @@ var	map=	(function()	{
 	// All the ui objects
 	var	ui=	[];
 	
+	// The type of brush
+	/*
+		0	is per pixel
+		1	is per 2 pixels
+		2	is per 4 pixels
+		3	is per 8 pixels
+		4	is for flood
+	*/
+	var	brushType=	0;
+	
 	// Used to not interfere with the actual tool
 	var	isUsingUI=	false;
+	
+	// Gets the size of the brush
+	var	getBrushSize=	function()	{
+		switch(brushType)	{
+			case 0:
+			case 4:	return 1;
+			case 1:	return 2;
+			case 2:	return 3;
+			case 3:	return 4;
+		}
+		
+		return 1;
+	};
 	
 	// This is the core of the game
 	var	game=	{
@@ -46,12 +69,15 @@ var	map=	(function()	{
 			for(var i= 0; i< objs.length; i++)
 				objs[i].draw();
 			
+			var	mx=	Tools.snap(mouse[0], scale)/scale-Math.trunc(getBrushSize()/2);
+			var	my=	Tools.snap(mouse[1], scale)/scale-Math.trunc(getBrushSize()/2);
+			
 			ctx.fillStyle=	"#ffe300";
 			ctx.fillRect(
-				Tools.snap(mouse[0], scale),
-				Tools.snap(mouse[1], scale),
-				scale,
-				scale
+				mx*scale,//Tools.snap(mouse[0], scale)-Math.trunc(getBrushSize()/2)*scale,
+				my*scale,//Tools.snap(mouse[1], scale)-Math.trunc(getBrushSize()/2)*scale,
+				scale*getBrushSize(),
+				scale*getBrushSize()
 			);
 			
 			for(var i= 0; i< ui.length; i++)
@@ -125,15 +151,24 @@ var	map=	(function()	{
 			// Variables
 			var	x=	Tools.snap(mouse[0], scale)/scale-Tools.snap(offset[0], scale)/scale;
 			var	y=	Tools.snap(mouse[1], scale)/scale-Tools.snap(offset[1], scale)/scale;
+			var	s=	getBrushSize();
+			var	r;
 			
-			for(var i= 0; i< objs.length; i++)	{
-				if(objs[i].pos[0]=== x && objs[i].pos[1]=== y)	{
-					objs.splice(i, 1);
-					break;
+			x-=	Math.trunc(s/2);
+			y-=	Math.trunc(s/2);
+			r=	this.isInRange([x, y, s, s]);
+			
+			if(r.length> 0)	{
+				for(var i= r.length-1; i>= 0; i--)	{
+					objs.slice(i, 1);
 				}
 			}
 			
-			objs.push(assets[currAsset].clone(x, y));
+			for(var a= x; a< x+s; a++)	{
+				for(var b= y; b< y+s; b++)	{
+					objs.push(assets[currAsset].clone(a, b));
+				}
+			}
 			/*
 			objs.push({
 				pos:	[x, y],
@@ -149,6 +184,20 @@ var	map=	(function()	{
 				}
 			});
 			*/
+		},
+		isInRange:	function(rect)	{
+			// Variables
+			var	range=	[];
+			
+			for(var i= 0; i< objs.length; i++)	{
+				if(objs[i].pos[0]>= rect[0] && objs[i].pos[0]<= rect[0]+rect[2])	{
+					if(objs[i].pos[1]>= rect[1] && objs[i].pos[1]<= rect[1]+rect[3])	{
+						range.push(i);
+					}
+				}
+			}
+			
+			return range;
 		}
 	};
 	
@@ -201,7 +250,7 @@ var	map=	(function()	{
 	// Initiates all the assets of the game
 	var	initAssets=	function()	{
 		assets=	[
-			new Asset(false, imgs["grass"], "#00ff00", 0, 0),
+			new Asset(false, imgs["grass"], { tile: 1 }),
 			/*
 			new Asset(true, game.getRandomColor(), "#ff0000", 0, 0),
 			new Asset(true, game.getRandomColor(), "#ff0000", 0, 0),
@@ -411,6 +460,33 @@ var	map=	(function()	{
 					held:	false,
 					top:	0
 				}
+			),
+			new UI(
+				function()	{
+					ctx.fillStyle=	"ghostwhite";
+					ctx.beginPath();
+					ctx.arc(width-150, 24, 16, 0, 2*Math.PI);
+					ctx.fill();
+					ctx.fillStyle=	"#ffce00";
+					ctx.beginPath();
+					ctx.arc(width-150, 24, 2*getBrushSize(), 0, 2*Math.PI);
+					ctx.fill();
+				},
+				function()	{
+					if(Tools.contains([width-150-16, 24-16, 32, 32], mouse))	{
+						isUsingUI=	true;
+						if(!this.held && Input.keys["mb0"])	{
+							this.held=	true;
+							brushType=	(brushType+1)%4;
+						}
+						else if(this.held && !Input.keys["mb0"])
+							this.held=	false;
+					}
+				},
+				{
+					id:	"The brush sizes",
+					held:	false
+				}
 			)
 		]
 	};
@@ -501,11 +577,11 @@ var	map=	(function()	{
 	};
 	
 	// Gets a color array from the given color
-	var	toColorArray=	function(color)	{
+	var	toColorArray=	function(colorCode)	{
 		// Variables
-		var	r=	parseInt(color[1]+color[2], 16);
-		var	g=	parseInt(color[3]+color[4], 16);
-		var	b=	parseInt(color[5]+color[6], 16);
+		var	r=	colorCode.tile || 0;
+		var	g=	0;
+		var	b=	0;
 		var	a=	255;
 		
 		return [r, g, b, a];
@@ -528,7 +604,7 @@ var	map=	(function()	{
 		this.isColored=	isColored;
 		this.img=	img;
 		this.colorCode=	colorCode;
-		this.pos=	[x, y];
+		this.pos=	[x || 0, y || 0];
 		
 		this.clone=	function(_x, _y)	{
 			return new Asset(this.isColored, this.img, this.colorCode, _x, _y);
