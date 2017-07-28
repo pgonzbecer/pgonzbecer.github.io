@@ -115,16 +115,17 @@ var	map=	(function()	{
 			}
 			// RMB
 			if(Input.keys["mb2"])	{
-				for(var i= 0; i< objs.length; i++)	{
-					// Variables
-					var	x=	Tools.snap(mouse[0], scale)/scale-Tools.snap(offset[0], scale)/scale;
-					var	y=	Tools.snap(mouse[1], scale)/scale-Tools.snap(offset[1], scale)/scale;
-					
-					if(objs[i].pos[0]== x && objs[i].pos[1]== y)	{
-						delete objs[i];
-						objs.splice(i, 1);
-						break;
-					}
+				// Variables
+				var	x=	Tools.snap(mouse[0], scale)/scale-Tools.snap(offset[0], scale)/scale;
+				var	y=	Tools.snap(mouse[1], scale)/scale-Tools.snap(offset[1], scale)/scale;
+				var	s=	getBrushSize();
+				var	r;
+				
+				x-=	Math.trunc(s/2);
+				y-=	Math.trunc(s/2);
+				r=	this.isInRange([x, y, s, s]);
+				for(var i= r.length-1; i>= 0; i--)	{
+					objs.splice(r[i], 1);
 				}
 			}
 			
@@ -160,7 +161,7 @@ var	map=	(function()	{
 			
 			if(r.length> 0)	{
 				for(var i= r.length-1; i>= 0; i--)	{
-					objs.slice(i, 1);
+					objs.splice(r[i], 0);
 				}
 			}
 			
@@ -190,8 +191,8 @@ var	map=	(function()	{
 			var	range=	[];
 			
 			for(var i= 0; i< objs.length; i++)	{
-				if(objs[i].pos[0]>= rect[0] && objs[i].pos[0]<= rect[0]+rect[2])	{
-					if(objs[i].pos[1]>= rect[1] && objs[i].pos[1]<= rect[1]+rect[3])	{
+				if(objs[i].pos[0]>= rect[0] && objs[i].pos[0]<= rect[0]+rect[2]-1)	{
+					if(objs[i].pos[1]>= rect[1] && objs[i].pos[1]<= rect[1]+rect[3]-1)	{
 						range.push(i);
 					}
 				}
