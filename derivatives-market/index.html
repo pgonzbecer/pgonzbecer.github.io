@@ -47,8 +47,8 @@
 											"Trading Date: "+(new Date(options[i].trade_date))+"<br/>"+
 											"Price Change: "+options[i].last+"<br/>"+
 											"Contract Size: "+options[i].contract_size+"<br/>"+
-											"Asking Price: "+optinos[i].ask+"<br/>"+
-											"Asking Date: "+(new Date(optinos[i].ask_date))+"<br/>"+
+											"Asking Price: "+options[i].ask+"<br/>"+
+											"Asking Date: "+(new Date(options[i].ask_date))+"<br/>"+
 											"Asking Size: "+options[i].asksize+"<br/>"+
 											"</div><br/>"
 										);
@@ -60,6 +60,7 @@
 										"border-color",
 										"red"
 									);
+									console.log(e);
 								}
 							},
 							error:	function(xhr, status, err)	{
@@ -70,7 +71,7 @@
 					} catch(e)	{
 						$("#text-input").css(
 							"border-color",
-							"red"
+							"orange"
 						);
 					}
 				});
