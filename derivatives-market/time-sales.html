@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Options Market Testing</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script>
+			$(window).ready(function()	{
+				$("#btn-input").click(function(args)	{
+					// Variables
+					var	symbol=	$("#text-input").val();
+					
+					$("#text-input").css(
+						"border-color",
+						"inherit"
+					);
+					
+					try	{
+						jQuery.ajax({
+							url:	"https://sandbox.tradier.com/v1/markets/timesales"+
+								"?symbol="+symbol+"&expiration=2017-11-03",
+							type:	"GET",
+							beforeSend:	function(xhr)	{
+								xhr.setRequestHeader(
+									"Authorization",
+									"Bearer n1xFpfvKgxD6GucvtWXRPVNOPmxT"
+								);
+								xhr.setRequestHeader(
+									"Accept",
+									"application/json"
+								);
+							},
+							success:	function(data, status, xhr)	{
+								console.log(data);
+								try	{
+									// Variables
+									var	options=	data.series.data;
+									var	str=	"";
+									
+									for(var i= 0; i< options.length; i++)	{
+										str+=	(
+											"<div class='option'>"+
+											"Symbol: "+symbol.toUpperCase()+"<br/>"+
+											"Price: $"+options[i].price+"<br/>"+
+											"Price (High): $"+options[i].high+"<br/>"+
+											"Price (Low): $"+options[i].low+"<br/>"+
+											"Price (Open): $"+options[i].open+"<br/>"+
+											"Price (Close): $"+options[i].close+"<br/>"+
+											"Time: "+options[i].time+"<br/>"+
+											"</div><br/>"
+										);
+									}
+									
+									$(".container").html(str);
+								} catch(e)	{
+									$("#text-input").css(
+										"border-color",
+										"red"
+									);
+								}
+							},
+							error:	function(xhr, status, err)	{
+								console.log(status, xhr);
+								console.log(err);
+							}
+						});
+					} catch(e)	{
+						$("#text-input").css(
+							"border-color",
+							"orange"
+						);
+					}
+				});
+			});
+		</script>
+		
+		<style>
+			.option	{
+				padding:	16px;
+				background-color:	#f8fdf8;
+				border:	1px solid #101820;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="input">
+			<input type="text" id="text-input" value="msft" />
+			<input type="button" id="btn-input" value="Find Options" />
+		</div>
+		<div class="container"></div>
+	</body>
+</html>
