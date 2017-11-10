@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			body	{
+				margin:	0px;
+			}
+			canvas	{
+				width:	100%;
+				height:	100%;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			// Variables
+			var	scene=	new THREE.Scene();
+			var	camera=	new THREE.PerspectiveCamera(
+				75,
+				innerWidth/innerHeight,
+				0.1,
+				1000
+			);
+			var	renderer=	new THREE.WebGLRenderer();
+			var	geometry=	new THREE.BoxGeometry(1, 1, 1);
+			var	material=	new THREE.MeshBasicMaterial({
+				color:	0x00ff00
+			});
+			var	cube=	new THREE.Mesh(geometry, material);
+			var	geom=	new THREE.Geometry();
+			var	gmat=	new THREE.LineBasicMaterial({
+				color:	0x0000ff
+			});
+			var	line=	new THREE.Line(geom, gmat);
+			var	gmesh=	new THREE.Mesh(geom, material);
+			var	fontLoader=	new THREE.FontLoader();
+			var	text;
+			
+			fontLoader.load("fonts/optimer.typeface.json", function(font)	{
+				text=	new THREE.TextGeometry(
+					"pgonzbecer",
+					{
+						font:	font,
+						size:	12,
+						height:	1,
+						bevelSize:	0
+					}
+				);
+				gmesh=	new THREE.Mesh(text, material);
+			scene.add(gmesh);
+				console.log(gmesh);
+			});
+			
+			/*geom.vertices.push(new THREE.Vector3(10, 0, 0));
+			geom.vertices.push(new THREE.Vector3(0, 10, 0));
+			geom.vertices.push(new THREE.Vector3(-10, 0, 0));
+			geom.vertices.push(new THREE.Vector3(-10, 0, 0));
+			geom.vertices.push(new THREE.Vector3(-20, -10, 0));
+			geom.vertices.push(new THREE.Vector3(0, -10, 0));
+			*/
+			renderer.setSize(innerWidth, innerHeight);
+			//scene.add(cube);
+			scene.add(line);
+			camera.position.set(0, 0, 100);
+			camera.lookAt(new THREE.Vector3(0, 0, 0));
+			document.body.appendChild(renderer.domElement);
+			
+			function animate()	{
+				requestAnimationFrame(animate);
+				cube.rotation.x+=	0.1;
+				cube.rotation.y+=	0.1;
+				renderer.render(scene, camera);
+			}
+			animate();
+		</script>
+	</body>
+</html>

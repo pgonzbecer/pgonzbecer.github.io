@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Secret Code Book Circle</title>
+		<style>
+			.circle-container	{
+				width:	320px;
+				height:	320px;
+				border-radius:	50%;
+				background-color:	#ffffff;
+				position:	relative;
+				top:	0px;
+				left:	0px;
+			}
+			
+			.outter-circle, .inner-circle	{
+				width:	100%;
+				height:	100%;
+				border-radius:	50%;
+				background-image:	url("imgs/outter_circle.png");
+				background-size:	100% 100%;
+				position:	absolute;
+				top:	0px;
+				left:	0px;
+			}
+			
+			.inner-circle	{
+				background-image:	url("imgs/inner_circle.png");
+				width:	90%;
+				height:	90%;
+				top:	5%;
+				left:	5%;
+				transform:	rotate(0rad);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Secret Code Circle Demo</h1>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh dui, iaculis eget massa et, pellentesque fringilla lorem. Donec rhoncus turpis et convallis aliquam. Fusce vitae fringilla risus. Nullam accumsan quam eu elit feugiat, a feugiat elit eleifend. Nulla facilisi. Donec eu tortor nibh. Sed justo orci, porttitor non lorem id, lobortis accumsan odio. Ut interdum libero id nunc rutrum, porta gravida ipsum sollicitudin. Maecenas odio orci, aliquam at pellentesque nec, semper porta erat. Nunc et molestie nibh. Aliquam et est eget sem tincidunt interdum. Nulla ac nulla a tellus commodo lobortis vel eu dui. Nulla facilisi.
+			Ut non turpis arcu. Ut tempus nec ex vel pellentesque. Aliquam varius mauris non felis feugiat lobortis ut sed justo. Nunc et nibh a velit efficitur malesuada quis nec augue. In neque sapien, dignissim sed mi et, mollis dapibus elit. Nunc iaculis fringilla nisl non lobortis. Proin eu est id tellus luctus euismod.
+		</p>
+		<div class="circle-container">
+			<div class="outter-circle"></div>
+			<div class="inner-circle"></div>
+		</div>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh dui, iaculis eget massa et, pellentesque fringilla lorem. Donec rhoncus turpis et convallis aliquam. Fusce vitae fringilla risus. Nullam accumsan quam eu elit feugiat, a feugiat elit eleifend. Nulla facilisi. Donec eu tortor nibh. Sed justo orci, porttitor non lorem id, lobortis accumsan odio. Ut interdum libero id nunc rutrum, porta gravida ipsum sollicitudin. Maecenas odio orci, aliquam at pellentesque nec, semper porta erat. Nunc et molestie nibh. Aliquam et est eget sem tincidunt interdum. Nulla ac nulla a tellus commodo lobortis vel eu dui. Nulla facilisi.
+			Ut non turpis arcu. Ut tempus nec ex vel pellentesque. Aliquam varius mauris non felis feugiat lobortis ut sed justo. Nunc et nibh a velit efficitur malesuada quis nec augue. In neque sapien, dignissim sed mi et, mollis dapibus elit. Nunc iaculis fringilla nisl non lobortis. Proin eu est id tellus luctus euismod.
+		</p>
+		
+		<script src="../js/jquery.js"></script>
+		<script>
+			// Variables
+			let	v=	new Vec2(0, 1);
+			let	theta=	0;
+			let	phi=	0;
+			let	innerCircle=	$(".circle-container .inner-circle");
+			let	wh=	innerCircle.width()/2;
+			let	center=	innerCircle.offset();
+			
+			innerCircle.on("mouseenter", function(args)	{
+				v.set(
+					args.clientX-(center.left+wh),
+					args.clientY-(center.top+wh)
+				);
+				v.normalize();
+				phi=	0;
+			});
+			
+			innerCircle.on("mouseleave", function(args)	{
+				theta=	(theta+phi)%(2*Math.PI);
+				innerCircle.css(
+					"transform",
+					"rotate("+(theta+phi)+"rad)"
+				);
+			});
+			
+			innerCircle.on("mousemove", function(args)	{
+				// Variables
+				let	u=	new Vec2(
+					args.clientX-(center.left+wh),
+					args.clientY-(center.top+wh)
+				);
+				let	r=	v.getPerpendicular();
+				let	n=	r.mul(-1);
+				let	p, q;
+				
+				u.normalize();
+				p=	u.dot(r);
+				q=	u.dot(n);
+				
+				phi=	Math.acos(v.dot(u));
+				if(p> 0 && q< 0)	{
+					phi*=	-1;
+				}
+				console.log(phi);
+				if(!isNaN(phi))
+					theta=	(theta+phi)%(2*Math.PI);
+				innerCircle.css(
+					"transform",
+					"rotate("+(theta)+"rad)"
+				);
+				v.set(
+					args.clientX-(center.left+wh),
+					args.clientY-(center.top+wh)
+				);
+				v.normalize();
+				// TODO: Find a better way to move a circle
+			});
+			
+			function Vec2(x, y)	{
+				// Variables
+				this.x=	x;
+				this.y=	y;
+				
+				this.set=	function(x, y)	{
+					this.x=	x;
+					this.y=	y;
+				};
+				
+				this.getPerpendicular=	function()	{
+					return new Vec2(
+						this.y,
+						-this.x
+					);
+				};
+				
+				this.dot=	function(v)	{
+					return (this.x*v.x+this.y*v.y);
+				};
+				
+				this.add=	function(v)	{
+					return new Vec2(this.x+v.x, this.y+v.y);
+				};
+				
+				this.sub=	function(v)	{
+					return new Vec2(this.x-v.x, this.y-v.y);
+				};
+				
+				this.mul=	function(s)	{
+					return new Vec2(s*this.x, s*this.y);
+				};
+				
+				this.magnitude=	function()	{
+					return Math.sqrt(this.x*this.x+this.y*this.y);
+				};
+				
+				this.normalize=	function()	{
+					// Variables
+					let	m=	this.magnitude();
+					
+					if(m=== 0)
+						return;
+					
+					this.x/=	m;
+					this.y/=	m;
+				};
+			};
+		</script>
+	</body>
+</html>
