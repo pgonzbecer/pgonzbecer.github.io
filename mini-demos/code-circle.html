@@ -59,8 +59,51 @@
 			let	innerCircle=	$(".circle-container .inner-circle");
 			let	wh=	innerCircle.width()/2;
 			let	center=	innerCircle.offset();
+			let	isClicked=	false;
+			
+			console.log(center);
+			
+			innerCircle.on("touchstart", function(args)	{
+				args.preventDefault();
+				v.set(
+					args.originalEvent.touches[0].clientX-(center.left+wh),
+					args.originalEvent.touches[0].clientY-(center.top+wh)
+				);
+				v.normalize();
+				phi=	0;
+				isClicked=	true;
+			});
+			
+			innerCircle.on("touchend", function(args)	{
+				isClicked=	false;
+			});
+			
+			innerCircle.on("touchmove", function(args)	{
+				args.preventDefault();
+				moveCircle(new Vec2(
+					args.originalEvent.touches[0].clientX,
+					args.originalEvent.touches[0].clientY
+				));
+			});
+			
+			innerCircle.on("mousedown", function(args)	{
+				v.set(
+					args.clientX-(center.left+wh),
+					args.clientY-(center.top+wh)
+				);
+				v.normalize();
+				phi=	0;
+				isClicked=	true;
+			});
+			
+			innerCircle.on("mouseup", function(args)	{
+				isClicked=	false;
+			});
 			
 			innerCircle.on("mouseenter", function(args)	{
+				if(!isClicked)	{
+					return;
+				}
 				v.set(
 					args.clientX-(center.left+wh),
 					args.clientY-(center.top+wh)
@@ -70,22 +113,35 @@
 			});
 			
 			innerCircle.on("mouseleave", function(args)	{
+				if(!isClicked)	{
+					return;
+				}
 				theta=	(theta+phi)%(2*Math.PI);
 				innerCircle.css(
 					"transform",
-					"rotate("+(theta+phi)+"rad)"
+					"rotate("+(theta)+"rad)"
 				);
 			});
 			
 			innerCircle.on("mousemove", function(args)	{
+				moveCircle(new Vec2(args.clientX, args.clientY));
+			});
+			
+			function moveCircle(vec)	{
+				if(!isClicked)	{
+					return;
+				}
+				
 				// Variables
 				let	u=	new Vec2(
-					args.clientX-(center.left+wh),
-					args.clientY-(center.top+wh)
+					vec.x-(center.left+wh),
+					vec.y-(center.top+wh)
 				);
 				let	r=	v.getPerpendicular();
 				let	n=	r.mul(-1);
 				let	p, q;
+				
+				console.log(v.dot(u));
 				
 				u.normalize();
 				p=	u.dot(r);
@@ -95,20 +151,15 @@
 				if(p> 0 && q< 0)	{
 					phi*=	-1;
 				}
-				console.log(phi);
 				if(!isNaN(phi))
 					theta=	(theta+phi)%(2*Math.PI);
 				innerCircle.css(
 					"transform",
 					"rotate("+(theta)+"rad)"
 				);
-				v.set(
-					args.clientX-(center.left+wh),
-					args.clientY-(center.top+wh)
-				);
-				v.normalize();
-				// TODO: Find a better way to move a circle
-			});
+				v.set(u.x, u.y);
+				console.log(v.dot(u));
+			}
 			
 			function Vec2(x, y)	{
 				// Variables
