@@ -1,0 +1,88 @@
+
+<div style="display:inline-block;width=45%;">
+	<canvas id="cvs" width="512" height="512"></canvas>
+</div>
+<div style="display:inline-block;width=45%;">
+	<canvas id="cvsFlow" width="512" height="512"></canvas>
+</div>
+<!--<div style="display:inline-block;width=45%;">
+	<canvas id="cvsFog" width="512" height="512"></canvas>
+</div>!-->
+<div style="display:inline-block;width=10%;">
+	<input type="number" id="flow-speed" value="0.000025"/>
+	<input type="button" id="btn-flow-speed" value="Reset"/>
+	<select id="sel">
+		<option selected>Black</option>
+		<option>Red</option>
+		<option>Green</option>
+		<option>Blue</option>
+		<option>Purple</option>
+		<option>Orange</option>
+		<option>Random Colors</option>
+	</select>
+</div>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/pml.js"></script>
+<script src="../js/Particle.js"></script>
+<script src="../js/FlowField.js"></script>
+<script type="text/javascript">
+	// Variables
+	var	cvs=	document.getElementById("cvs");
+	var	cvs2=	document.getElementById("cvsFlow");
+	//var	cvs3=	document.getElementById("cvsFog");
+	var	cvs2ctx=	cvs2.getContext("2d");
+	//var	cvs3ctx=	cvs3.getContext("2d");
+	var	ff=	new FlowField(cvs);
+	var	fs=	$("#flow-speed");
+	var	bfs=	$("#btn-flow-speed");
+	
+	fs.val(ff.increment);
+	fs[0].step=	0.000001;
+	
+	bfs.click(function(args)	{
+		// Variables
+		let	val=	fs.val();
+		
+		ff.increment=	Number(val);
+		ff.reset();
+	});
+	function rngColor()	{
+		// Variables
+		let	r=	Math.floor(256*Math.random()).toString(16);
+		let	g=	Math.floor(256*Math.random()).toString(16);
+		let	b=	Math.floor(256*Math.random()).toString(16);
+		
+	
+		function format(comp)	{
+			if(comp.length== 1)
+				return "0"+comp;
+			return comp;
+		}
+		
+		return "#"+format(r)+format(g)+format(b);
+	}
+	
+	$("#sel").change(function(args)	{
+		// Variables
+		let	str=	($("#sel option:selected").text());
+		console.log(str);
+		switch(str.toLowerCase())	{
+			case "black":	ff.setParticleColor("#101820");	OVERALL_COLOR=	"#101820";	break;
+			case "red":	ff.setParticleColor("#ff0000");	OVERALL_COLOR=	"#ff0000";	break;
+			case "green":	ff.setParticleColor("#00aa00");	OVERALL_COLOR=	"#00aa00";	break;
+			case "blue":	ff.setParticleColor("#0044dd");	OVERALL_COLOR=	"#0044dd";	break;
+			case "purple":	ff.setParticleColor("#dd00dd");	OVERALL_COLOR=	"#dd00dd";	break;
+			case "orange":	ff.setParticleColor("#dd4400");	OVERALL_COLOR=	"#dd4400";	break;
+			case "random colors":	ff.setParticleRNGColor();	OVERALL_COLOR=	null;	break;
+		}
+	});
+	
+	function render()	{
+		requestAnimationFrame(render);
+		ff.update();
+		ff.update(true, cvs2ctx);
+		//ff.update(2, cvs3ctx);
+	}
+	render();
+</script>
