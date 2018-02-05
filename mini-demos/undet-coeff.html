@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Method for Undetermined Coefficients</title>
+		<link rel="stylesheet" type="text/css" href="../katex/katex.min.css"/>
+		<style>
+			body	{	margin:	0px;	}
+			#output	{	display:	hidden;	}
+			.ccr	{	background-color:	#ff0000;	}
+			.ccb	{	background-color:	#0000ff;	}
+			.error-color	{	color:	#d40000;	}
+			.fam-output	{
+				width:	100%;
+				text-align:	center;
+			}
+			.row	{
+				min-height:	64px;
+				width:	100%;
+				clear:	both;
+			}
+			.col-md-8	{
+				width:	66.66667%;
+				display:	block;
+				min-height:	16px;
+				margin:	0px;
+				float:	left;
+			}
+			.col-md-4	{
+				width:	33.33333%;
+				display:	block;
+				min-height:	64px;
+				margin:	0px;
+				float:	left;
+			}
+			#f-of-x	{	width:	55%;	}
+			#get-coeff	{	width:	45%;	}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h3>Methods of Undetermined Coefficients</h3>
+			<div class="row">
+				<div class="col-md-8">
+					<input type="text" placeholder="Type in your function here" id="f-of-x"/>
+					<button id="get-coeff">Get Undetermined Coefficients</button>
+					<div id="error">
+						
+					</div>
+				</div>
+				<div class="col-md-4">
+					<output id="output"></output>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Scripts /-->
+		<script src="../js/mathjs.js"></script>
+		<script src="../js/algebrite.js"></script>
+		<script src="../katex/katex.min.js"></script>
+		<script>
+			// Variables
+			let	txt=	document.getElementById("f-of-x");
+			let	btn=	document.getElementById("get-coeff");
+			let	output=	document.getElementById("output");
+			let	error=	document.getElementById("error");
+			
+			btn.addEventListener("click", function(args)	{
+				output.innerHTML=	"";
+				output.style.display=	"block";
+				error.innerHTML=	"";
+				output.append((function()	{
+					// Variables
+					let	child=	document.createElement("div");
+					
+					child.classList.add("fam-output");
+					child.innerHTML=	"Derivative Family:";
+					return child;
+				})());
+				
+				// Variables
+				let	equation=	destroyCoeffs(Algebrite.run(txt.value));
+				let	chunks=	getChunks(equation);
+				let	fam=	getDerivativeFamily(chunks);
+				
+				console.log(fam);
+				
+				for(let i= 0; i< fam.family.length; i++)	{
+					appendKatex(fam.family[i], output);
+				}
+				
+				if(fam.err)	{
+					error.innerHTML=	"";
+					error.append((function()	{
+						// Variables
+						let	child=	document.createElement("div");
+						let	currChunk=	document.createElement("span");
+						let	foundChunk=	document.createElement("span");
+						
+						child.classList.add("error-color");
+						
+						if(fam.err.curr)	{
+							appendKatex(fam.err.curr, currChunk);
+							child.append(currChunk);
+						}
+						child.innerHTML+=	fam.err.msg;
+						if(fam.err.found)	{
+							appendKatex(fam.err.found, foundChunk);
+							child.append(foundChunk);
+						}
+						
+						return child;
+					})());
+					return;
+				}
+				
+				if(!fam.converges)	{
+					output.append((function()	{
+						// Variables
+						let	child=	document.createElement("div");
+						let	cbtn=	document.createElement("button");
+						
+						child.classList.add("fam-output");
+						cbtn.innerHTML=	"Converges";
+						cbtn.addEventListener("click", function(args)	{
+							console.log("yep");
+						});
+						child.append(cbtn);
+						
+						return child;
+					})());
+					return;
+				}
+				
+				fam=	fam.family;
+				
+				let	lineq=	"";
+				let	dlineq=	"";
+				let	ddlineq=	"";
+				let	constant=	65;
+				
+				for(let i= 0; i< fam.length; i++)	{
+					lineq+=	String.fromCharCode(constant+i)+"*("+fam[i]+")"+(
+						(i< fam.length-1) ? " + " : ""
+					);
+				}
+				
+				lineq=	Algebrite.run(lineq);
+				dlineq=	Algebrite.derivative(lineq).toString();
+				ddlineq=	Algebrite.derivative(dlineq).toString();
+				
+				lineq=	(
+					"("+ddlineq+")+("+dlineq+")+("+lineq+")"
+				);
+				lineq=	Algebrite.run(lineq);
+			});
+			
+			function appendKatex(eq, elem)	{
+				// Variables
+				let	child=	document.createElement("div");
+				
+				child.classList.add("fam-output");
+				katex.render(Algebrite.eval(eq).toLatexString(), child);
+				
+				elem.append(child);
+			}
+			
+			function swapFunction(eq)	{
+				return eq.replace(/(sec|csc|cot|sech|csch|coth|tan\([xX]\))/g, function(args)	{
+					switch(args.toLowerCase())	{
+						case "tan(x)":	console.log(args);	return "(sin(x)/cos(x))";
+						case "sec":	args=	"cos";	break;
+						case "sech":	args=	"cosh";	break;
+						case "csc":	args=	"sin";	break;
+						case "csch":	args=	"sinh";	break;
+						case "cot":	args=	"tan";	break;
+						case "coth":	args=	"tanh";	break;
+					}
+					return ("1/"+args);
+				});
+			}
+			
+			function getDerivativeFamily(chunks)	{
+				// Variables
+				let	fam=	[];
+				let	tempFam=	[];
+				// Chunk, derivative chunk, temp chunk
+				let	chunk, dchunk, tchunk, negPow;
+				let	found=	false;
+				
+				console.log(chunks);
+				
+				for(let a= 0; a< chunks.length; a++)	{
+					chunk=	swapFunction(chunks[a]);
+					tempFam=	[];
+					while(true)	{
+						for(let b= 0; b< tempFam.length; b++)	{
+							if(chunk.indexOf(tempFam[b])!= -1)	{
+								console.log(tempFam[b]);
+								return {
+									family:	[],
+									converges:	false,
+									err:	{
+										curr:	chunk,
+										msg:	"uses the same expression as",
+										found:	tempFam[b]
+									}
+								};
+							}
+						}
+						tempFam.push(Algebrite.run(chunk));
+						dchunk=	Algebrite.derivative(chunk).toString();
+						dchunk=	destroyCoeffs(dchunk);
+						if(dchunk== "")	{
+							if(!isNaN(chunk))
+								break;
+							else
+								dchunk=	"1";
+						}
+						negPow=	hasNegativePower(chunk);
+						if(negPow.failed)	{
+							return {
+								family:	[],
+								converges:	false,
+								err:	{
+									msg:	negPow.err.chunk
+								}
+							};
+						}
+						if(chunk== dchunk)
+							break;
+						for(let b= 0; b< tempFam.length; b++)	{
+							if(dchunk== tempFam[b])	{
+								found=	true;
+								break;
+							}
+						}
+						if(found)
+							break;
+						chunk=	dchunk;
+					}
+					found=	false;
+					for(let b= 0; b< tempFam.length; b++)	{
+						for(let c= 0; c< fam.length; c++)	{
+							if(tempFam[b]== fam[c])	{
+								console.log(tempFam);
+								found=	true;
+								break;
+							}
+						}
+						if(found=== true)	{
+							found=	false;
+							continue;
+						}
+						fam.push(tempFam[b]);
+					}
+				}
+				
+				return	{
+					family:	fam,
+					converges:	true,
+					err:	false
+				};
+			}
+			
+			function hasNegativePower(chunk)	{
+				try	{
+					// Variables
+					let	safechunk=	mathjs(chunk, "x");
+					let	idx=	0;
+					let	edx=	0;
+					let	scope=	0;
+					
+					while(true)	{
+						idx=	safechunk.indexOf("safepow", idx);
+						if(idx== -1)
+							break;
+						idx=	safechunk.indexOf(",", idx);
+						if(idx== -1)
+							break;
+						edx=	safechunk.length;
+						for(let i= idx+1; i< safechunk.length; i++)	{
+							switch(safechunk[i])	{
+								case "(":	scope++;	break;
+								case ")":	{
+									scope--;
+								}break;
+							}
+							if(scope< 0)	{
+								edx=	i;
+								break;
+							}
+						}
+						if(edx>= safechunk.length)
+							break;
+						safechunk=	Algebrite.run(safechunk.substring(idx+1, edx-1));
+						safechunk=	safechunk.replace(/[exp\(1\)|pi]/g, "1");
+						if(isNaN(safechunk))	{
+							return	{
+								err:	{
+									chunk:	"The power ("+safechunk+"), implies that the family is not finite"
+								},
+								failed:	true
+							};
+						}
+					}
+				} catch(e)	{
+					return {
+						err:	{
+							chunk:	"Unknown error"
+						}
+					};
+				}
+				
+				return	{};
+			}
+			
+			function getChunks(eq)	{
+				// Variables
+				let	scope=	0;
+				let	chunks=	[];
+				let	str=	"";
+				let	i=	0;
+				
+				for(i= 0; i< eq.length; i++)	{
+					switch(eq[i])	{
+						case "(":	case "{":	case "[":	{
+							scope++;
+						}break;
+						case ")":	case "}":	case "]":	{
+							scope--;
+						}break;
+						case "+":	{
+							if(scope== 0)	{
+								chunks.push(
+									eq.substring(i-str.length-1, i-1)
+								);
+								str=	"";
+								continue;
+							}
+						}break;
+					}
+					str+=	eq[i];
+				}
+				chunks.push(
+					eq.substring(i-str.length, i)
+				);
+				
+				return chunks;
+			}
+			
+			function destroyCoeffs(eq)	{
+				// Variables
+				let	negativeFlag=	false;
+				let	ignoreFlag=	false;
+				let	divisionFlag=	false;
+				let	index=	0;
+				let	scope=	0;
+				let	str=	"";
+				let	coeff=	[];
+				let	done=	false;
+				
+				for(index= 0; index< eq.length; index++)	{
+					// When you need to ignore everything else
+					if(ignoreFlag)	{
+						if(scope== 0)	{
+							switch(eq[index])	{
+								case "{":	case "[":	case "(":	{
+									scope++;
+								}break;
+								case "-":	{
+									str=	"-";
+									negativeFlag=	true;
+									ignoreFlag=	false;
+								}break;
+								case "+":	{
+									ignoreFlag=	false;
+								}break;
+							}
+						}
+						else	{
+							switch(eq[index])	{
+								case "{":	case "[":	case "(":	{
+									scope++;
+								}break;
+								case "}":	case "]":	case ")":	{
+									scope--;
+								}break;
+							}
+						}
+						continue;
+					}
+					// No longer ignoring
+					// This is a number, so it must exist as a coefficient
+					if(!isNaN(eq[index]))	{
+						str+=	eq[index];
+					}
+					else if(eq[index]== '-')	{
+						str+=	eq[index];
+					}
+					// Assume that there is no more coefficient
+					else if(eq[index]== '/')	{
+						divisionFlag=	true;
+						str+=	eq[index];
+					}
+					else	{
+						if(divisionFlag)	{
+							// Variables
+							let	crashed=	false;
+							
+							divisionFlag=	false;
+							try	{
+								if(isNaN(eval(str)))	{
+									crashed=	true;
+								}
+							}	catch(e)	{
+								crashed=	true;
+							}
+							
+							if(crashed)	{
+								coeff.push({
+									min:	index-str.length,
+									max:	index,
+									neg:	negativeFlag,
+									div:	true
+								});
+								str=	"";
+								continue;
+							}
+						}
+						coeff.push({
+							min:	index-str.length,
+							max:	index,
+							neg:	negativeFlag
+						});
+						str=	"";
+						ignoreFlag=	true;
+						negativeFlag=	false;
+						divisionFlag=	false;
+					}
+				} // End of for loop
+				
+				if(str.length> 0)	{
+					coeff.push({min: index-str.length, max: index});
+				}
+				
+				for(let i= coeff.length-1; i>= 0; i--)	{
+					// Variables
+					let	range=	coeff[i];
+					
+					if(!range.div)	{
+						eq=	eq.substring(0, range.min)+(
+							((range.neg) ? "+ " : "")
+						)+(
+							((range.max< eq.length) ? eq.substring(range.max) : "")
+						);
+					}
+					else	{
+						eq=	eq.substring(0, range.min)+(
+							((range.neg) ? "+ " : "")
+						)+(
+							((range.max< eq.length) ? "1/"+eq.substring(range.max) : "")
+						);
+					}
+				}
+				index=	0;
+				// Trim Left
+				for(let i= 0; i< eq.length; i++)	{
+					switch(eq[i])	{
+						case " ":	case "+":	case "-":	{
+							index=	i;
+						}break;
+						default:	{
+							done=	true;
+						}break;
+					}
+					if(done)
+						break;
+				}
+				done=	false;
+				scope=	eq.length-1;
+				// Trim Right
+				for(let i= eq.length-1; i>= 0; i--)	{
+					switch(eq[i])	{
+						case " ":	case "+":	case "-":	{
+							scope=	i;
+						}break;
+						default:	{
+							done=	true;
+						}break;
+					}
+					if(done)
+						break;
+				}
+				// Commit to trim
+				eq=	eq.substring(index, scope+1);
+				
+				return eq;
+			}
+		</script>
+	</body>
+</html>
