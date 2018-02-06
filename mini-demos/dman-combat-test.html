@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		
+	</head>
+	
+	<body>
+		<canvas id="cvs" width="500" height="300"></canvas>
+		<script src="../js/timer.js"></script>
+		<script>
+			// Variables
+			let	game=	{
+				canvas:	document.getElementById("cvs"),
+				context:	document.getElementById("cvs").getContext("2d"),
+				// HunterEnemy
+				enemy:	{
+					name:	"enemy",
+					stats:	{
+						hp:	35,
+						atk:	10,
+						def:	10,
+						spd:	10
+					},
+					bounds:	[10, 0, 25, 50],
+					t:	{
+						attack:	0
+					},
+					d:	{
+						attack:	3
+					},
+					attack:	"spitfire",
+					isTurn:	true,
+					isAttacking:	true,
+					attackObjects:	{
+						spitfire:	function()	{
+							return {
+								bounds:	[0, 0, 16, 16],
+								temp:	0,
+								destroyFlag:	false,
+								init:	function(game, e)	{
+									this.bounds[0]=	e.bounds[0]-26;
+									this.bounds[1]=	e.bounds[1]+e.bounds[3]/3;
+									temp=	e.bounds[1]+e.bounds[3]/3;
+								},
+								update:	function(game, e)	{
+									if(this.bounds[0]< -16)
+										this.destroyFlag=	true;
+									this.bounds[0]-=	120*Timer.deltaT();
+									this.bounds[1]=	temp+12*Math.sin(
+										2*Math.PI*(e.t.attack/e.d.attack)
+									);
+									if(game.collision(game.player, this))	{
+										this.destroyFlag=	true;
+										game.player.hurt(14);
+										console.log("hurts, dont it?");
+									}
+								},
+								draw:	function(game, e)	{
+									game.context.fillStyle=	"#0fd40f";
+									game.context.fillRect(
+										this.bounds[0],
+										this.bounds[1],
+										this.bounds[2],
+										this.bounds[3]
+									)
+								}
+							}
+						}
+					},
+					attackInstance:	{
+						objects:	[],
+						addObject:	function(game, e, objName)	{
+							// Variables
+							let	obj=	(new e.attackObjects[objName]());
+							
+							obj.init(game, e);
+							this.objects.push(obj);
+						},
+						update:	function(game, e)	{
+							for(let i= this.objects.length-1; i>= 0; i--)	{
+								if(this.objects[i].destroyFlag)	{
+									this.objects.splice(i, 1);
+									break;
+								}
+								this.objects[i].update(game, e);
+							}
+						},
+						draw:	function(game, e)	{
+							for(let i= this.objects.length-1; i>= 0; i--)	{
+								this.objects[i].draw(game, e);
+							}
+						}
+					},
+					init:	function(game)	{
+						console.log("Enemy initiated");
+						this.bounds[0]=	game.width()-35;
+						this.bounds[1]=	game.height()-60;
+						this.attackInstance.addObject(game, this, "spitfire");
+						setTimeout(function()	{
+							this.attackInstance.addObject(game, this, "spitfire");
+						}.bind(this), 1000);
+						setTimeout(function()	{
+							this.attackInstance.addObject(game, this, "spitfire");
+						}.bind(this), 2000);
+						setTimeout(function()	{
+							this.attackInstance.addObject(game, this, "spitfire");
+						}.bind(this), 2200);
+					},
+					update:	function(game)	{
+						this.attackInstance.update(game, this);
+						this.t.attack+=	Timer.deltaT();
+						if(this.t.attack>= this.d.attack)
+							this.t.attack=	0;
+					},
+					draw:	function(game)	{
+						game.context.fillStyle=	"#d40f0f";
+						game.context.fillRect(
+							this.bounds[0],
+							this.bounds[1],
+							this.bounds[2],
+							this.bounds[3]
+						);
+						if(this.isAttacking)	{
+							this.attackInstance.draw(game, this);
+						}
+					}
+				},
+				player:	{
+					name:	"player",
+					stats:	{
+						hp:	35,
+						atk:	10,
+						def:	10,
+						spd:	10
+					},
+					bounds:	[10, 0, 25, 50],
+					temp:	{
+						jumpY:	0
+					},
+					jumping:	false,
+					h:	{
+						jump:	false
+					},
+					t:	{
+						jump:	0
+					},
+					d:	{
+						jump:	1.4
+					},
+					init:	function(game)	{
+						console.log("Player initiated");
+						this.bounds[1]=	game.height()-60;
+					},
+					hurt:	function(dmg)	{
+						this.stats.hp=	Math.max(this.stats.hp-Math.max(dmg-this.stats.def, 0), 0);
+						console.log("HP: ", this.stats.hp);
+					},
+					update:	function(game)	{
+						if(!this.jumping && !this.h.jump && Timer.keys[" "])	{
+							this.h.jump=	true;
+							this.jumping=	true;
+							this.t.jump=	0;
+							this.temp.jumpY=	this.bounds[1];
+						}
+						else if(this.h.jump && !Timer.keys[" "])	{
+							this.h.jump=	false;
+						}
+						if(this.t.jump>= this.d.jump)	{
+							this.jumping=	false;
+						}
+						if(this.jumping)	{
+							this.t.jump+=	Timer.deltaT();
+							
+							// Variables
+							let	tx=	this.t.jump/this.d.jump;
+							
+							this.bounds[1]=	this.temp.jumpY-100*Math.sin(
+								Math.PI*Math.min(tx, 1)
+							);
+						}
+					},
+					draw:	function(game)	{
+						game.context.fillStyle=	"#0f0fd4";
+						game.context.fillRect(
+							this.bounds[0],
+							this.bounds[1],
+							this.bounds[2],
+							this.bounds[3]
+						);
+					}
+				},
+				width:	function()	{	return this.canvas.width;	},
+				height:	function()	{	return this.canvas.height;	},
+				turn:	[],
+				init:	function()	{
+					console.log("Game initiated");
+					this.canvas.width=	800;
+					this.canvas.width=	600;
+					
+					this.turn=	[this.player, this.enemy];
+					
+					this.player.init(this);
+					this.enemy.init(this);
+				},
+				update:	function()	{
+					this.player.update(this);
+					this.enemy.update(this);
+				},
+				draw:	function()	{
+					this.context.clearRect(0, 0, this.width(), this.height());
+					this.player.draw(this);
+					this.enemy.draw(this);
+				},
+				collision:	function(le, re)	{
+					// X is out of the range
+					if(le.bounds[0]+le.bounds[2]< re.bounds[0] || le.bounds[0]> re.bounds[0]+re.bounds[2])
+						return false;
+					// Y is out of the range
+					if(le.bounds[1]+le.bounds[3]< re.bounds[1] || le.bounds[1]> re.bounds[1]+re.bounds[3])
+						return false;
+					return true;
+				}
+			};
+			
+			Timer.start(game);
+		</script>
+	</body>
+</html>
