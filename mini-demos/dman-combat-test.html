@@ -23,7 +23,7 @@
 						def:	10,
 						spd:	10
 					},
-					bounds:	[10, 0, 25, 50],
+					bounds:	[24, 0, 25, 50],
 					t:	{
 						attack:	0
 					},
@@ -95,7 +95,7 @@
 					},
 					init:	function(game)	{
 						console.log("Enemy initiated");
-						this.bounds[0]=	game.width()-35;
+						this.bounds[0]=	game.width()-15-this.bounds[0];
 						this.bounds[1]=	game.height()-60;
 						this.attackInstance.addObject(game, this, "spitfire");
 						setTimeout(function()	{
@@ -135,7 +135,7 @@
 						def:	10,
 						spd:	10
 					},
-					bounds:	[10, 0, 25, 50],
+					bounds:	[24, 0, 25, 50],
 					temp:	{
 						jumpY:	0
 					},

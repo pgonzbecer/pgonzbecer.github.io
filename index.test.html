@@ -3,78 +3,188 @@
 
 <html>
 	<head>
-		<style>
-			body	{
-				margin:	0px;
-			}
-			canvas	{
-				width:	100%;
-				height:	100%;
-			}
-		</style>
+		<title>Paul's Webdoodles</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="fontawesome/css/font-awesome.css"/>
 	</head>
+	
 	<body>
-		<script src="js/three.js"></script>
-		<script>
-			// Variables
-			var	scene=	new THREE.Scene();
-			var	camera=	new THREE.PerspectiveCamera(
-				75,
-				innerWidth/innerHeight,
-				0.1,
-				1000
-			);
-			var	renderer=	new THREE.WebGLRenderer();
-			var	geometry=	new THREE.BoxGeometry(1, 1, 1);
-			var	material=	new THREE.MeshBasicMaterial({
-				color:	0x00ff00
-			});
-			var	cube=	new THREE.Mesh(geometry, material);
-			var	geom=	new THREE.Geometry();
-			var	gmat=	new THREE.LineBasicMaterial({
-				color:	0x0000ff
-			});
-			var	line=	new THREE.Line(geom, gmat);
-			var	gmesh=	new THREE.Mesh(geom, material);
-			var	fontLoader=	new THREE.FontLoader();
-			var	text;
-			
-			fontLoader.load("fonts/optimer.typeface.json", function(font)	{
-				text=	new THREE.TextGeometry(
-					"pgonzbecer",
-					{
-						font:	font,
-						size:	12,
-						height:	1,
-						bevelSize:	0
+		<div class="navigation">
+			<div class="logo">
+				<img id="img-logo"/>
+			</div>
+		</div>
+		<div class="content">
+			<div class="filters">
+				<span class="filter" data="android">
+					Android
+				</span><span class="filter" data="graphics">
+					Graphics
+				</span><span class="filter" data="webapp">
+					Web Apps
+				</span><span class="filter search">
+					<input id="search-text" type="text" placeholder="search"/>
+					<button>
+						<span class="fa fa-search"></span>
+					</button>
+				</span>
+			</div>
+			<div class="projects">
+				
+			</div>
+			<div class="footer"></div>
+			<!--
+			<div class="project preview" data="falcid opengl computer graphics">
+				<div class="project-images">
+					<img src="images/opengraph1.jpg"></img>
+					<img src="images/opengraph2.gif"></img>
+					<img src="images/opengraph3.gif"></img>
+				</div>
+				<div class="project-title"><span>Lorem Ipsum<span></div>
+				<div class="project-desc">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie, purus ac eleifend viverra, massa ex vulputate lectus, vitae varius ante sapien faucibus magna. Ut venenatis neque eu lobortis faucibus. Morbi consequat ex a ex commodo, at convallis risus egestas. Morbi augue sem, luctus sed purus at, dapibus iaculis quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum dignissim enim, eget auctor tellus luctus sed. Nullam scelerisque augue vel consectetur tempor. Donec id pretium augue, et rhoncus justo. Mauris fermentum elit et dui molestie, quis molestie justo luctus. Nunc euismod varius aliquam. Donec ultrices vulputate felis sed blandit. Sed nec commodo ex. In posuere magna non scelerisque iaculis. Proin fringilla nunc eget nibh laoreet cursus. Sed tristique ex a condimentum placerat. Pellentesque suscipit dapibus orci, eget vulputate quam rutrum vitae. Praesent urna nibh, tempus eu aliquet id, blandit non nisi. Quisque efficitur tellus pretium risus feugiat sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec porta a nibh quis auctor. Sed efficitur est quis augue finibus fermentum. Integer hendrerit orci ac eros congue luctus. Vestibulum gravida, mauris non vulputate lobortis, felis enim condimentum arcu, vel scelerisque libero magna vel dui. Nunc in fermentum ex. Phasellus a pellentesque lorem. Quisque suscipit id ligula in auctor. Nam maximus imperdiet lectus sit amet pharetra. Duis euismod placerat lacus non tempus. Mauris tristique eu ante at faucibus. In vel enim enim. Mauris vel eros nulla. Nunc vulputate felis tellus, et consectetur nisl imperdiet non. Sed felis orci, posuere sit amet efficitur non, pulvinar eget lacus. Duis id dignissim metus, non lacinia ante. Cras id odio in leo placerat pulvinar nec non massa. Vivamus bibendum, risus nec congue ultrices, nisl nunc molestie nibh, in faucibus turpis ante sed sapien. Duis quis auctor sapien, auctor tincidunt sem. Maecenas lorem massa, elementum vel posuere quis, tincidunt eu ligula. Nunc vel laoreet ipsum. Nullam quis lacus ac nibh tempus faucibus. Cras porta, felis vitae volutpat consequat, purus justo bibendum diam, at fringilla sapien lacus et libero. Maecenas et pulvinar ex. Donec sit amet risus at purus ultrices euismod sagittis id quam. Duis finibus massa id sapien finibus, sit amet molestie lorem hendrerit. Ut in feugiat eros. Donec lobortis vel risus vel feugiat. Nulla nec dignissim tellus, non tincidunt massa. Nam ornare orci ac congue blandit. Proin dui tortor, dictum id laoreet eget, facilisis sed lacus. Maecenas in sem consequat, tincidunt lectus id, efficitur erat. Morbi fermentum ipsum et lectus luctus, et porta sapien volutpat.
+				</div>
+				<div class="project-expand">
+					<span class="fa fa-caret-down"></span>
+				</div>
+			</div>
+			/-->
+		</div>
+		<script type="text/javascript">
+			(function()	{
+				window.addEventListener("load", function()	{
+					// Variables
+					let	content=	document.getElementsByClassName("projects")[0];
+					let	items=	[
+						new ProjectItem({
+							images:	["images/opengraph1.jpg","images/opengraph2.gif"],
+							title:	"Open Graphing Calculator",
+							desc:	(
+								"Open Graphing Calculator began as an exercise that was "+
+								"used to learn a little about creating web applications. "+
+								"And we are still working on it. The goal is to make use "+
+								"of existing libraries to create something useful in a "+
+								"short amount of time. Feel free to fork the source on "+
+								"GitHub, submit issues, and contribute."
+							),
+							tags:	[
+								"open", "graphing", "calculator",
+								"graphics", "webapp", "web", "app"
+							]
+						}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({}),
+						new ProjectItem({})
+					];
+					let	filters=	document.getElementsByClassName("filters")[0];
+					
+					filters=	filters.getElementsByClassName("filter");
+					
+					for(let i= 0; i< filters.length-1; i++)	{
+						filters[i].addEventListener("click", function(args)	{
+							if(!args.target.attributes.data)
+								return;
+							filterItems([args.target.attributes.data.value]);
+							document.getElementById("search-text").value=	args.target.attributes.data.value;
+						});
 					}
-				);
-				gmesh=	new THREE.Mesh(text, material);
-			scene.add(gmesh);
-				console.log(gmesh);
-			});
-			
-			/*geom.vertices.push(new THREE.Vector3(10, 0, 0));
-			geom.vertices.push(new THREE.Vector3(0, 10, 0));
-			geom.vertices.push(new THREE.Vector3(-10, 0, 0));
-			geom.vertices.push(new THREE.Vector3(-10, 0, 0));
-			geom.vertices.push(new THREE.Vector3(-20, -10, 0));
-			geom.vertices.push(new THREE.Vector3(0, -10, 0));
-			*/
-			renderer.setSize(innerWidth, innerHeight);
-			//scene.add(cube);
-			scene.add(line);
-			camera.position.set(0, 0, 100);
-			camera.lookAt(new THREE.Vector3(0, 0, 0));
-			document.body.appendChild(renderer.domElement);
-			
-			function animate()	{
-				requestAnimationFrame(animate);
-				cube.rotation.x+=	0.1;
-				cube.rotation.y+=	0.1;
-				renderer.render(scene, camera);
-			}
-			animate();
+					
+					function filterItems(tags)	{
+						// Variables
+						let	str=	"";
+						
+						content.innerHTML=	"";
+						
+						for(let a= 0; a< items.length; a++)	{
+							if(tags== null || tags== "")	{
+								str=	items[a].getHTML();
+							}
+							else	{
+								for(let b= 0; b< tags.length; b++)	{
+									if(items[a].containsTag(tags[b]))	{
+										str=	items[a].getHTML();
+										break;
+									}
+								}
+							}
+							content.innerHTML+=	str;
+							str=	"";
+						}
+					}
+					filterItems();
+				});
+				
+				function ProjectItem(options)	{
+					// Variables
+					this.images=	options.images;
+					this.title=	options.title;
+					this.desc=	options.desc;
+					this.tags=	options.tags || [];
+					
+					this.getHTML=	function()	{
+						// Variables
+						let	str=	"";
+						
+						str=	"<div class='project preview'>";
+							str+=	"<div class='project-images'>";
+								if(this.images)	{
+									for(let i= 0; i< this.images.length; i++)	{
+										str+=	"<img src='"+this.images[i]+"'></img>";
+									}
+								}
+								else	{
+									str+=	"<img src='images/opengraph2.gif'></img>";
+								}
+							str+=	"</div>";
+							str+=	"<div class='project-title'>";
+								if(this.title)	{
+									str+=	this.title;
+								}
+								else	{
+									str+=	"Name in Progress";
+								}
+							str+=	"</div>"
+							str+=	"<div class='project-desc'>";
+								if(this.desc)	{
+									str+=	this.desc;
+								}
+							str+=	"</div>";
+							str+=	"<div class='project-expand'>";
+								str+=	"<span class='fa fa-caret-down'></span>";
+							str+=	"</div>";
+						str+=	"</div>";
+						
+						return str;
+					};
+					
+					this.containsTag=	function(tag)	{
+						for(let i= 0; i< this.tags.length; i++)	{
+							if(this.tags[i]== tag)	{
+								return true;
+							}
+						}
+						
+						return false;
+					}
+				}
+			})();
 		</script>
 	</body>
 </html>
