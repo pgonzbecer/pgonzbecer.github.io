@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Procedurally-Generated Road - Roadster coming soon</title>
+	</head>
+	
+	<body>
+		<script src="../js/three.js"></script>
+		<script src="../js/threeHelper.js"></script>
+		<script>
+			TTK.init();
+			
+			// Variables
+			let	up=	new THREE.Vector3(0, 0, 1);
+			let	roadDepth=	96;
+			let	halfRoadWidth=	roadDepth/4;
+			let	road=	createRoad();
+			let	roadOutline=	TTK.createMeshOutline(road, {
+				color:	0xff00ff
+			});
+			let	isDragging=	false;
+			let	mouse=	[0,0];
+			let	delta=	new THREE.Vector2();
+			let	idletimer;
+			let	idlefunc=	function()	{
+				if(!isDragging)	{
+					idlebreak();
+					return;
+				}
+				TTK.camera.position.x+=	((roadDepth/4)*delta.x);
+				TTK.camera.position.y-=	((roadDepth/4)*delta.y);
+				
+			};
+			let	idlestart=	function()	{
+				if(idletimer== undefined || idletimer== null)	{
+					idletimer=	setInterval(idlefunc, 25);
+				}
+			};
+			let	idlebreak=	function()	{
+				clearInterval(idletimer);
+				idletimer=	null;
+			};
+			
+			TTK.scene.add(road);
+			TTK.scene.add(roadOutline);
+			
+			TTK.camera.position.set(0, 0, 10000);
+			TTK.camera.lookAt(new THREE.Vector3(0, 0, 0));
+			
+			TTK.renderer.setSize(innerWidth, innerHeight);
+			
+			TTK.renderer.domElement.addEventListener("wheel", function(args)	{
+				args.preventDefault();
+				TTK.camera.position.z+=	(roadDepth*(args.deltaY/100));
+			});
+			TTK.renderer.domElement.addEventListener("mousedown", function(args)	{
+				isDragging=	true;
+				mouse=	[args.clientX, args.clientY];
+				delta.set(0, 0);
+			});
+			TTK.renderer.domElement.addEventListener("mouseup", function(args)	{
+				isDragging=	false;
+			});
+			TTK.renderer.domElement.addEventListener("mousemove", function(args)	{
+				if(!isDragging)
+					return;
+				
+				delta.set(
+					args.clientX-mouse[0],
+					args.clientY-mouse[1]
+				);
+				
+				delta.normalize();
+				
+				//idlefunc();
+				idlestart();
+				
+				//mouse=	[args.clientX, args.clientY];
+			});
+			TTK.renderer.domElement.addEventListener("mouseover", function(args)	{
+				console.log(args);
+			});
+			
+			document.body.appendChild(TTK.renderer.domElement);
+			
+			TTK.startAnimation();
+			
+			function createRoad()	{
+				// Variables
+				let	vertices=	(function()	{
+					// Variables
+					let	currPos=	new THREE.Vector3(0, -50, 0);
+					let	nextDir=	new THREE.Vector3(0, 1, 0);
+					let	perp=	new THREE.Vector3();
+					let	theta=	0;
+					let	pts=	[];
+					let	temp=	new THREE.Vector3();
+					let	down=	new THREE.Vector3(0, 0, -2);
+					
+					perp.crossVectors(nextDir, up);
+					perp.multiplyScalar(halfRoadWidth);
+					
+					temp.addVectors(currPos, perp);
+					pts.push(temp.clone());
+					temp.subVectors(currPos, perp);
+					pts.push(temp.clone());
+					for(let i= 0; i< 500; i++)	{
+						temp.set(nextDir.x, nextDir.y, nextDir.z);
+						temp.multiplyScalar(roadDepth);
+						currPos.add(temp.clone());
+						down.add(new THREE.Vector3(0, 0, -2));
+						temp.addVectors(currPos, perp);
+						temp.add(down);
+						pts.push(temp.clone());
+						temp.subVectors(currPos, perp);
+						temp.add(down);
+						pts.push(temp.clone());
+						theta+=	((Math.random()*(0.5*Math.PI))-(0.25*Math.PI));
+						theta%=	(2*Math.PI);
+						nextDir.set(
+							Math.sin(theta),
+							Math.cos(theta),
+							0
+						);
+						perp.crossVectors(nextDir, up);
+						perp.multiplyScalar(halfRoadWidth);
+					}
+					
+					return pts;
+				})();
+				let	indices=	(function(sz)	{
+					// Variables
+					let	idc=	[];
+					
+					for(let i= 0; i< sz; i+= 2)	{
+						if(i+3>= sz)
+							break;
+						// Face A
+						idc.push(i+3);
+						idc.push(i+1);
+						idc.push(i);
+						// Face B
+						idc.push(i+2);
+						idc.push(i+3);
+						idc.push(i);
+					}
+					
+					return idc;
+				})(vertices.length);
+				
+				return TTK.createMesh(vertices, indices, {
+					color: 0x00ff00
+				});
+			};
+		</script>
+	</body>
+</html>
