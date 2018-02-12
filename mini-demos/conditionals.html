@@ -23,10 +23,12 @@
 			
 			btn.addEventListener("click", function()	{
 				// Variables
-				var	eqTree=	PAML.createEquationTree(txt.value, [
-					{	command:	"and",	priority:	2	},
-					{	command:	"or",	priority:	1	}
-				]);
+				var	p=	PAML.createConditionTree(txt.value);
+				var	q=	p.rebuild();
+				var	t=	PAML.createTruthTable(p.build(), q);
+				
+				for(var i= 0; i< t.length; i++)
+					output.innerHTML+=	t[i]+"<br/>";
 			});
 		</script>
 	</body>
