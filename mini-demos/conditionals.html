@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>If this, then that</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="input-stuff">
+				<input type="text" id="txt" placeholder="if-then statement"/>
+				<button id="btn">Do the thing!</button>
+			</div>
+			<div id="output"></div>
+		</div>
+		<script src="../js/PAML.js"></script>
+		<script type="text/javascript">
+			// Variables
+			var	txt=	document.getElementById("txt");
+			var	btn=	document.getElementById("btn");
+			var	output=	document.getElementById("output");
+			
+			btn.addEventListener("click", function()	{
+				// Variables
+				var	eqTree=	PAML.createEquationTree(txt.value, [
+					{	command:	"and",	priority:	2	},
+					{	command:	"or",	priority:	1	}
+				]);
+			});
+		</script>
+	</body>
+</html>
