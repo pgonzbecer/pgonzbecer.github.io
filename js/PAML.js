@@ -107,11 +107,12 @@ var	PAML=	(function()	{
 	};
 	var	createConditionTree=	function(str)	{
 		// Variables
-		var	exprs=	getNestedExpressions(str);	console.log(exprs);
+		var	exprs=	getNestedExpressions(str);
 		var	str=	exprs.str;	exprs=	exprs.exprs;
 		var	tree=	new Node(str);
 		var	stack=	[];
 		var	p=	null;
+		var	demorgans=	false;
 		
 		function Node(__value)	{
 			// Variables
@@ -179,40 +180,74 @@ var	PAML=	(function()	{
 		
 		while(stack.length> 0)	{
 			p=	stack.pop();
+			demorgans=	false;
+			var	m=	p.value.match(/x\_[0-9]+/);
+			if(m && m== p.value.replace("not", "").trim())	{
+				p.value=	p.value.replace(/x\_[0-9]+/g, function(arg)	{
+					if(p.value.indexOf("not "+arg)!= -1)
+						demorgans=	true;
+					return exprs["x_"+arg.substring(2)];
+				});
+			}
 			
-			p.value=	p.value.replace(/x\_[0-9]+/g, function(arg)	{
+			/*p.value=	p.value.replace(/x\_[0-9]+/g, function(arg)	{
+				if(p.value.indexOf("not "+arg)!= -1)
+					demorgans=	true;
 				return exprs["x_"+arg.substring(2)];
-			});
+			});*/
+			
+			console.log(p.value);
 			
 			if(p.isNull())	{
-				// Variables
-				var	conditions=	["or", "||", "and", "&&"];
-				var	_condition;
-				
-				for(var a= 0; a< conditions.length; a++)	{
-					_condition=	splitFirst(p.value, conditions[a]);
-					if(_condition)	{
-						for(var i= 0; i< 2; i++)	{
-							// Variables
-							var	m=	_condition[i].match(/(x\_[0-9]*)/);
-							
-							if(m)
-								_condition[i]=	_condition[i].replace(m[0], exprs[m[0]]);
-						}
-						
-						// Variables
-						var	lnode=	new Node(_condition[0]);
-						var	rnode=	new Node(_condition[1]);
-						
-						p.left=	lnode;
-						p.right=	rnode;
-						p.value=	conditions[a];
-						break;
+				if(demorgans)	{
+					if(p.value.toLowerCase().indexOf("not")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("not", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("~")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("~", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("¬")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("¬", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("!")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("!", "").trim());
+						p.value=	"not";
 					}
 				}
-				
-				// Last stop. Check for nots
-				if(p.isNull())	{
+				else	{
+					// Variables
+					var	conditions=	["or", "||", "and", "&&"];
+					var	_condition;
+					
+					for(var a= 0; a< conditions.length; a++)	{
+						_condition=	splitFirst(p.value, conditions[a]);
+						if(_condition)	{
+							console.log(_condition);
+							for(var i= 0; i< 2; i++)	{
+								// Variables
+								var	m=	_condition[i].match(/(x\_[0-9]+)/);
+								
+								if(m== _condition[i])
+									_condition[i]=	exprs[m[0]];
+							}
+							
+							// Variables
+							var	lnode=	new Node(_condition[0]);
+							var	rnode=	new Node(_condition[1]);
+							
+							p.left=	lnode;
+							p.right=	rnode;
+							p.value=	conditions[a];
+							break;
+						}
+					}
 					if(p.value.toLowerCase().indexOf("not")!= -1)	{
 						p.left=	new Node("");
 						p.right=	new Node(p.value.replace("not", "").trim());
@@ -240,8 +275,8 @@ var	PAML=	(function()	{
 			if(p.left)
 				stack.push(p.left);
 		}
-		
-		console.log(tree.build(true));
+		console.log(tree);
+		console.log(tree.build(false));
 		
 		return tree;
 	};
@@ -264,8 +299,7 @@ var	PAML=	(function()	{
 		var	str=	__str;
 		var	scope=	getFirstScope(str, '(', ')');
 		var	xoff=	0;
-		
-		console.log(scope);
+		var	done=	false;
 		
 		while(!scope.err)	{
 			exprs["x_"+xoff]=	str.substring(scope.min+1, scope.max);
@@ -273,6 +307,8 @@ var	PAML=	(function()	{
 			xoff++;
 			scope=	getFirstScope(str, '(', ')');
 		}
+		
+		console.log(str);
 		
 		return {str: str, exprs: exprs};
 	};
