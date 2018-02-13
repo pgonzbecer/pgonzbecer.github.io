@@ -9,45 +9,105 @@ Created by Paul Gonzalez-Becerra
 
 var	PAML=	(function()	{
 	// Variables
-	var	createTruthTable=	function(str, exprs)	{
+	var	getSectionedConditionals=	function(str, exprs)	{
 		// Variables
-		var	len=	exprs.len;
-		var	trueLen=	Math.pow(2, len);
-		var	modulus;
-		var	tempStr=	"";
-		var	bx=	false;
-		var	truths=	[];
-		var	strs=	[];
+		var	scopes=	getScopes(str, '(', ')');
+		var	sections=	[];
 		
-		for(var a= 0; a< len; a++)	{
-			truths[a]=	[];
-			modulus=	Math.pow(2, len-a-1);
-			console.log(modulus);
-			for(var b= 0; b< trueLen; b++)	{
-				if(b%modulus== 0)
-					bx=	!bx;
-				truths[a][b]=	bx;
-			}
+		for(var i= 0; i< scopes.length; i++)	{
+			sections.push(str.substring(scopes[i].min+1, scopes[i].max));
 		}
-		truths.len=	truths[0].length;
 		
-		console.log(str);
-		for(var a= 0; a< truths[0].length; a++)	{
-			tempStr=	str;
-			for(var b= 0; b< truths.length; b++)	{
+		return sections;
+	};
+	var	createTruthTable=	function(tree, exprs)	{
+		// Variables
+		var	table=	new Table(tree.build(true), exprs, Math.pow(2, exprs.len));
+		
+		function Table(__str, __exprs, __length)	{
+			// Variables
+			this.str=	__str;
+			this.size=	__length;
+			this.data=	[];
+			this.headers=	[];
+			this.sections=	getSectionedConditionals(__str, __exprs);
+			
+			// Creates the base truth table
+			{
 				// Variables
-				var	reg=	new RegExp("P\_"+b, 'g');
+				var	tes=	this.size/2;
+				var	bvalue;
 				
-				tempStr=	tempStr.replace(reg, truths[b][a]);
+				for(var a= 0; a< __exprs.len; a++)	{
+					this.headers[a]=	__exprs["P_"+a];
+					this.data[a]=	[];
+					bvalue=	false;
+					for(var b= 0; b< this.size; b++)	{
+						if(b%tes== 0)
+							bvalue=	!bvalue;
+						this.data[a][b]=	bvalue;
+					}
+					tes/=	2;
+				}
 			}
-			strs.push(tempStr);
+			// Creates the sectioned truth table
+			{
+				// Variables
+				var	baselength=	this.headers.length;
+				var	temp=	this.str;
+				
+				for(var a= baselength; a< baselength+this.sections.length; a++)	{
+					this.headers[a]=	this.sections[a-baselength].replace(/P\_[0-9]+/g, function(arg)	{
+						return __exprs[arg];
+					}.bind(this)).replace(/\&\&/g, "and").replace(/\|\|/g, "or").replace(/\!/g, "not");
+					this.data[a]=	[];
+					
+					for(var b= 0; b< this.size; b++)	{
+						temp=	this.sections[a-baselength].replace(/P\_([0-9]+)/g, function(arg)	{
+							return this.data[1*arg.substring(2)][b];
+						}.bind(this)).replace(/not/g, "!");
+						
+						this.data[a][b]=	eval(temp);
+					}
+				}
+			}
+			
+			this.toHTML=	function()	{
+				// Variables
+				var	table=	document.createElement("table");
+				var	tr, th, td;
+				
+				for(var a= 0; a< this.headers.length; a++)	{
+					tr=	document.createElement("tr");
+					th=	document.createElement("th");
+					th.innerHTML=	this.headers[a];
+					tr.append(th);
+					for(var b= 0; b< this.size; b++)	{
+						td=	document.createElement("td");
+						td.innerHTML=	this.data[a][b];
+						if(this.data[a][b]== true)	{
+							td.innerHTML=	"T";
+							td.classList.add("cc-true");
+						}
+						else if(this.data[a][b]== false)	{
+							td.innerHTML=	"F";
+							td.classList.add("cc-false");
+						}
+						
+						tr.append(td);
+					}
+					table.append(tr);
+				}
+				
+				return table;
+			};
 		}
 		
-		return strs;
+		return table;
 	};
 	var	createConditionTree=	function(str)	{
 		// Variables
-		var	exprs=	getNestedExpressions(str);
+		var	exprs=	getNestedExpressions(str);	console.log(exprs);
 		var	str=	exprs.str;	exprs=	exprs.exprs;
 		var	tree=	new Node(str);
 		var	stack=	[];
@@ -60,17 +120,18 @@ var	PAML=	(function()	{
 			this.value=	__value;
 			
 			this.isNull=	function()	{	return (this.left== null && this.right== null);	};
-			this.build=	function()	{
+			this.build=	function(replaces)	{
 				// Variables
 				var	str=	"";
 				
 				if(this.left)
-					str+=	"("+this.left.build();
-				str+=	" "+this.value
+					str+=	"("+this.left.build(replaces);
+				str+=	" "+(replaces ? (this.value
 					.replace("and", "&&")
-					.replace("or", "||")+" ";
+					.replace("or", "||")
+					.replace("not", "!")) : this.value)+" ";
 				if(this.right)
-					str+=	this.right.build()+")";
+					str+=	this.right.build(replaces)+")";
 				
 				return str.trim();
 			};
@@ -85,7 +146,7 @@ var	PAML=	(function()	{
 				return _exprs;
 			};
 			this.rebuildFull=	function(num, _exprs)	{
-				if(this.left)	{
+				if(this.left && this.value!= "not")	{
 					num=	this.left.rebuildFull(num, _exprs);
 				}
 				if(this.isNull())	{
@@ -118,9 +179,14 @@ var	PAML=	(function()	{
 		
 		while(stack.length> 0)	{
 			p=	stack.pop();
+			
+			p.value=	p.value.replace(/x\_[0-9]+/g, function(arg)	{
+				return exprs["x_"+arg.substring(2)];
+			});
+			
 			if(p.isNull())	{
 				// Variables
-				var	conditions=	["or", "and"];
+				var	conditions=	["or", "||", "and", "&&"];
 				var	_condition;
 				
 				for(var a= 0; a< conditions.length; a++)	{
@@ -138,12 +204,34 @@ var	PAML=	(function()	{
 						var	lnode=	new Node(_condition[0]);
 						var	rnode=	new Node(_condition[1]);
 						
-						console.log(_condition);
-						
 						p.left=	lnode;
 						p.right=	rnode;
 						p.value=	conditions[a];
 						break;
+					}
+				}
+				
+				// Last stop. Check for nots
+				if(p.isNull())	{
+					if(p.value.toLowerCase().indexOf("not")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("not", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("~")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("~", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("¬")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("¬", "").trim());
+						p.value=	"not";
+					}
+					else if(p.value.toLowerCase().indexOf("!")!= -1)	{
+						p.left=	new Node("");
+						p.right=	new Node(p.value.replace("!", "").trim());
+						p.value=	"not";
 					}
 				}
 			}
@@ -153,8 +241,7 @@ var	PAML=	(function()	{
 				stack.push(p.left);
 		}
 		
-		console.log(tree);
-		
+		console.log(tree.build(true));
 		
 		return tree;
 	};
@@ -171,86 +258,23 @@ var	PAML=	(function()	{
 			index
 		];
 	};
-	var	getNestedExpressions=	function(str)	{
+	var	getNestedExpressions=	function(__str)	{
 		// Variables
 		var	exprs=	{};
-		var	scopes=	getScopes(str, '(', ')');
+		var	str=	__str;
+		var	scope=	getFirstScope(str, '(', ')');
 		var	xoff=	0;
-		var	temp=	{
-			a:	0,
-			min:	-1,
-			max:	0,
-			scope:	0,
-			counter:	0
-		};
 		
-		console.log(scopes);
+		console.log(scope);
 		
-		// Grab all the scopes
-		for(var i= 0; i< scopes.length; i++)	{
-			if(scopes[i].min+1== scopes[i].max)
-				continue;
-			if(temp.min== -1)	{
-				temp.a=	scopes[i].max-scopes[i].min;
-				temp.scope=	scopes[i].scope;
-				exprs["x_"+xoff]=	str.substring(
-					scopes[i].min+1,
-					scopes[i].max
-				);
-				console.log(exprs["x_"+xoff]);
-				str=	(
-					str.substring(0, scopes[i].min)+
-					"x_"+xoff+
-					str.substring(scopes[i].max+1)
-				);
-				temp.a-=	("x_"+xoff).length;
-			}
-			else	{
-				if(scopes[i].scope== 1)
-					temp.a+=	temp.counter+1;
-				if(isPast(scopes[i], temp))	{
-					temp.min=	temp.a;
-					temp.max=	temp.a;
-				}
-				else if(isWithin(scopes[i], temp))	{
-					temp.min=	0;
-					temp.max=	temp.a;
-				}
-				else	{
-					temp.min=	0;
-					temp.max=	0;
-				}
-				temp.a-=	temp.counter-1;
-				temp.a+=	(scopes[i].max-scopes[i].min);
-				exprs["x_"+xoff]=	str.substring(
-					scopes[i].min+1-temp.min,
-					scopes[i].max-temp.max
-				);
-				console.log(exprs["x_"+xoff]);
-				str=	(
-					str.substring(0, scopes[i].min+temp.counter-temp.min)+
-					" x_"+xoff+" "+
-					str.substring(scopes[i].max+1-temp.max)
-				);
-				if(temp.scope!= scopes[i].scope)	{
-					temp.scope=	scopes[i].scope;
-					temp.a=	(scopes[i].max-scopes[i].min);
-					temp.counter=	0;
-					console.log("!!!!!!!!!!!!!!!!!!!!!!!");
-				}
-				else if(temp.scope== 1)
-					temp.counter++;
-				temp.a-=	(" x_"+xoff+" ").length;
-				console.log(scopes[i], temp);
-			}
-			console.log(str);
+		while(!scope.err)	{
+			exprs["x_"+xoff]=	str.substring(scope.min+1, scope.max);
+			str=	str.substring(0, scope.min)+"x_"+xoff+str.substring(scope.max+1);
 			xoff++;
-			
-			temp.min=	scopes[i].min;
-			temp.max=	scopes[i].max
+			scope=	getFirstScope(str, '(', ')');
 		}
 		
-		return {str:str,exprs:exprs};
+		return {str: str, exprs: exprs};
 	};
 	var	isPast=	function(scope, temp)	{
 		return (temp.max< scope.min);
@@ -258,6 +282,50 @@ var	PAML=	(function()	{
 	var	isWithin=	function(scope, temp)	{
 		return (scope.min< temp.min && scope.max> temp.max);
 	}
+	var	getFirstScope=	function(str, opening, closing)	{
+		// Variables
+		var	oidx=	-1;
+		var	cidx=	-1;
+		var	idx=	-1;
+		var	pidx=	-1;
+		
+		while(++idx< str.length)	{
+			oidx=	str.indexOf(opening, idx);
+			cidx=	str.indexOf(closing, idx);
+			
+			if(oidx== cidx)
+				break;
+			else if(oidx*cidx< 0)	{
+				idx=	Math.max(oidx, cidx);
+				if(idx== cidx)	{
+					return	{
+						min:	pidx,
+						max:	idx,
+						err:	false
+					};
+				}
+			}
+			else	{
+				idx=	Math.min(oidx, cidx);
+				if(idx== oidx)	{
+					pidx=	idx;
+				}
+				else	{
+					return	{
+						min:	pidx,
+						max:	idx,
+						err:	false
+					};
+				}
+			}
+		}
+		
+		return	{
+			min:	-1,
+			max:	-1,
+			err:	true
+		};
+	};
 	var	getScopes=	function(str, opening, closing)	{
 		// Variables
 		var	oidx=	-1;

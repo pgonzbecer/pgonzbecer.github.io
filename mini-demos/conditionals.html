@@ -4,6 +4,36 @@
 <html>
 	<head>
 		<title>If this, then that</title>
+		<style>
+			body	{
+				margin:	16px;
+			}
+			table	{
+				margin:	0px;
+				border-spacing:	0px;
+			}
+			tr	{
+				background-color:	#fffaff;
+				border:	none;
+			}
+			tr:nth-child(2n+1)	{
+				background-color:	#dbdbdb;
+			}
+			th	{
+				min-width:	64px;
+			}
+			td	{
+				min-width:	48px;
+				border-left:	0.5px dotted black;
+				border-right:	0.5px dotted black;
+				border-top:	0.5px solid #101820;
+				border-bottom:	0.5px solid #101820;
+				text-align:	center;
+			}
+			
+			.cc-true	{	color:	#4d4dff;	}
+			.cc-false	{	color:	#ff4d4d;	}
+		</style>
 	</head>
 	
 	<body>
@@ -25,10 +55,10 @@
 				// Variables
 				var	p=	PAML.createConditionTree(txt.value);
 				var	q=	p.rebuild();
-				var	t=	PAML.createTruthTable(p.build(), q);
+				var	t=	PAML.createTruthTable(p, q);
 				
-				for(var i= 0; i< t.length; i++)
-					output.innerHTML+=	t[i]+"<br/>";
+				output.innerHTML=	"";
+				output.append(t.toHTML());
 			});
 		</script>
 	</body>
