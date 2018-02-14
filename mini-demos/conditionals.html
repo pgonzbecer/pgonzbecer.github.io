@@ -31,6 +31,11 @@
 				text-align:	center;
 			}
 			
+			tr.duplicate	{
+				height:	128px;
+			}
+			
+			.hidden	{	display:	none;	}
 			.cc-true	{	color:	#4d4dff;	}
 			.cc-false	{	color:	#ff4d4d;	}
 		</style>
@@ -41,6 +46,7 @@
 			<div class="input-stuff">
 				<input type="text" id="txt" placeholder="if-then statement"/>
 				<button id="btn">Do the thing!</button>
+				<button id="swap">Logic Keyword Switch</button>
 			</div>
 			<div id="output"></div>
 		</div>
@@ -50,15 +56,37 @@
 			var	txt=	document.getElementById("txt");
 			var	btn=	document.getElementById("btn");
 			var	output=	document.getElementById("output");
+			var	swap=	document.getElementById("swap");
+			var	table=	false;
 			
 			btn.addEventListener("click", function()	{
 				// Variables
 				var	p=	PAML.createConditionTree(txt.value);
 				var	q=	p.rebuild();
 				var	t=	PAML.createTruthTable(p, q);
+				var	d;
 				
 				output.innerHTML=	"";
 				output.append(t.toHTML());
+				d=	document.getElementsByClassName("duplicate");
+				for(var i= d.length-1; i>= 0; i--)	{
+					d[i].remove();
+				}
+				document.getElementById("table-2").classList.add("hidden");
+			});
+			
+			swap.addEventListener("click", function()	{
+				if(output.innerHTML== "")
+					return;
+				if(table)	{
+					document.getElementById("table-1").classList.remove("hidden");
+					document.getElementById("table-2").classList.add("hidden");
+				}
+				else	{
+					document.getElementById("table-2").classList.remove("hidden");
+					document.getElementById("table-1").classList.add("hidden");
+				}
+				table=	!table;
 			});
 		</script>
 	</body>
