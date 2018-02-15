@@ -585,67 +585,50 @@ var	PAML=	(function()	{
 			console.log(this.str);
 			// Variables
 			var	table=	document.createElement("table");
-			var	tr, th, td;
-			var	table2=	document.createElement("table");
-			var	tr2, th2, td2;
+			var	tr, th, tr2, th2, td;
 			
-			table.id=	"table-1";
-			table2.id=	"table-2";
-			
+			tr=	document.createElement("tr");
+			tr2=	document.createElement("tr");
+			tr.id=	"table-1";
+			tr2.id=	"table-2";
 			for(var a= 0; a< this.headers.length; a++)	{
-				tr=	document.createElement("tr");
 				th=	document.createElement("th");
-				
-				tr2=	document.createElement("tr");
 				th2=	document.createElement("th");
 				
+				th.innerHTML=	this.headers[a];
+				th2.innerHTML=	this.fullHeaders[a];
 				
 				if(this.duplicates[a])	{
-					tr.classList.add("duplicate");
-					tr2.classList.add("duplicate");
+					th.classList.add("duplicate");
+					th2.classList.add("duplicate");
 				}
-				th.innerHTML=	this.headers[a];
+				
 				tr.append(th);
-				
-				th2.innerHTML=	this.fullHeaders[a];
 				tr2.append(th2);
-				
-				for(var b= 0; b< this.size; b++)	{
+			}
+			table.append(tr);
+			table.append(tr2);
+			
+			for(var a= 0; a< this.size; a++)	{
+				tr=	document.createElement("tr");
+				for(var b= 0; b< this.headers.length; b++)	{
 					td=	document.createElement("td");
-					td.innerHTML=	this.data[a][b];
-					if(this.data[a][b]== true)	{
+					td.innerHTML=	this.data[b][a];
+					if(this.data[b][a]== true)	{
 						td.innerHTML=	"T";
 						td.classList.add("cc-true");
 					}
-					else if(this.data[a][b]== false)	{
+					if(this.data[b][a]== false)	{
 						td.innerHTML=	"F";
 						td.classList.add("cc-false");
 					}
-					
+					if(this.duplicates[b])	{
+						td.classList.add("duplicate");
+					}
 					tr.append(td);
-					
-					td2=	document.createElement("td");
-					td2.innerHTML=	this.data[a][b];
-					if(this.data[a][b]== true)	{
-						td2.innerHTML=	"T";
-						td2.classList.add("cc-true");
-					}
-					else if(this.data[a][b]== false)	{
-						td2.innerHTML=	"F";
-						td2.classList.add("cc-false");
-					}
-					
-					tr2.append(td2);
 				}
 				table.append(tr);
-				table2.append(tr2);
 			}
-			
-			var	d=	document.createElement("div");
-			
-			d.append(table);
-			d.append(table2);
-			table=	d;
 			
 			return table;
 		};
