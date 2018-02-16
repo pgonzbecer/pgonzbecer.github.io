@@ -42,7 +42,7 @@ var	PAML=	(function()	{
 			{str:	" => ", change:	_changeIFTHEN},
 			{str:	" <= ", change:	_changeONLYIF},
 			{str:	" <=> ", change:	_changeIFF},
-			{str:	"iff", change:	_changeIFF}
+			{str:	" iff ", change:	_changeIFF}
 		]
 		
 		function _changeIFTHEN(p, q)	{
@@ -514,6 +514,7 @@ var	PAML=	(function()	{
 		this.fullHeaders=	[];
 		this.duplicates=	[];
 		this.sections=	getSectionedConditionals(this.str, __exprs);
+		this.baselength=	__exprs.len;
 		
 		// Creates the base truth table
 		{
@@ -538,12 +539,11 @@ var	PAML=	(function()	{
 		// Creates the sectioned truth table
 		{
 			// Variables
-			var	baselength=	this.headers.length;
 			var	temp=	this.str;
 			var	p, q, t, s;
 			
-			for(var a= baselength; a< baselength+this.sections.length; a++)	{
-				this.headers[a]=	this.sections[a-baselength].replace(/P\_[0-9]+/g, function(arg)	{
+			for(var a= this.baselength; a< this.baselength+this.sections.length; a++)	{
+				this.headers[a]=	this.sections[a-this.baselength].replace(/P\_[0-9]+/g, function(arg)	{
 					return __exprs[arg];
 				}.bind(this)).replace(/\&\&/g, "and").replace(/\|\|/g, "or").replace(/\!/g, "not");
 				this.data[a]=	[];
@@ -572,7 +572,7 @@ var	PAML=	(function()	{
 				
 				
 				for(var b= 0; b< this.size; b++)	{
-					temp=	this.sections[a-baselength].replace(/P\_([0-9]+)/g, function(arg)	{
+					temp=	this.sections[a-this.baselength].replace(/P\_([0-9]+)/g, function(arg)	{
 						return this.data[1*arg.substring(2)][b];
 					}.bind(this)).replace(/not/g, "!");
 					
@@ -581,7 +581,7 @@ var	PAML=	(function()	{
 			}
 		}
 		
-		this.toHTML=	function()	{
+		this.toHTML=	function(studentVer)	{
 			console.log(this.str);
 			// Variables
 			var	table=	document.createElement("table");
@@ -589,8 +589,8 @@ var	PAML=	(function()	{
 			
 			tr=	document.createElement("tr");
 			tr2=	document.createElement("tr");
-			tr.id=	"table-1";
-			tr2.id=	"table-2";
+			tr.classList.add("table-1");
+			tr2.classList.add("table-2");
 			for(var a= 0; a< this.headers.length; a++)	{
 				th=	document.createElement("th");
 				th2=	document.createElement("th");
@@ -614,13 +614,38 @@ var	PAML=	(function()	{
 				for(var b= 0; b< this.headers.length; b++)	{
 					td=	document.createElement("td");
 					td.innerHTML=	this.data[b][a];
-					if(this.data[b][a]== true)	{
-						td.innerHTML=	"T";
-						td.classList.add("cc-true");
+					if(b>= this.baselength)	{
+						td.classList.add("non-base-tf");
 					}
-					if(this.data[b][a]== false)	{
-						td.innerHTML=	"F";
-						td.classList.add("cc-false");
+					if(studentVer && b>= this.baselength)	{
+						td.innerHTML=	"?";
+						td.classList.add("cc-unknown");
+						td.classList.add("clickable");
+						td.addEventListener("click", function(args)	{
+							if(!this.tfclick)	{
+								this.classList.remove("cc-unknown");
+								this.classList.remove("cc-false");
+								this.classList.add("cc-true");
+								this.innerHTML=	"T";
+								this.tfclick=	true;
+							}
+							else	{
+								this.classList.remove("cc-true");
+								this.classList.add("cc-false");
+								this.innerHTML=	"F";
+								this.tfclick=	false;
+							}
+						}.bind(td));
+					}
+					else	{
+						if(this.data[b][a]== true)	{
+							td.innerHTML=	"T";
+							td.classList.add("cc-true");
+						}
+						if(this.data[b][a]== false)	{
+							td.innerHTML=	"F";
+							td.classList.add("cc-false");
+						}
 					}
 					if(this.duplicates[b])	{
 						td.classList.add("duplicate");
@@ -631,6 +656,48 @@ var	PAML=	(function()	{
 			}
 			
 			return table;
+		};
+		
+		this.toStudentVersionHTML=	function()	{
+			// Variables
+			var	s=	this.toHTML(true);
+			var	t=	this.toHTML();
+			var	d=	document.createElement("div");
+			var	h=	document.createElement("div");
+			var	b=	document.createElement("button");
+			
+			b.innerHTML=	"Submit";
+			b.addEventListener("click", function(args)	{
+				// Variables
+				var	sbase, tbase;
+				
+				console.dir(s);
+				
+				h.classList.remove("hidden");
+				sbase=	s.getElementsByClassName("non-base-tf");
+				tbase=	t.getElementsByClassName("non-base-tf");
+				
+				for(var i= 0; i< sbase.length; i++)	{
+					sbase[i].classList.remove("cc-error");
+					if(sbase[i].innerHTML!= tbase[i].innerHTML)	{
+						sbase[i].classList.add("cc-error");
+					}
+				}
+			});
+			
+			h.classList.add("hidden");
+			{
+				var	temp=	document.createElement("h3");
+				temp.innerHTML=	"Correct Answer:";
+				h.append(temp);
+			}
+			h.append(t);
+			
+			d.append(s);
+			d.append(b);
+			d.append(h);
+			
+			return d;
 		};
 	}
 	

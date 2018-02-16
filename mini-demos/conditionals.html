@@ -44,7 +44,10 @@
 			
 			.hidden	{	display:	none;	}
 			.cc-true	{	color:	#4d4dff;	}
-			.cc-false	{	color:	#ff4d4d;	}
+			.cc-false	{	color:	#ff0000;	}
+			.cc-error	{	background-color:	#ffbabe;	}
+			.clickable	{	user-select:	none;	}
+			.clickable:hover	{	cursor:	pointer;	}
 		</style>
 	</head>
 	
@@ -68,10 +71,18 @@
 			var	gen=	document.getElementById("gen");
 			var	table=	false;
 			var	hypothesis=	[
-				"P"
+				"P"/*,
+				"integer n is a multiple of 6",
+				"\u03c0^2 > 2",
+				"\u03c0^2 > 2",
+				"x > 2"*/
 			];
 			var	conclusion=	[
-				"Q"
+				"Q"/*,
+				"it is divisble by 2",
+				"\u03c0 > 1.2",
+				"\u03c0 = 0",
+				"x^2  > 4"*/
 			];
 			var	statements=	[
 				function(p, q)	{	return "if "+p+" then "+q;	},
@@ -102,7 +113,6 @@
 				
 				txt.value=	str;
 			});
-			
 			btn.addEventListener("click", function()	{
 				// Variables
 				var	p=	PAML.createConditionTree(txt.value);
@@ -111,7 +121,7 @@
 				var	d, q;
 				
 				output.innerHTML=	"";
-				output.append(t.toHTML());
+				output.append(t.toStudentVersionHTML());
 				d=	document.getElementsByClassName("duplicate");
 				for(var i= d.length-1; i>= 0; i--)	{
 					d[i].remove();
@@ -136,8 +146,8 @@
 						t2[i].classList.add("hidden");
 					}
 					else	{
-						t1[i].classList.remove("hidden");
-						t2[i].classList.add("hidden");
+						t2[i].classList.remove("hidden");
+						t1[i].classList.add("hidden");
 					}
 				}
 				table=	!table;
