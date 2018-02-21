@@ -33,7 +33,8 @@ var	PAML=	(function()	{
 		var	continues=	false;
 		var	changes=	[
 			{str:	" if and only if ", change:	_changeIFF},
-			{str:	" only if ", change:	_changeONLYIF},
+			{str:	" only if ", change:	_changeIFTHEN},
+			{str:	" if ", change:	_changeONLYIF},
 			{str:	" implies ", change:	_changeIFTHEN},
 			{str:	" is sufficient for ", change:	_changeIFTHEN},
 			{str:	" is necessary for ", change:	_changeONLYIF},
@@ -102,7 +103,7 @@ var	PAML=	(function()	{
 	};
 	var	createConditionTree=	function(__str)	{
 		// Variables
-		var	exprs=	getNestedExpressions(changeIfThen(__str));
+		var	exprs=	getNestedExpressions(changeIfThen(__str.trim()));
 		var	str=	exprs.str;	exprs=	exprs.exprs;
 		var	tree=	constructConditionTree(new Node(str), exprs);
 		

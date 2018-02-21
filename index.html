@@ -5,7 +5,7 @@
 	<head>
 		<title>Paul's Webdoodles</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
-		<link rel="stylesheet" type="text/css" href="fontawesome/css/font-awesome.css"/>
+		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	</head>
 	
 	<body>
@@ -18,13 +18,15 @@
 			<div class="filters">
 				<span class="filter" data="android">
 					Android
+				</span><span class="filter" data="game">
+					Game
 				</span><span class="filter" data="graphics">
 					Graphics
 				</span><span class="filter" data="webapp">
 					Web Apps
 				</span><span class="filter search">
 					<input id="search-text" type="text" placeholder="search"/>
-					<button>
+					<button id="search-button">
 						<span class="fa fa-search"></span>
 					</button>
 				</span>
@@ -69,9 +71,14 @@
 							),
 							tags:	[
 								"open", "graphing", "calculator", "open-source",
-								"graphics", "webapp", "web", "app"
-							]
+								"graphics", "webapp", "web", "app", "gfx", "finished"
+							],
+							links:	{
+								github:	"https://github.com/johnRedden/OpenGraph",
+								website:	"http://www.opengraphingcalculator.com/"
+							}
 						}),
+						// iThrowRock
 						new ProjectItem({
 							images:	["images/ithrowrock.webp", "images/ithrowrock2.webp"],
 							title:	"iThrowRock",
@@ -81,8 +88,13 @@
 							),
 							tags:	[
 								"open", "open-source", "android", "phone",
-								"app", "phoneapp", "ithrowrock", "i", "throw", "rock"
-							]
+								"app", "phoneapp", "ithrowrock", "i", "throw", "rock",
+								"phonegame", "game", "finished"
+							],
+							links:	{
+								playstore:	"https://play.google.com/store/apps/details?id=com.eduNetSystems.iThrowRock&hl=en",
+								github:	"https://github.com/johnRedden/iThrowRock"
+							}
 						}),
 						new ProjectItem({
 							images:	["images/airhockey.webp", "images/airhockey2.webp"],
@@ -94,8 +106,103 @@
 							),
 							tags:	[
 								"open", "open-source", "android", "phone",
-								"app", "phoneapp", "air", "hockey", "surge", "airhockeysurge", "airhockey"
+								"app", "phoneapp", "air", "hockey", "surge", "airhockeysurge", "airhockey",
+								"phonegame", "game", "finished"
+							],
+							links:	{
+								playstore:	"https://play.google.com/store/apps/details?id=com.edunetsystems.airhockey&hl=en",
+								github:	"https://github.com/johnRedden/AirHockey"
+							}
+						}),
+						new ProjectItem({
+							images:	["images/opensolve1.jpg", "images/opensolve2.jpg"],
+							title:	"Open Solve",
+							desc:	(
+								"When we made the open graphing calculator site, one of the other ideas "+
+								"we had was something akin to wolfram alpha. It didn't pan out as best "+
+								"as we thought it would, but we learned a lot from it."
+							),
+							tags:	[
+								"android", "phone", "phoneapp", "app", "web", "webapp",
+								"open", "open-source", "source", "calculator", "solve",
+								"solving", "wolfram", "alpha"
+							],
+							links:	{
+								github:	"https://github.com/johnRedden/OpenSolve"
+							}
+						}),
+						new ProjectItem({
+							images:	[
+								"images/wedged_sphere.gif", "images/contourplotting.jpg", "images/mobiusstrip.jpg", "images/spherecoords.gif"
+							],
+							title:	"Explorations in Mathematica",
+							desc:	(
+								"As a research project, we were given a student version of Mathematica and "+
+								"were given two months to make something cool with it. The moving picture "+
+								"above is something I made to show how a triple integral maps out a 3D space "+
+								"to calculate the volume correctly. Everyone in the team was in different levels "+
+								"of calculus at the time. So we each made something that was difficult during "+
+								"the class so that future alumni could be helped."
+							),
+							tags:	[
+								"mathematica", "mathematics", "graphics", "gfx",
+								"wolfram", "math", "maths", "sphere", "integration"
+							],
+							links:	{
+								download:	"GeneralCatalog.nb",
+							}
+						}),
+						new ProjectItem({
+							images:	["images/maxgraph1.gif", "images/maxgraph2.gif", "images/maxgraph3.gif"],
+							title:	"Graphicus Maximus",
+							desc:	(
+								"A new iteration of the open graphing calculator, but this time it is made "+
+								"to be a mobile app. We are taking all the good ideas we had and implemented "+
+								"with open graphing calculator and putting them into this app alongside pages "+
+								"of cheatsheets for algebra, trigonometry, calculus, etc."
+							),
+							tags:	[
+								"phone", "phoneapp", "app", "graphics", "gfx",
+								"finished", "graphing", "calculator", "android"
+							],
+							links:	{
+								github:	"https://github.com/johnRedden/COSgraphingApp",
+								playstore:	"https://play.google.com/store/apps/details?id=com.eduNetSystems.graphicusMaximus"
+							}
+						}),
+						/*new ProjectItem({
+							images:	[],
+							title:	"Astroid Shooter",
+							desc:	(
+								"This is a VR game made with Unity. The game is fully "+
+								"completed and ready to ship, but we had some trouble "+
+								"on putting the game on a digital distrubution platform "+
+								"like Steam. So because it is not out publically, it will "+
+								"remain as an in progress project."
+							),
+							tags:	[
+								
 							]
+						}),*/
+						new ProjectItem({
+							images:	["images/clickb8-1.webp", "images/clickb8-2.webp", "images/clickb8-3.webp", "images/clickb8-4.webp", "images/clickb8-5.webp", "images/clickb8-6.webp"],
+							title:	"😂😂C1ick🅱️8g3ner8or😂😂 - Clickbait Generator",
+							desc:	(
+								"This one was originally a small part of another project. It was made to generate "+
+								"a thumbnail that looks like clickbait. Some colleagues asked if I can make it into "+
+								"an android app. So after a long time of reluctance to make a part of a project that "+
+								"was mostly propriety and after some problems arose with the project, I decided to "+
+								"port it over to an android app."
+							),
+							tags:	[
+								"android", "phone", "phoneapp", "app",
+								"click", "clickbait", "bait", "generator",
+								"meme", "funny", "image", "processing", "graphics",
+								"gfx", "finished"
+							],
+							links:	{
+								playstore:	"https://play.google.com/store/apps/details?id=com.deletemelater.clickb8"
+							}
 						})
 					];
 					let	filters=	document.getElementsByClassName("filters")[0];
@@ -155,6 +262,13 @@
 						}
 					}
 					filterItems();
+					
+					document.getElementById("search-button").addEventListener("click", function()	{
+						// Variables
+						let	a=	document.getElementById("search-text").value.split(' ');
+						
+						filterItems(a);
+					});
 				});
 				
 				function ProjectItem(options)	{
@@ -163,6 +277,7 @@
 					this.title=	options.title;
 					this.desc=	options.desc;
 					this.tags=	options.tags || [];
+					this.links=	options.links;
 					
 					this.getHTML=	function()	{
 						// Variables
@@ -173,7 +288,7 @@
 							str+=	"<div class='project-images'>";
 								if(this.images)	{
 									for(let i= 0; i< this.images.length; i++)	{
-										str+=	"<img src='"+this.images[i]+"'></img>";
+										str+=	"<a href='"+this.images[i]+"'><img src='"+this.images[i]+"'></img></a>";
 									}
 								}
 								else	{
@@ -188,14 +303,28 @@
 									str+=	"Name in Progress";
 								}
 							str+=	"</div>"
+							str+=	"<div class='project-links'>";
+								if(this.links)	{
+									if(this.links.github)	{
+										str+=	"<a href='"+this.links.github+"'><span class='fab fa-2x fa-github'></span></a>";
+									}
+									if(this.links.playstore)	{
+										str+=	"<a href='"+this.links.playstore+"'><span class='fab fa-2x fa-google-play'></span></a>";
+									}
+									if(this.links.website)	{
+										str+=	"<a href='"+this.links.website+"'><span class='fa fa-2x fa-globe'></span></a>";
+									}
+									if(this.links.download)	{
+										str+=	"<a href='"+this.links.download+"'><span class='fa fa-2x fa-download'></span></a>";
+									}
+								}
+							str+=	"</div>";
 							str+=	"<div class='project-desc'>";
 								if(this.desc)	{
 									str+=	this.desc;
 								}
 							str+=	"</div>";
-							str+=	"<div class='project-expand'>";
-								str+=	"<span class='fa fa-caret-down'></span>";
-							str+=	"</div>";
+							str+=	"<div class='project-expand fa fa-caret-down'></div>";
 						str+=	"</div>";
 						
 						return str;
