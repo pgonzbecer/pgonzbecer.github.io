@@ -3,7 +3,7 @@
 
 <html>
 	<head>
-		<title>Truth Table Generator for Arbitrary Conditionals</title>
+		<title>Conditional Generator with Truth Table Checking</title>
 		<style>
 			body	{
 				margin:	16px;
@@ -71,10 +71,18 @@
 			var	gen=	document.getElementById("gen");
 			var	table=	false;
 			var	hypothesis=	[
-				"P"
+				"P"/*,
+				"integer n is a multiple of 6",
+				"\u03c0^2 > 2",
+				"\u03c0^2 > 2",
+				"x > 2"*/
 			];
 			var	conclusion=	[
-				"Q"
+				"Q"/*,
+				"it is divisble by 2",
+				"\u03c0 > 1.2",
+				"\u03c0 = 0",
+				"x^2  > 4"*/
 			];
 			var	statements=	[
 				function(p, q)	{	return "if "+p+" then "+q;	},
@@ -105,7 +113,6 @@
 				
 				txt.value=	str;
 			});
-			
 			btn.addEventListener("click", function()	{
 				// Variables
 				var	p=	PAML.createConditionTree(txt.value);
@@ -114,7 +121,7 @@
 				var	d, q;
 				
 				output.innerHTML=	"";
-				output.append(t.toHTML());
+				output.append(t.toStudentVersionHTML());
 				d=	document.getElementsByClassName("duplicate");
 				for(var i= d.length-1; i>= 0; i--)	{
 					d[i].remove();
