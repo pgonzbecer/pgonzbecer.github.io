@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>fGraph Demo</title>
+	</head>
+	<body>
+		<input type="text" id="txt"/>
+		<canvas id="cvs" width="400px" height="400px"></canvas>
+		<script src="../js/fgraph.js"></script>
+		<script src="../js/jquery.js"></script>
+		<script>
+			$(window).ready(function()	{
+				// Variables
+				let	cvs=	$("#cvs");
+				let	graph=	FGraph.createGraph(cvs[0]);
+				let	func=	graph.addFunction(function(x)	{
+					return;
+				});
+				let	pin;
+				
+				graph.render();
+				
+				$("#txt").keyup(function(args)	{
+					try	{
+						func.changeFunction(eval("(function(x){with (Math) return "+$("#txt").val()+";})"));
+						if(func.pins.length== 0)	{
+							pin=	func.addPin();
+						}
+						graph.render();
+					}catch(e){console.log(e);}
+				});
+			});
+		</script>
+	</body>
+</html>
