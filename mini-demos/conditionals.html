@@ -77,7 +77,7 @@
 						
 						<div class="modal-body">
 							<p>
-								<input type="radio" name="sel" id="statements-1" checked /> Generate random statement
+								<input type="radio" name="sel" id="statements-1" class="hidden" checked />enerate random statement
 								<div>
 									<div class="row">
 										<div class="col-md-4">
@@ -180,27 +180,27 @@
 		<script src="../js/PAML.js"></script>
 		<script type="text/javascript">
 			// Variables
-			var	txt=	document.getElementById("txt");
-			var	btn=	document.getElementById("btn");
-			var	output=	document.getElementById("output");
-			var	swap=	document.getElementById("swap");
-			var	gen=	document.getElementById("gen");
-			var	table=	false;
-			var	hypothesis=	[
+			let	txt=	document.getElementById("txt");
+			let	btn=	document.getElementById("btn");
+			let	output=	document.getElementById("output");
+			let	swap=	document.getElementById("swap");
+			let	gen=	document.getElementById("gen");
+			let	table=	false;
+			let	hypothesis=	[
 				"P"/*,
 				"integer n is a multiple of 6",
 				"\u03c0^2 > 2",
 				"\u03c0^2 > 2",
 				"x > 2"*/
 			];
-			var	conclusion=	[
+			let	conclusion=	[
 				"Q"/*,
 				"it is divisble by 2",
 				"\u03c0 > 1.2",
 				"\u03c0 = 0",
 				"x^2  > 4"*/
 			];
-			var	statements=	[
+			let	statements=	[
 				function(p, q)	{	return "if "+p+" then "+q;	},
 				function(p, q)	{	return p+" implies "+q;	},
 				function(p, q)	{	return p+" only if "+q;	},
@@ -220,19 +220,19 @@
 					return;
 				
 				// Variables
-				var	p=	PAML.createConditionTree(txt.value);
-				var	q=	p.rebuild();
-				var	t=	PAML.createTruthTable(p, q);
-				var	d, q;
+				let	p=	PAML.createConditionTree(txt.value);
+				let	q=	p.rebuild();
+				let	t=	PAML.createTruthTable(p, q);
+				let	d, q;
 				
 				output.innerHTML=	"";
 				output.append(t.toStudentVersionHTML());
 				d=	document.getElementsByClassName("duplicate");
-				for(var i= d.length-1; i>= 0; i--)	{
+				for(let i= d.length-1; i>= 0; i--)	{
 					d[i].remove();
 				}
 				q=	document.getElementsByClassName("table-2");
-				for(var i= 0; i< q.length; i++)	{
+				for(let i= 0; i< q.length; i++)	{
 					q[i].classList.add("hidden");
 				}
 			});
@@ -241,11 +241,11 @@
 				if(output.innerHTML== "")
 					return;
 				// Variables
-				var	t1=	document.getElementsByClassName("table-1");
-				var	t2=	document.getElementsByClassName("table-2");
-				var	len=	t1.length;
+				let	t1=	document.getElementsByClassName("table-1");
+				let	t2=	document.getElementsByClassName("table-2");
+				let	len=	t1.length;
 				
-				for(var i= 0; i< len; i++)	{
+				for(let i= 0; i< len; i++)	{
 					if(table)	{
 						t1[i].classList.remove("hidden");
 						t2[i].classList.add("hidden");
@@ -260,7 +260,7 @@
 			
 			$("#statement-sel").change(function(args)	{
 				// Variables
-				var	s=	"#"+$(args.target).find(":selected").attr("data");
+				let	s=	"#"+$(args.target).find(":selected").attr("data");
 				$(".statement-selections").each(function(i, elem)	{
 					console.log(i, elem);
 					elem.classList.add("hidden");
@@ -270,7 +270,7 @@
 			
 			$("#statement-sel-2").change(function(args)	{
 				// Variables
-				var	s=	"#"+$(args.target).find(":selected").attr("data")+"-2";
+				let	s=	"#"+$(args.target).find(":selected").attr("data")+"-2";
 				$(".statement-selections-2").each(function(i, elem)	{
 					console.log(i, elem);
 					elem.classList.add("hidden");
@@ -278,29 +278,30 @@
 				$(s).removeClass("hidden");
 			});
 			
+			let	pqs=	[
+				{p:"A", q:"B"},
+				{p:"being continuous", q:"a function to be integrable"},
+				{p:"the matrix A is invertible", q:"determinant(A) does not equal 0"},
+				{p:"f is invertible", q:"f is invertible"},
+				{p:"if square root (x) is irrational", q:"x is prime"}
+			];
+			
 			$("#generate-statement").click(function(args)	{
 				// Variables
-				var	c=	$("input:checked[type=radio][name=sel]")[0].id;
+				let	c=	$("input:checked[type=radio][name=sel]")[0].id;
 				
 				switch(c)	{
 					case "statements-1":	{
 						// Variables
-						var	s=	$(".statement-selections:not(.hidden) option:selected").val();
-						var	p=	"A";
-						var	q=	"B";
+						let	s=	$(".statement-selections:not(.hidden) option:selected").val();
+						let	p=	Math.floor(Math.random()*pqs.length);
+						let	q=	pqs[p].q;
 						
-						s=	s.replace("P", p).replace("Q", q);
-						console.log(s);
-					}break;
-					case "statements-2":	{
-						// Variables
-						var	p=	$("#p").val();
-						var	q=	$("#q").val();
-						var	s=	$(".statement-selections-2:not(.hidden) option:selected").val();
-						
+						p=	pqs[p].p;
 						s=	s.replace("P", p).replace("Q", q);
 						
-						console.log(s);
+						txt.value=	s;
+						$("#modal-gen").modal("hide");
 					}break;
 				}
 			});
