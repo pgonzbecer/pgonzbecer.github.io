@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Learning Shaders Chapter 3 or something</title>
+	</head>
+	<body>
+		<canvas id="cvs"></canvas>
+		
+		<script id="vshader" type="x-shader/x-vertex" src="test.vert">
+			// Variables
+			attribute vec4	pos;
+
+			void main()	{
+				gl_Position=	pos;
+			}
+		</script>
+		<script id="fshader" type="x-shader/x-fragment" src="test.frag">
+			precision mediump float;
+
+			void main()	{
+				gl_FragColor=	vec4(1, 0, 0.5, 1);
+			}
+		</script>
+		
+		<script>
+			// Variables
+			const	cvs=	document.getElementById("cvs");
+			const	gl=	cvs.getContext("webgl");
+			const	vsrc=	document.getElementById("vshader").text;
+			const	fsrc=	document.getElementById("fshader").text;
+			const	vs=	createShader(gl, gl.VERTEX_SHADER, vsrc);
+			const	fs=	createShader(gl, gl.FRAGMENT_SHADER, fsrc);
+			const	program=	createProgram(gl, vs, fs);
+			let	posAttr=	gl.getAttribLocation(program, "pos");
+			let	posBuff=	gl.createBuffer();
+			let	positions=	[
+				0, 0,
+				0, 1,
+				1, 0
+			];
+			
+			gl.bindBuffer(gl.ARRAY_BUFFER, posBuff);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+			gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+			
+			gl.clearColor(0, 0, 0, 1);
+			gl.clear(gl.COLOR_BUFFER_BIT);
+			gl.useProgram(program);
+			gl.enableVertexAttribArray(posAttr);
+			
+			gl.vertexAttribPointer(
+				posAttr,
+				2,
+				gl.FLOAT,
+				false,
+				0,
+				0
+			);
+			gl.drawArrays(gl.TRIANGLES, 0, 3);
+			
+			function createShader(_gl, type, source)	{
+				// Variables
+				let	shader=	_gl.createShader(type);
+				
+				_gl.shaderSource(shader, source);
+				_gl.compileShader(shader);
+				if(_gl.getShaderParameter(shader, _gl.COMPILE_STATUS))	{
+					return shader;
+				}
+				console.log(_gl.getShaderInfoLog(shader));
+				_gl.deleteShader(shader);
+				return null;
+			}
+			
+			function createProgram(_gl, _vs, _fs)	{
+				// Variables
+				let	program=	_gl.createProgram();
+				
+				_gl.attachShader(program, _vs);
+				_gl.attachShader(program, _fs);
+				_gl.linkProgram(program);
+				if(_gl.getProgramParameter(program, _gl.LINK_STATUS))	{
+					return program;
+				}
+				
+				console.log(_gl.getProgramInfoLog(program));
+				_gl.deleteProgram(program);
+				return null;
+			}
+		</script>
+	</body>
+</html>

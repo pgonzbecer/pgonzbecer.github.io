@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<title>Conditional Generator with Truth Table Checking</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<style>
 			body	{
 				margin:	16px;
@@ -28,6 +29,7 @@
 				border-top:	1px solid black;
 				border-left:	1px solid black;
 				border-right:	1px solid black;
+				text-align:	center;
 			}
 			td	{
 				min-width:	48px;
@@ -42,6 +44,7 @@
 				height:	128px;
 			}
 			
+			.fitting	{	width:	75%;	}
 			.hidden	{	display:	none;	}
 			.cc-true	{	color:	#4d4dff;	}
 			.cc-false	{	color:	#ff0000;	}
@@ -54,13 +57,126 @@
 	<body>
 		<div class="container">
 			<div class="input-stuff">
-				<button id="gen">Generate Conditional</button>
+				<button id="gen" type="button" data-toggle="modal" data-target="#modal-gen">
+					Generate Conditional
+				</button>
 				<input type="text" id="txt" placeholder="if-then statement" style="width:256px;"/>
 				<button id="btn">Evaluate Truth Table</button>
 				<button id="swap">Logic Keyword Switch</button>
 			</div>
 			<div id="output"></div>
+			<div id="modal-gen" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Modal Title</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						
+						<div class="modal-body">
+							<p>
+								<input type="radio" name="sel" id="statements-1" checked /> Generate random statement
+								<div>
+									<div class="row">
+										<div class="col-md-4">
+											Statement Type:<br/>
+											<select id="statement-sel">
+												<option data="onlyif" selected>P only if Q</option>
+												<option data="if">P if Q</option>
+												<option data="iff">P if and only if Q</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											Naming Conventions:<br/>
+											<!-- P => Q /-->
+											<select class="statement-selections" id="onlyif">
+												<option selected>P only if Q</option>
+												<option>P => Q</option>
+												<option>if P then Q</option>
+												<option>P is sufficient for Q</option>
+											</select>
+											<!-- P <= Q /-->
+											<select class="hidden statement-selections" id="if">
+												<option selected>P if Q</option>
+												<option>P <= Q</option>
+												<option>if Q then P</option>
+												<option>P is necessary for Q</option>
+											</select>
+											<!-- P <=> Q /-->
+											<select class="hidden statement-selections" id="iff">
+												<option selected>P if and only if Q</option>
+												<option>P <=> Q</option>
+												<option>P iff Q</option>
+												<option>P is sufficient and necessary for Q</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											
+										</div>
+									</div>
+								</div>
+							</p>
+							<!--
+							<p>
+								<input type="radio" name="sel" id="statements-2" /> Generate statement
+								<div>
+									<div class="row">
+										<div class="col-md-3">
+											Statement Type:<br/>
+											<select id="statement-sel-2">
+												<option data="onlyif" selected>P only if Q</option>
+												<option data="if">P if Q</option>
+												<option data="iff">P if and only if Q</option>
+											</select>
+										</div>
+										<div class="col-md-3">
+											Naming Conventions:<br/>
+											<!-- P => Q /--><!--
+											<select class="statement-selections-2" id="onlyif-2">
+												<option selected>P only if Q</option>
+												<option>P => Q</option>
+												<option>if P then Q</option>
+												<option>P is sufficient for Q</option>
+											</select>
+											<!-- P <= Q /--><!--
+											<select class="hidden statement-selections-2" id="if-2">
+												<option selected>P if Q</option>
+												<option>P <= Q</option>
+												<option>if Q then P</option>
+												<option>P is necessary for Q</option>
+											</select>
+											<!-- P <=> Q /--><!--
+											<select class="hidden statement-selections-2" id="iff-2">
+												<option selected>P if and only if Q</option>
+												<option>P <=> Q</option>
+												<option>P iff Q</option>
+												<option>P is sufficient and necessary for Q</option>
+											</select>
+										</div>
+										<div class="col-md-3">
+											P:&emsp;<input type="text" id="p" class="fitting" />
+										</div>
+										<div class="col-md-3">
+											Q:&emsp;<input type="text" id="q" class="fitting" />
+										</div>
+									</div>
+								</div>
+							</p><!--/-->
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="generate-statement">Generate</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
 		</div>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/PAML.js"></script>
 		<script type="text/javascript">
 			// Variables
@@ -99,21 +215,10 @@
 				function(p, q)	{	return p+" is sufficient and necessary for "+q;	}
 			];
 			
-			gen.addEventListener("click", function()	{
-				// Variables
-				var	p=	Math.floor(Math.random()*hypothesis.length);
-				var	q=	p;
-				var	s=	Math.floor(Math.random()*statements.length);
-				var	str=	"";
-				
-				p=	hypothesis[p];
-				q=	conclusion[q];
-				s=	statements[s];
-				str=	s(p, q);
-				
-				txt.value=	str;
-			});
 			btn.addEventListener("click", function()	{
+				if(txt.value== "")
+					return;
+				
 				// Variables
 				var	p=	PAML.createConditionTree(txt.value);
 				var	q=	p.rebuild();
@@ -151,6 +256,53 @@
 					}
 				}
 				table=	!table;
+			});
+			
+			$("#statement-sel").change(function(args)	{
+				// Variables
+				var	s=	"#"+$(args.target).find(":selected").attr("data");
+				$(".statement-selections").each(function(i, elem)	{
+					console.log(i, elem);
+					elem.classList.add("hidden");
+				});
+				$(s).removeClass("hidden");
+			});
+			
+			$("#statement-sel-2").change(function(args)	{
+				// Variables
+				var	s=	"#"+$(args.target).find(":selected").attr("data")+"-2";
+				$(".statement-selections-2").each(function(i, elem)	{
+					console.log(i, elem);
+					elem.classList.add("hidden");
+				});
+				$(s).removeClass("hidden");
+			});
+			
+			$("#generate-statement").click(function(args)	{
+				// Variables
+				var	c=	$("input:checked[type=radio][name=sel]")[0].id;
+				
+				switch(c)	{
+					case "statements-1":	{
+						// Variables
+						var	s=	$(".statement-selections:not(.hidden) option:selected").val();
+						var	p=	"A";
+						var	q=	"B";
+						
+						s=	s.replace("P", p).replace("Q", q);
+						console.log(s);
+					}break;
+					case "statements-2":	{
+						// Variables
+						var	p=	$("#p").val();
+						var	q=	$("#q").val();
+						var	s=	$(".statement-selections-2:not(.hidden) option:selected").val();
+						
+						s=	s.replace("P", p).replace("Q", q);
+						
+						console.log(s);
+					}break;
+				}
 			});
 		</script>
 	</body>
