@@ -92,21 +92,24 @@
 											Naming Conventions:<br/>
 											<!-- P => Q /-->
 											<select class="statement-selections" id="onlyif">
-												<option selected>P only if Q</option>
+												<option selected>Format Doesn't Matter</option>
+												<option>P only if Q</option>
 												<option>P => Q</option>
 												<option>if P then Q</option>
 												<option>P is sufficient for Q</option>
 											</select>
 											<!-- P <= Q /-->
 											<select class="hidden statement-selections" id="if">
-												<option selected>P if Q</option>
+												<option selected>Format Doesn't Matter</option>
+												<option>P if Q</option>
 												<option>P <= Q</option>
 												<option>if Q then P</option>
 												<option>P is necessary for Q</option>
 											</select>
 											<!-- P <=> Q /-->
 											<select class="hidden statement-selections" id="iff">
-												<option selected>P if and only if Q</option>
+												<option selected>Format Doesn't Matter</option>
+												<option>P if and only if Q</option>
 												<option>P <=> Q</option>
 												<option>P iff Q</option>
 												<option>P is sufficient and necessary for Q</option>
@@ -118,52 +121,6 @@
 									</div>
 								</div>
 							</p>
-							<!--
-							<p>
-								<input type="radio" name="sel" id="statements-2" /> Generate statement
-								<div>
-									<div class="row">
-										<div class="col-md-3">
-											Statement Type:<br/>
-											<select id="statement-sel-2">
-												<option data="onlyif" selected>P only if Q</option>
-												<option data="if">P if Q</option>
-												<option data="iff">P if and only if Q</option>
-											</select>
-										</div>
-										<div class="col-md-3">
-											Naming Conventions:<br/>
-											<!-- P => Q /--><!--
-											<select class="statement-selections-2" id="onlyif-2">
-												<option selected>P only if Q</option>
-												<option>P => Q</option>
-												<option>if P then Q</option>
-												<option>P is sufficient for Q</option>
-											</select>
-											<!-- P <= Q /--><!--
-											<select class="hidden statement-selections-2" id="if-2">
-												<option selected>P if Q</option>
-												<option>P <= Q</option>
-												<option>if Q then P</option>
-												<option>P is necessary for Q</option>
-											</select>
-											<!-- P <=> Q /--><!--
-											<select class="hidden statement-selections-2" id="iff-2">
-												<option selected>P if and only if Q</option>
-												<option>P <=> Q</option>
-												<option>P iff Q</option>
-												<option>P is sufficient and necessary for Q</option>
-											</select>
-										</div>
-										<div class="col-md-3">
-											P:&emsp;<input type="text" id="p" class="fitting" />
-										</div>
-										<div class="col-md-3">
-											Q:&emsp;<input type="text" id="q" class="fitting" />
-										</div>
-									</div>
-								</div>
-							</p><!--/-->
 						</div>
 						
 						<div class="modal-footer">
@@ -186,34 +143,6 @@
 			let	swap=	document.getElementById("swap");
 			let	gen=	document.getElementById("gen");
 			let	table=	false;
-			let	hypothesis=	[
-				"P"/*,
-				"integer n is a multiple of 6",
-				"\u03c0^2 > 2",
-				"\u03c0^2 > 2",
-				"x > 2"*/
-			];
-			let	conclusion=	[
-				"Q"/*,
-				"it is divisble by 2",
-				"\u03c0 > 1.2",
-				"\u03c0 = 0",
-				"x^2  > 4"*/
-			];
-			let	statements=	[
-				function(p, q)	{	return "if "+p+" then "+q;	},
-				function(p, q)	{	return p+" implies "+q;	},
-				function(p, q)	{	return p+" only if "+q;	},
-				function(p, q)	{	return p+" iff "+q;	},
-				function(p, q)	{	return p+" => "+q;	},
-				function(p, q)	{	return p+" <= "+q;	},
-				function(p, q)	{	return p+" if and only if "+q;	},
-				function(p, q)	{	return p+" <=> "+q;	},
-				function(p, q)	{	return p+" is sufficient for "+q;	},
-				function(p, q)	{	return p+" is necessary for "+q;	},
-				function(p, q)	{	return p+" is necessary and sufficient for "+q;	},
-				function(p, q)	{	return p+" is sufficient and necessary for "+q;	}
-			];
 			
 			btn.addEventListener("click", function()	{
 				if(txt.value== "")
@@ -223,7 +152,7 @@
 				let	p=	PAML.createConditionTree(txt.value);
 				let	q=	p.rebuild();
 				let	t=	PAML.createTruthTable(p, q);
-				let	d, q;
+				let	d, f;
 				
 				output.innerHTML=	"";
 				output.append(t.toStudentVersionHTML());
@@ -231,9 +160,9 @@
 				for(let i= d.length-1; i>= 0; i--)	{
 					d[i].remove();
 				}
-				q=	document.getElementsByClassName("table-2");
-				for(let i= 0; i< q.length; i++)	{
-					q[i].classList.add("hidden");
+				f=	document.getElementsByClassName("table-2");
+				for(let i= 0; i< f.length; i++)	{
+					f[i].classList.add("hidden");
 				}
 			});
 			
@@ -278,12 +207,15 @@
 				$(s).removeClass("hidden");
 			});
 			
+			// Variables
 			let	pqs=	[
+				{p:"P", q:"Q"},
 				{p:"A", q:"B"},
-				{p:"being continuous", q:"a function to be integrable"},
-				{p:"the matrix A is invertible", q:"determinant(A) does not equal 0"},
-				{p:"f is invertible", q:"f is invertible"},
-				{p:"if square root (x) is irrational", q:"x is prime"}
+				{p:"f is continuous", q:"f is integrable"},
+				{p:"the matrix A is invertible", q:"determinant A does not equal 0"},
+				{p:"square root x is irrational", q:"x is prime"},
+				{p:"y=x+1", q:"y is even"},
+				{p:"pi < 4", q:"pi = 3"}
 			];
 			
 			$("#generate-statement").click(function(args)	{
@@ -296,6 +228,18 @@
 						let	s=	$(".statement-selections:not(.hidden) option:selected").val();
 						let	p=	Math.floor(Math.random()*pqs.length);
 						let	q=	pqs[p].q;
+						
+						if(s== "Format Doesn't Matter")	{
+							s=	$(".statement-selections:not(.hidden) option");
+							
+							// Variables
+							let	a=	Math.floor(Math.random()*(s.length-1))+1;
+							
+							console.log(a);
+							console.log(s);
+							
+							s=	s[a].text;
+						}
 						
 						p=	pqs[p].p;
 						s=	s.replace("P", p).replace("Q", q);

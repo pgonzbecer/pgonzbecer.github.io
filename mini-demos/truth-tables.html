@@ -60,6 +60,73 @@
 				<button id="swap">Logic Keyword Switch</button>
 			</div>
 			<div id="output"></div>
+			
+			<div id="modal-gen" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Modal Title</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						
+						<div class="modal-body">
+							<p>
+								<input type="radio" name="sel" id="statements-1" class="hidden" checked />enerate random statement
+								<div>
+									<div class="row">
+										<div class="col-md-4">
+											Statement Type:<br/>
+											<select id="statement-sel">
+												<option data="onlyif" selected>P only if Q</option>
+												<option data="if">P if Q</option>
+												<option data="iff">P if and only if Q</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											Naming Conventions:<br/>
+											<!-- P => Q /-->
+											<select class="statement-selections" id="onlyif">
+												<option selected>Format Doesn't Matter</option>
+												<option>P only if Q</option>
+												<option>P => Q</option>
+												<option>if P then Q</option>
+												<option>P is sufficient for Q</option>
+											</select>
+											<!-- P <= Q /-->
+											<select class="hidden statement-selections" id="if">
+												<option selected>Format Doesn't Matter</option>
+												<option>P if Q</option>
+												<option>P <= Q</option>
+												<option>if Q then P</option>
+												<option>P is necessary for Q</option>
+											</select>
+											<!-- P <=> Q /-->
+											<select class="hidden statement-selections" id="iff">
+												<option selected>Format Doesn't Matter</option>
+												<option>P if and only if Q</option>
+												<option>P <=> Q</option>
+												<option>P iff Q</option>
+												<option>P is sufficient and necessary for Q</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											
+										</div>
+									</div>
+								</div>
+							</p>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="generate-statement">Generate</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
 		</div>
 		<script src="../js/PAML.js"></script>
 		<script type="text/javascript">
@@ -70,26 +137,6 @@
 			var	swap=	document.getElementById("swap");
 			var	gen=	document.getElementById("gen");
 			var	table=	false;
-			var	hypothesis=	[
-				"P"
-			];
-			var	conclusion=	[
-				"Q"
-			];
-			var	statements=	[
-				function(p, q)	{	return "if "+p+" then "+q;	},
-				function(p, q)	{	return p+" implies "+q;	},
-				function(p, q)	{	return p+" only if "+q;	},
-				function(p, q)	{	return p+" iff "+q;	},
-				function(p, q)	{	return p+" => "+q;	},
-				function(p, q)	{	return p+" <= "+q;	},
-				function(p, q)	{	return p+" if and only if "+q;	},
-				function(p, q)	{	return p+" <=> "+q;	},
-				function(p, q)	{	return p+" is sufficient for "+q;	},
-				function(p, q)	{	return p+" is necessary for "+q;	},
-				function(p, q)	{	return p+" is necessary and sufficient for "+q;	},
-				function(p, q)	{	return p+" is sufficient and necessary for "+q;	}
-			];
 			
 			gen.addEventListener("click", function()	{
 				// Variables
@@ -111,7 +158,7 @@
 				var	p=	PAML.createConditionTree(txt.value);
 				var	q=	p.rebuild();
 				var	t=	PAML.createTruthTable(p, q);
-				var	d, q;
+				var	d, f;
 				
 				output.innerHTML=	"";
 				output.append(t.toHTML());
@@ -119,9 +166,9 @@
 				for(var i= d.length-1; i>= 0; i--)	{
 					d[i].remove();
 				}
-				q=	document.getElementsByClassName("table-2");
-				for(var i= 0; i< q.length; i++)	{
-					q[i].classList.add("hidden");
+				f=	document.getElementsByClassName("table-2");
+				for(var i= 0; i< f.length; i++)	{
+					f[i].classList.add("hidden");
 				}
 			});
 			
@@ -144,6 +191,69 @@
 					}
 				}
 				table=	!table;
+			});
+			
+			$("#statement-sel").change(function(args)	{
+				// Variables
+				let	s=	"#"+$(args.target).find(":selected").attr("data");
+				$(".statement-selections").each(function(i, elem)	{
+					console.log(i, elem);
+					elem.classList.add("hidden");
+				});
+				$(s).removeClass("hidden");
+			});
+			
+			$("#statement-sel-2").change(function(args)	{
+				// Variables
+				let	s=	"#"+$(args.target).find(":selected").attr("data")+"-2";
+				$(".statement-selections-2").each(function(i, elem)	{
+					console.log(i, elem);
+					elem.classList.add("hidden");
+				});
+				$(s).removeClass("hidden");
+			});
+			
+			// Variables
+			let	pqs=	[
+				{p:"P", q:"Q"},
+				{p:"A", q:"B"},
+				{p:"f is continuous", q:"f is integrable"},
+				{p:"the matrix A is invertible", q:"determinant A does not equal 0"},
+				{p:"square root x is irrational", q:"x is prime"},
+				{p:"y=x+1", q:"y is even"},
+				{p:"pi < 4", q:"pi = 3"}
+			];
+			
+			$("#generate-statement").click(function(args)	{
+				// Variables
+				let	c=	$("input:checked[type=radio][name=sel]")[0].id;
+				
+				switch(c)	{
+					case "statements-1":	{
+						// Variables
+						let	s=	$(".statement-selections:not(.hidden) option:selected").val();
+						let	p=	Math.floor(Math.random()*pqs.length);
+						let	q=	pqs[p].q;
+						
+						if(s== "Format Doesn't Matter")	{
+							s=	$(".statement-selections:not(.hidden) option");
+							
+							// Variables
+							let	a=	Math.floor(Math.random()*(s.length-1))+1;
+							
+							console.log(a);
+							console.log(s);
+							
+							s=	s[a].text;
+						}
+						
+						p=	pqs[p].p;
+						s=	s.replace("P", p).replace("Q", q);
+						
+						txt.value=	s;
+						$("#modal-gen").modal("hide");
+					}break;
+				}
 			});
 		</script>
 	</body>
