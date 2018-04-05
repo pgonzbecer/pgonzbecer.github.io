@@ -5,71 +5,36 @@
 	<head>
 		<title>Conditional Generator with Truth Table Checking</title>
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
-		<style>
-			body	{
-				margin:	16px;
-			}
-			table	{
-				margin:	0px;
-				border-spacing:	0px;
-			}
-			tr	{
-				background-color:	#fffaff;
-				border:	none;
-			}
-			tr:nth-child(2n+1)	{
-				background-color:	#dbdbdb;
-			}
-			tr:hover	{
-				background-color:	#b4c4f4;
-			}
-			th	{
-				min-width:	64px;
-				background-color:	#6ab4e6;
-				border-top:	1px solid black;
-				border-left:	1px solid black;
-				border-right:	1px solid black;
-				text-align:	center;
-			}
-			td	{
-				min-width:	48px;
-				border-left:	0.5px dotted black;
-				border-right:	0.5px dotted black;
-				border-top:	0.5px solid #101820;
-				border-bottom:	0.5px solid #101820;
-				text-align:	center;
-			}
-			
-			tr.duplicate	{
-				height:	128px;
-			}
-			
-			.fitting	{	width:	75%;	}
-			.hidden	{	display:	none;	}
-			.cc-true	{	color:	#4d4dff;	}
-			.cc-false	{	color:	#ff0000;	}
-			.cc-error	{	background-color:	#ffbabe;	}
-			.clickable	{	user-select:	none;	}
-			.clickable:hover	{	cursor:	pointer;	}
-		</style>
+		<link rel="stylesheet" href="../katex/katex.css" />
+		<link rel="stylesheet" href="../css/math3000.css" />
+		<script src="../js/jquery.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
 	</head>
 	
 	<body>
-		<div class="container">
-			<div class="input-stuff">
-				<button id="gen" type="button" data-toggle="modal" data-target="#modal-gen">
-					Generate Conditional
-				</button>
-				<input type="text" id="txt" placeholder="if-then statement" style="width:256px;"/>
-				<button id="btn">Evaluate Truth Table</button>
-				<button id="swap">Logic Keyword Switch</button>
+		<div>
+			<div class="header">
+				<h1>Logic Statements</h1>
 			</div>
+			<div class="input-stuff">
+				<button id="gen" class="btn btn-front" type="button" data-toggle="modal" data-target="#modal-gen">
+					Generate Random Conditional
+				</button>
+				<button id="qq" class="btn btn-front" type="button">
+					Generate Question
+				</button>
+				<br/><br/>
+				<input type="text" class="textbox text-input" id="txt" placeholder="if-then statement" />
+				<button id="btn" class="btn btn-front tt-btn">Create Truth Table</button>
+				<button id="swap" class="btn btn-front lks-btn">Logic Keyword Switch</button>
+			</div>
+			<div id="questionairre"></div>
 			<div id="output"></div>
 			<div id="modal-gen" class="modal fade" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Modal Title</h5>
+							<h5 class="modal-title">Generate Random Conditional</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -77,33 +42,35 @@
 						
 						<div class="modal-body">
 							<p>
-								<input type="radio" name="sel" id="statements-1" class="hidden" checked />enerate random statement
+								<input type="radio" name="sel" id="statements-1" class="hidden" checked />Generate random statement
 								<div>
 									<div class="row">
 										<div class="col-md-4">
 											Statement Type:<br/>
 											<select id="statement-sel">
-												<option data="onlyif" selected>P only if Q</option>
+												<option data="onlyif" selected>If P then Q</option>
+												<option data="onlyif">P only if Q</option>
+												<option data="if">If Q then P</option>
 												<option data="if">P if Q</option>
 												<option data="iff">P if and only if Q</option>
 											</select>
 										</div>
-										<div class="col-md-4">
-											Naming Conventions:<br/>
+										<div class="col-md-8">
+											Format:<br/>
 											<!-- P => Q /-->
 											<select class="statement-selections" id="onlyif">
 												<option selected>Format Doesn't Matter</option>
+												<option>if P then Q</option>
 												<option>P only if Q</option>
 												<option>P => Q</option>
-												<option>if P then Q</option>
 												<option>P is sufficient for Q</option>
 											</select>
 											<!-- P <= Q /-->
 											<select class="hidden statement-selections" id="if">
 												<option selected>Format Doesn't Matter</option>
+												<option>if Q then P</option>
 												<option>P if Q</option>
 												<option>P <= Q</option>
-												<option>if Q then P</option>
 												<option>P is necessary for Q</option>
 											</select>
 											<!-- P <=> Q /-->
@@ -114,9 +81,6 @@
 												<option>P iff Q</option>
 												<option>P is sufficient and necessary for Q</option>
 											</select>
-										</div>
-										<div class="col-md-4">
-											
 										</div>
 									</div>
 								</div>
@@ -132,9 +96,8 @@
 				</div>
 			</div>
 		</div>
-		<script src="../js/jquery.js"></script>
-		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/PAML.js"></script>
+		<script src="../katex/katex.js"></script>
 		<script type="text/javascript">
 			// Variables
 			let	txt=	document.getElementById("txt");
@@ -143,6 +106,12 @@
 			let	swap=	document.getElementById("swap");
 			let	gen=	document.getElementById("gen");
 			let	table=	false;
+			
+			txt.addEventListener("keyup", function(args)	{
+				if(args.keyCode== 13)	{
+					btn.click();
+				}
+			});
 			
 			btn.addEventListener("click", function()	{
 				if(txt.value== "")
@@ -212,7 +181,7 @@
 				{p:"P", q:"Q"},
 				{p:"A", q:"B"},
 				{p:"f is continuous", q:"f is integrable"},
-				{p:"the matrix A is invertible", q:"determinant A does not equal 0"},
+				{p:"the matrix A is invertible", q:"determinant A doesn't equal 0"},
 				{p:"square root x is irrational", q:"x is prime"},
 				{p:"y=x+1", q:"y is even"},
 				{p:"pi < 4", q:"pi = 3"}
@@ -235,9 +204,6 @@
 							// Variables
 							let	a=	Math.floor(Math.random()*(s.length-1))+1;
 							
-							console.log(a);
-							console.log(s);
-							
 							s=	s[a].text;
 						}
 						
@@ -249,6 +215,51 @@
 					}break;
 				}
 			});
+			
+			$("#qq").click(function(args)	{
+				// Variables
+				let	a=	Math.floor(Math.random()*3);
+				let	s;
+				let	p=	Math.floor(Math.random()*pqs.length);
+				let	q=	pqs[p].q;
+				
+				p=	pqs[p].p;
+				switch(a)	{
+					case 0:	a=	"onlyif";	break;
+					case 1:	a=	"if";	break;
+					case 2:	a=	"iff";	break;
+				}
+				s=	$("#"+a).children();
+				a=	Math.floor(Math.random()*(s.length-1))+1;
+				s=	s[a];
+				s=	s.text.replace("P", p).replace("Q", q);
+				createQuestion(s);
+			});
+			
+			function deleteme(str)	{
+				$("#"+str).html("");
+			}
+			
+			function createQuestion(str)	{
+				// Variables
+				let	qq=	$("#questionairre");
+				let	qt=	"<div class='exit' onclick='deleteme(\"questionairre\");'>&times;</div><div class='qq-text'>What kind of conditional is this?";
+				
+				qt+=	"<div class='qq-condition'>";
+				qt+=	str;
+				qt+=	"</div></div><br/>";
+				qt+=	"<div class='container'>";
+					qt+=	"<div class='row'>";
+						qt+=	"<div class='col-xs-6'><span class='qc-a'></span>If P then Q</div>";
+						qt+=	"<div class='col-xs-6'><span class='qc-b'></span>If Q then P</div>";
+					qt+=	"</div><br/><div class='row'>";
+						qt+=	"<div class='col-xs-6'><span class='qc-c'></span>P if and only if Q</div>";
+						qt+=	"<div class='col-xs-6'><span class='qc-d'></span>None of the above</div>";
+					qt+=	"</div>";
+				qt+=	"</div>";
+				
+				qq.html(qt);
+			}
 		</script>
 	</body>
 </html>

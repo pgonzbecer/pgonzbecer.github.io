@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<title>Truth Table Generator for Arbitrary Conditionals</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<style>
 			body	{
 				margin:	16px;
@@ -79,8 +80,8 @@
 										<div class="col-md-4">
 											Statement Type:<br/>
 											<select id="statement-sel">
-												<option data="onlyif" selected>P only if Q</option>
-												<option data="if">P if Q</option>
+												<option data="onlyif" selected>If P then Q</option>
+												<option data="if">If Q then P</option>
 												<option data="iff">P if and only if Q</option>
 											</select>
 										</div>
@@ -128,6 +129,8 @@
 				</div>
 			</div>
 		</div>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/PAML.js"></script>
 		<script type="text/javascript">
 			// Variables

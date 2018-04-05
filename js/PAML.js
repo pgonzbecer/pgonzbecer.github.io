@@ -167,9 +167,9 @@ var	PAML=	(function()	{
 						p.value=	"not";
 					}
 				}
-				else if(p.value.toLowerCase().indexOf("~")!= -1)	{
+				else if(p.value.toLowerCase().indexOf("\u00ac")!= -1)	{
 					p.left=	new Node("");
-					p.right=	new Node(p.value.replace("~", "").trim());
+					p.right=	new Node(p.value.replace("\u00ac", "").trim());
 					p.value=	"not";
 				}
 				else if(p.value.toLowerCase().indexOf("\u00ac")!= -1)	{
@@ -668,6 +668,8 @@ var	PAML=	(function()	{
 			var	b=	document.createElement("button");
 			
 			b.innerHTML=	"Submit";
+			b.classList.add("btn");
+			b.classList.add("btn-front");
 			b.addEventListener("click", function(args)	{
 				// Variables
 				var	sbase, tbase;

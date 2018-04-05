@@ -1,0 +1,151 @@
+
+body	{
+	margin:	16px;
+}
+table	{
+	margin:	0px;
+	border-spacing:	0px;
+}
+tr	{
+	background-color:	#fffaff;
+	border:	none;
+}
+tr:nth-child(2n+1)	{
+	background-color:	#dbdbdb;
+}
+tr:hover	{
+	background-color:	#b4c4f4;
+}
+th	{
+	min-width:	64px;
+	background-color:	#b3e3f3;
+	border-top:	1px solid black;
+	border-left:	1px solid black;
+	border-right:	1px solid black;
+	text-align:	center;
+	font-family:	lucida console;
+	padding:	1px 4px;
+}
+td	{
+	min-width:	48px;
+	border-left:	0.5px dotted black;
+	border-right:	0.5px dotted black;
+	border-top:	0.5px solid #101820;
+	border-bottom:	0.5px solid #101820;
+	text-align:	center;
+}
+
+tr.duplicate	{
+	height:	128px;
+}
+
+.header h1	{
+	text-align:	center;
+	border-bottom:	8px solid #e0e8f0;
+	padding-bottom:	8px;
+	font-family:	lucida console;
+}
+
+.textbox	{
+	border:	1px solid #6ab4e6;
+	border-radius:	8px;
+	padding:	6px 12px;
+	font-family:	lucida console;
+}
+.textbox:focus	{
+	outline:	none;
+	border-color:	#ffc500;
+}
+
+.btn.btn-front	{
+	background-color:	#d4d4d4;
+}
+.btn.btn-front:hover	{
+	background-color:	#e0e8f0;
+}
+
+#questionairre	{
+	font-size:	1.5em;
+	background-color:	#e3e3f3;
+	padding:	0px 10px;
+	margin-top:	4px;
+	border-radius:	10px;
+	padding:	16px;
+}
+
+#questionairre:empty	{
+	padding:	0px;
+}
+
+.exit	{
+	float:	right;
+}
+.exit:hover		{
+	cursor:	pointer;
+}
+
+.qq-condition	{
+	text-align:	center;
+}
+
+.qc-a:before	{
+	content:	"A";
+}
+.qc-a	{
+	background-color:	#fa0c48;
+	color:	#fff;
+	width:	1.5em;
+	display:	inline-block;
+	text-align:	center;
+	margin-right:	1em;
+}
+
+.qc-b:before	{
+	content:	"B";
+}
+.qc-b	{
+	background-color:	#6ca753;
+	color:	#fff;
+	width:	1.5em;
+	display:	inline-block;
+	text-align:	center;
+	margin-right:	1em;
+}
+
+.qc-c:before	{
+	content:	"C";
+}
+.qc-c	{
+	background-color:	#fffd38;
+	color:	#000;
+	width:	1.5em;
+	display:	inline-block;
+	text-align:	center;
+	margin-right:	1em;
+}
+
+.qc-d:before	{
+	content:	"D";
+}
+.qc-d	{
+	background-color:	#4d88e4;
+	color:	#fff;
+	width:	1.5em;
+	display:	inline-block;
+	text-align:	center;
+	margin-right:	1em;
+}
+
+.text-input	{	width:	100%;	}
+.tt-btn	{	width:	100%;	}
+@media(min-width:640px)	{
+	.text-input	{	width:	70%;	}
+	.tt-btn	{	width:	22%;	margin-left:	2%;	}
+}
+.fitting	{	width:	75%;	}
+.hidden	{	display:	none;	}
+.cc-true	{	color:	#4d4dff;	}
+.cc-false	{	color:	#ff0000;	}
+.cc-error	{	background-color:	#ffbabe;	}
+.clickable	{	user-select:	none;	}
+.clickable:hover	{	cursor:	pointer;	}
