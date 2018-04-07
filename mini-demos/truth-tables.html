@@ -68,7 +68,7 @@
 											<!-- P <= Q /-->
 											<select class="hidden statement-selections" id="if">
 												<option selected>Format Doesn't Matter</option>
-												<option>if Q then P</option>
+												<!--<option>if Q then P</option>/-->
 												<option>P if Q</option>
 												<option>P <= Q</option>
 												<option>P is necessary for Q</option>
@@ -218,29 +218,40 @@
 			
 			$("#qq").click(function(args)	{
 				// Variables
-				let	a=	Math.floor(Math.random()*3);
+				let	a;
+				let	b=	Math.floor(Math.random()*4);
 				let	s;
-				let	p=	Math.floor(Math.random()*pqs.length);
+				let	p=	Math.floor(Math.random()*(pqs.length-2))+2;
 				let	q=	pqs[p].q;
 				
 				p=	pqs[p].p;
-				switch(a)	{
+				switch(b)	{
 					case 0:	a=	"onlyif";	break;
 					case 1:	a=	"if";	break;
 					case 2:	a=	"iff";	break;
+					case 3:	{
+						switch(Math.floor(Math.random()*4))	{
+							case 0:	s=	"P and Q";	break;
+							case 1:	s=	"P or Q";	break;
+							case 2:	s=	"Q and P";	break;
+							case 3:	s=	"Q or P";	break;
+						}
+					}break;
 				}
-				s=	$("#"+a).children();
-				a=	Math.floor(Math.random()*(s.length-1))+1;
-				s=	s[a];
-				s=	s.text.replace("P", p).replace("Q", q);
-				createQuestion(s);
+				if(b< 3)	{
+					s=	$("#"+a).children();
+					a=	Math.floor(Math.random()*(s.length-1))+1;
+					s=	s[a].text;
+				}
+				s=	s.replace("P", p).replace("Q", q);
+				createQuestion(s, b);
 			});
 			
 			function deleteme(str)	{
 				$("#"+str).html("");
 			}
 			
-			function createQuestion(str)	{
+			function createQuestion(str, num)	{
 				// Variables
 				let	qq=	$("#questionairre");
 				let	qt=	"<div class='exit' onclick='deleteme(\"questionairre\");'>&times;</div><div class='qq-text'>What kind of conditional is this?";
@@ -250,15 +261,34 @@
 				qt+=	"</div></div><br/>";
 				qt+=	"<div class='container'>";
 					qt+=	"<div class='row'>";
-						qt+=	"<div class='col-xs-6'><span class='qc-a'></span>If P then Q</div>";
-						qt+=	"<div class='col-xs-6'><span class='qc-b'></span>If Q then P</div>";
+						qt+=	"<div class='col-xs-6 qq-clickable is-"+((num== 0) ? "correct" : "incorrect")+"'><span class='qc-a'></span>If P then Q</div>";
+						qt+=	"<div class='col-xs-6 qq-clickable is-"+((num== 1) ? "correct" : "incorrect")+"'><span class='qc-b'></span>If Q then P</div>";
 					qt+=	"</div><br/><div class='row'>";
-						qt+=	"<div class='col-xs-6'><span class='qc-c'></span>P if and only if Q</div>";
-						qt+=	"<div class='col-xs-6'><span class='qc-d'></span>None of the above</div>";
+						qt+=	"<div class='col-xs-6 qq-clickable is-"+((num== 2) ? "correct" : "incorrect")+"'><span class='qc-c'></span>P if and only if Q</div>";
+						qt+=	"<div class='col-xs-6 qq-clickable is-"+((num> 2) ? "correct" : "incorrect")+"'><span class='qc-d'></span>None of the above</div>";
 					qt+=	"</div>";
 				qt+=	"</div>";
+				qt+=	"<div id='correct-indicator'></div>";
 				
 				qq.html(qt);
+				
+				$(".qq-clickable").click(function(args)	{
+					console.log("AA");
+					// Variables
+					let	a=	$(args.target).hasClass("is-correct");
+					let	b=	$("#correct-indicator");
+					
+					if(a)	{
+						b.removeClass("is-incorrect");
+						b.addClass("is-correct");
+						b.html("Correct!");
+					}
+					else	{
+						b.removeClass("is-correct");
+						b.addClass("is-incorrect");
+						b.html("Incorrect! Please Try Again.");
+					}
+				});
 			}
 		</script>
 	</body>
