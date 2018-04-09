@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Get Ready, Get Set</title>
+		<style>
+			#cvs-1, #cvs-2	{
+				width:	200px;
+				height:	200px;
+				background-color:	lightblue;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div class="canvas-1">
+				<canvas id="cvs-1" width="200" height="200"></canvas>
+				<button id="fill-1" class="btn">Fill</button>
+			</div>
+			<div class="canvas-2">
+				<canvas id="cvs-2" width="200" height="200"></canvas>
+			</div>
+			<div class="canvas-2">
+				<canvas id="cvs-3"></canvas>
+			</div>
+		</div>
+		
+		<script src="../js/jquery.js"></script>
+		<script>
+			// Variables
+			const	cvs1=	$("#cvs-1");
+			const	cvs2=	$("#cvs-2");
+			const	cvs3=	$("#cvs-3");
+			const	context1=	cvs1[0].getContext("2d");
+			const	context2=	cvs2[0].getContext("2d");
+			const	context3=	cvs3[0].getContext("2d");
+			let	cvsType=	0;
+			let	isMouseDown=	false;
+			let	mouseCoords=	[0, 0];
+			let	prevCoords=	[0, 0];
+			let	A=	[];
+			let	B=	[];
+			let	C=	[];
+			
+			$("#fill-1").click(function(args)	{
+				cvsType=	1;
+			});
+			
+			cvs1.mousedown(function(args)	{
+				isMouseDown=	true;
+				mouseCoords[0]=	args.clientX;
+				mouseCoords[1]=	args.clientY;
+				prevCoords[0]=	mouseCoords[0];
+				prevCoords[1]=	mouseCoords[1];
+			}).mouseup(function(args)	{
+				isMouseDown=	false;
+				mouseCoords[0]=	args.clientX;
+				mouseCoords[1]=	args.clientY;
+			}).mousemove(function(args)	{
+				if(isMouseDown)	{
+					prevCoords[0]=	mouseCoords[0];
+					prevCoords[1]=	mouseCoords[1];
+					mouseCoords[0]=	args.clientX;
+					mouseCoords[1]=	args.clientY;
+					mouseCoords[1]=	args.clientY;
+				}
+			});
+			
+			cvs2.mousedown(function(args)	{
+				isMouseDown=	true;
+				mouseCoords[0]=	args.clientX;
+				mouseCoords[1]=	args.clientY;
+				prevCoords[0]=	mouseCoords[0];
+				prevCoords[1]=	mouseCoords[1];
+			}).mouseup(function(args)	{
+				isMouseDown=	false;
+				mouseCoords[0]=	args.clientX;
+				mouseCoords[1]=	args.clientY;
+			}).mousemove(function(args)	{
+				prevCoords[0]=	mouseCoords[0];
+				prevCoords[1]=	mouseCoords[1];
+				mouseCoords[0]=	args.clientX;
+				mouseCoords[1]=	args.clientY;
+			});
+			
+			function contains(elem)	{
+				// Variables
+				let	x=	elem.offset().left;
+				let	y=	elem.offset().top;
+				let	w=	x+elem.width();
+				let	h=	y+elem.height();
+				
+				if(mouseCoords[0]< x || mouseCoords[0]> w)
+					return false;
+				if(mouseCoords[1]< y || mouseCoords[1]> h)
+					return false;
+				
+				return true;
+			}
+			
+			function getPixel(elem)	{
+				// Variables
+				let	px=	mouseCoords[0];
+				let	py=	mouseCoords[1];
+				let	ppx=	prevCoords[0];
+				let	ppy=	prevCoords[1];
+				
+				px-=	elem.offsetLeft;
+				py-=	elem.offsetTop;
+				ppx-=	elem.offsetLeft;
+				ppy-=	elem.offsetTop;
+				
+				return [px, py, ppx, ppy];
+			}
+			
+			function doBucketFill(cvs, context, set, color)	{
+				// Variables
+				let	p=	getPixel(cvs[0]);
+				let	stack=	[];
+				let	a, x, y, rl, rr;
+				
+				getCanvasData(context, set);
+				
+				a=	set[p[0]][p[1]].id;
+				stack.push([p[0], p[1]]);
+				while(stack.length> 0)	{
+					p=	stack.pop();
+					x=	p[0];
+					y=	p[1];
+					
+					while(y>= 0 && set[p[0]][p[1]].id== a)	{
+						y--;
+						p[1]--;
+					}
+					
+					p[1]++;
+					y++;
+					rl=	false;
+					rr=	false;
+					
+					while(y< context.canvas.height && p[0]< context.canvas.width && set[p[0]][p[1]].id== a)	{
+						y++;
+						set[p[0]][p[1]].setColor(color);
+						if(x> 0)	{
+							if(set[p[0]-1][p[1]].id== a)	{
+								if(!rl)	{
+									stack.push([x-1, y]);
+									rl=	true;
+								}
+							}
+							else if(rl)	{
+								rl=	false;
+							}
+						}
+						
+						
+						if(p[0]+1< context.canvas.width)	{
+							if(set[p[0]+1][p[1]].id== a)	{
+								if(!rr)	{
+									stack.push([x+1, y]);
+									rr=	true;
+								}
+							}
+							else if(rr)	{
+								rr=	false;
+							}
+						}
+						
+						p[0]++;
+					}
+				}
+				
+				setCanvasData(context, set);
+			}
+			
+			function setCanvasData(context, set)	{
+				// Variables
+				let	temp=	new ImageData(context.canvas.width, context.canvas.height);
+				let	i=	0;
+				
+				for(let a= 0; a< set.length; a++)	{
+					for(let b= 0; b< set[a].length; b++)	{
+						temp.data[i++]=	set[a][b].r;
+						temp.data[i++]=	set[a][b].g;
+						temp.data[i++]=	set[a][b].b;
+						temp.data[i++]=	set[a][b].a;
+					}
+				}
+				context.putImageData(temp, 0, context.canvas.height);
+			}
+			
+			function getCanvasData(context, set)	{
+				// Variables
+				let	temp=	context.getImageData(
+					0, 0,
+					context.canvas.width, context.canvas.height
+				);
+				let	x=	0;
+				let	y=	0;
+				let	len=	4*temp.width*temp.height;
+				
+				for(let i= 0; i< len; i++)	{
+					x++;
+					if(x>= context.canvas.width)	{
+						x=	0;
+						y++;
+					}
+					set[x][y]=	new Color(
+						temp.data[i++],
+						temp.data[i++],
+						temp.data[i++],
+						temp.data[i]
+					);
+				}
+			}
+			
+			function Color(r, g, b, a)	{
+				this.r=	r;
+				this.g=	g;
+				this.b=	b;
+				this.a=	a;
+				this.id=	getIndex();
+				
+				function getIndex()	{
+					// Variables
+					let	i=	0;
+					
+					if(this.r== 255)	{
+						i+=	1;
+					}
+					if(this.b== 255)	{
+						i+=	2;
+					}
+					
+					return i;
+				};
+				
+				this.setColor=	function(color)	{
+					this.r=	color[0];
+					this.g=	color[1];
+					this.b=	color[2];
+					this.a=	color[3];
+					this.id=	getIndex();
+				};
+			}
+			
+			redraw();
+			
+			function redraw()	{
+				requestAnimationFrame(redraw);
+				if(isMouseDown)	{
+					if(contains(cvs1))	{
+						if(cvsType== 0)	{
+							// Variables
+							const	p=	getPixel(cvs1[0]);
+							
+							context1.strokeStyle=	"#ff0000";
+							context1.beginPath();
+							context1.moveTo(p[2], p[3]);
+							context1.lineTo(p[0], p[1]);
+							context1.stroke();
+						}
+						else if(cvsType== 1)	{
+							doBucketFill(cvs1, context1, A, [255, 0, 0, 255]);
+						}
+					}
+					else if(contains(cvs2))	{
+						// Variables
+						const	p=	getPixel(cvs2[0]);
+						
+						context2.strokeStyle=	"#0000ff";
+						context2.beginPath();
+						context2.moveTo(p[2], p[3]);
+						context2.lineTo(p[0], p[1]);
+						context2.stroke();
+					}
+				}
+			}
+			
+			init();
+			function init()	{
+				initSet(A, cvs1);
+				initSet(B, cvs2);
+			}
+			
+			function initSet(set, cvs)	{
+				// Variables
+				let	w=	cvs.width();
+				let	h=	cvs.height();
+				
+				for(let a= 0; a< w; a++)	{
+					set[a]=	[];
+					for(let b= 0; b< h; b++)	{
+						set[a][b]=	0;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
