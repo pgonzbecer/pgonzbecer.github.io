@@ -27,6 +27,7 @@
 			</div>
 		</div>
 		
+		<script src="floodfill.js"></script>
 		<script src="../js/jquery.js"></script>
 		<script>
 			// Variables
@@ -118,59 +119,18 @@
 			function doBucketFill(cvs, context, set, color)	{
 				// Variables
 				let	p=	getPixel(cvs[0]);
-				let	stack=	[];
-				let	a, x, y, rl, rr;
 				
 				getCanvasData(context, set);
 				
-				a=	set[p[0]][p[1]].id;
-				stack.push([p[0], p[1]]);
-				while(stack.length> 0)	{
-					p=	stack.pop();
-					x=	p[0];
-					y=	p[1];
-					
-					while(y>= 0 && set[p[0]][p[1]].id== a)	{
-						y--;
-						p[1]--;
-					}
-					
-					p[1]++;
-					y++;
-					rl=	false;
-					rr=	false;
-					
-					while(y< context.canvas.height && p[0]< context.canvas.width && set[p[0]][p[1]].id== a)	{
-						y++;
-						set[p[0]][p[1]].setColor(color);
-						if(x> 0)	{
-							if(set[p[0]-1][p[1]].id== a)	{
-								if(!rl)	{
-									stack.push([x-1, y]);
-									rl=	true;
-								}
-							}
-							else if(rl)	{
-								rl=	false;
-							}
-						}
-						
-						
-						if(p[0]+1< context.canvas.width)	{
-							if(set[p[0]+1][p[1]].id== a)	{
-								if(!rr)	{
-									stack.push([x+1, y]);
-									rr=	true;
-								}
-							}
-							else if(rr)	{
-								rr=	false;
-							}
-						}
-						
-						p[0]++;
-					}
-				}
+				floodfill(
+					p[0],
+					p[1],
+					color,
+					context,
+					context.canvas.width,
+					context.canvas.height,
+					10
+				);
 				
 				setCanvasData(context, set);
 			}
@@ -257,9 +217,12 @@
 							const	p=	getPixel(cvs1[0]);
 							
 							context1.strokeStyle=	"#ff0000";
+							context1.lineWidth=	32;
 							context1.beginPath();
 							context1.moveTo(p[2], p[3]);
 							context1.lineTo(p[0], p[1]);
+							context1.lineTo(p[2], p[3]);
+							// TODO: 
 							context1.stroke();
 						}
 						else if(cvsType== 1)	{
@@ -271,6 +234,7 @@
 						const	p=	getPixel(cvs2[0]);
 						
 						context2.strokeStyle=	"#0000ff";
+						context2.lineWidth=	32;
 						context2.beginPath();
 						context2.moveTo(p[2], p[3]);
 						context2.lineTo(p[0], p[1]);

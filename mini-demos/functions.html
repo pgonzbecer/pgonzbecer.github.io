@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Func-y Boy</title>
+		<style>
+			#cvs-1, #cvs-2	{
+				width:	200px;
+				height:	200px;
+				background-color:	lightblue;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="container">
+			<button class="btn" id="do-func">Make it go through the function</button>
+			<div class="canvas-1">
+				<canvas id="cvs" width="500" height="400"></canvas>
+			</div>
+		</div>
+		
+		<script src="floodfill.js"></script>
+		<script src="../js/jquery.js"></script>
+		<script src="../js/timer.js"></script>
+		<script>
+			// Variables
+			const	cvs=	$("#cvs")[0];
+			const	context=	cvs.getContext("2d");
+			let	animStack=	[];
+			let	game=	{};
+			
+			$("#do-func").click(function(args)	{
+				if(animStack.length> 0)	{
+					return;
+				}
+				
+				animStack=	[];
+				
+				move(25, 225);
+				
+				async function move(x, y)	{
+					// Variables
+					let	count=	0;
+					let	maxcount=	25;
+					
+					for(let a= x; a< 175; a++)	{
+						for(let b= y; b< 375; b++)	{
+							let	r=	Math.floor(Math.random()*75);
+							let	t=	2*Math.random()*Math.PI;
+							animStack.push({
+								x:	a,	y:	b,
+								ax:	a,	ay:	b,	ah:	500,
+								dx:	400+Math.cos(t)*r,	dy:	300+Math.sin(t)*r,
+								t:	0,	d:	10,
+								update:	function()	{
+									if(this.t> this.d)
+										return;
+									this.t+=	Timer.deltaT();
+									this.ax=	lerp(this.ax, this.dx, this.t/this.d);
+									this.ay=	lerp(this.ay, this.dy, this.t/this.d);
+								},
+								draw:	function()	{
+									context.fillStyle=	"#101820";
+									context.fillRect(this.ax, this.ay, 1, 1);
+								}
+							});
+							count++;
+							if(count> maxcount)	{
+								count=	0;
+								await sleep(10);
+							}
+						}
+					}
+				}
+			});
+			
+			function sleep(d)	{
+				return new Promise(resolve=> setTimeout(resolve, d));
+			}
+			
+			function lerp(a, b, t)	{
+				return a+t*(b-a);
+			}
+			
+			game.draw=	function()	{
+				context.clearRect(0, 0, cvs.width, cvs.height);
+				// Set A
+				context.strokeStyle=	"#101820";
+				context.strokeRect(0, 200, 200, 200);
+				context.fillStyle=	"#ff0000";
+				context.fillRect(25, 225, 150, 150);
+				// Set B
+				context.strokeStyle=	"#101820";
+				context.strokeRect(300, 200, 200, 200);
+				context.fillStyle=	"#0000ff";
+				context.beginPath();
+				context.ellipse(400, 300, 75, 75, 0, 0, 2*Math.PI, true);
+				context.fill();
+				
+				for(let i= animStack.length-1; i>= 0; i--)	{
+					animStack[i].draw();
+				}
+			};
+			
+			game.update=	function()	{
+				for(let i= animStack.length-1; i>= 0; i--)	{
+					animStack[i].update();
+				}
+			};
+			
+			Timer.start(game);
+		</script>
+	</body>
+</html>
