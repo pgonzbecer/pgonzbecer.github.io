@@ -99,9 +99,6 @@ function Particle(_width, _height)	{
 	};
 	
 	this.applyForce=	function(force)	{
-		if(force == undefined) {
-			return;
-		}
 		this.acc.add(force);
 	};
 	
