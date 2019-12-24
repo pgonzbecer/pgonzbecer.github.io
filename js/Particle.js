@@ -1,5 +1,6 @@
 var	OVERALL_COLOR=	"#101820";
 var pixelSize = 4;
+var transparency = 0.01;
 
 function Particle(_width, _height)	{
 	this.width=	_width;
@@ -47,7 +48,7 @@ function Particle(_width, _height)	{
 		context.strokeStyle=	this.color || "#101820";
 		//context.fillStyle=	"#101820";
 		if(!isFlowField)
-			context.globalAlpha=	0.008;
+			context.globalAlpha=	transparency;
 		context.lineWidth = pixelSize;
 		
 		if(!isFlowField) {
