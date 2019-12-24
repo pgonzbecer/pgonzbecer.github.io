@@ -1,5 +1,5 @@
 var	OVERALL_COLOR=	"#101820";
-var pixelSize = 8;
+var pixelSize = 4;
 
 function Particle(_width, _height)	{
 	this.width=	_width;
@@ -46,7 +46,7 @@ function Particle(_width, _height)	{
 	this.render=	function(context)	{
 		context.strokeStyle=	this.color || "#101820";
 		//context.fillStyle=	"#101820";
-		context.globalAlpha=	0.08;
+		context.globalAlpha=	0.008;
 		context.lineWidth = pixelSize;
 		
 		context.beginPath();
