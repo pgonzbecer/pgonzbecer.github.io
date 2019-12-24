@@ -10,6 +10,7 @@
 </div>!-->
 <div style="display:inline-block;width=10%;">
 	<input type="number" id="flow-opacity" value="0.08"/>
+	<input type="number" id="pixel-size" value="4"/>
 	<input type="number" id="flow-speed" value="0.000025"/>
 	<input type="button" id="btn-flow-speed" value="Reset"/>
 	<select id="sel">
@@ -38,12 +39,17 @@
 	var	fo=	$("#flow-opacity");
 	var	fs=	$("#flow-speed");
 	var	bfs=	$("#btn-flow-speed");
+	var	ps=	$("#pixel-size");
 	
 	fs.val(ff.increment);
 	fs[0].step=	0.000001;
 	
 	fo.change(function(args) {
 		transparency = fo.val();
+	});
+	
+	ps.change(function(args) {
+		pixelSize = ps.val();
 	});
 	
 	bfs.click(function(args)	{
