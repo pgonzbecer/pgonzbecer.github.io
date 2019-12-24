@@ -46,7 +46,7 @@ function Particle(_width, _height)	{
 	this.render=	function(context)	{
 		context.strokeStyle=	this.color || "#101820";
 		//context.fillStyle=	"#101820";
-		context.globalAlpha=	0.48;
+		context.globalAlpha=	0.08;
 		context.lineWidth = pixelSize;
 		
 		context.beginPath();
