@@ -1,7 +1,7 @@
 var	OVERALL_COLOR=	"#101820";
+var pixelSize = 4;
 
 function Particle(_width, _height)	{
-	this.pixelSize = 3;
 	this.width=	_width;
 	this.height=	_height;
 	this.pos=	new Vector2(
@@ -47,7 +47,7 @@ function Particle(_width, _height)	{
 		context.strokeStyle=	this.color || "#101820";
 		//context.fillStyle=	"#101820";
 		context.globalAlpha=	0.48;
-		context.lineWidth = this.pixelSize;
+		context.lineWidth = pixelSize;
 		
 		context.beginPath();
 			context.moveTo(this.prev.x, this.prev.y);
