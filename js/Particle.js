@@ -2,6 +2,8 @@ var	OVERALL_COLOR=	"#101820";
 var pixelSize = 4;
 var transparency = 0.08;
 
+
+
 function Particle(_width, _height)	{
 	this.width=	_width;
 	this.height=	_height;
