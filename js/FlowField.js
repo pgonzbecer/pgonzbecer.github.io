@@ -127,7 +127,7 @@ function FlowField(_canvas, _showFlowField)	{
 				particles[i].detectEdges();
 				particles[i].follow(flows, this.scale, this.columns);
 				particles[i].update();
-				particles[i].render(context);
+				particles[i].render(context, showFlow);
 			}
 		}
 	}
