@@ -73,11 +73,11 @@ function Particle(_width, _height)	{
 	
 	this.detectEdges=	function()	{
 		if(this.pos.x < 0 || this.pos.x> this.width)	{
-			this.pos.x=	this.rngPos(this.x, this.width);
+			this.pos.x=	Math.random()*this.width;
 			resetPrev.call(this);
 		}
 		if(this.pos.y < 0 || this.pos.y> this.height)	{
-			this.pos.y=	this.rngPos(this.y, this.height);
+			this.pos.y=	Math.random()*this.height;
 			resetPrev.call(this);
 		}
 	};
