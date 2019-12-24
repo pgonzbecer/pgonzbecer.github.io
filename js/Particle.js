@@ -1,5 +1,5 @@
 var	OVERALL_COLOR=	"#101820";
-var pixelSize = 4;
+var pixelSize = 8;
 
 function Particle(_width, _height)	{
 	this.width=	_width;
