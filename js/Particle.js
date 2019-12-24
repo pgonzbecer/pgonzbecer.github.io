@@ -11,7 +11,7 @@ function Particle(_width, _height)	{
 	this.prev=	this.pos.clone();
 	this.vel=	Vector2.ZERO.clone();
 	this.acc=	Vector2.ZERO.clone();
-	this.maxSpeed=	12.85;
+	this.maxSpeed=	0.85;
 	this.rngColor=	function()	{
 		// Variables
 		let	r=	Math.floor(256*Math.random()).toString(16);
