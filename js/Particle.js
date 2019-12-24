@@ -50,12 +50,16 @@ function Particle(_width, _height)	{
 			context.globalAlpha=	0.008;
 		context.lineWidth = pixelSize;
 		
-		context.beginPath();
-			context.moveTo(this.prev.x, this.prev.y);
-			context.lineTo(this.pos.x, this.prev.y);
-		context.stroke();
-		
-		//context.fillRect(this.pos.x, this.pos.y, 1, 1);
+		if(!isFlowField) {
+			context.beginPath();
+				context.moveTo(this.prev.x, this.prev.y);
+				context.lineTo(this.pos.x, this.prev.y);
+			context.stroke();
+		}
+		else {
+			context.fillStyle = context.strokeStyle;
+			context.fillRect(this.pos.x-pixelSize/2, this.pos.y-pixelSize/2, pixelSize, pixelSize);
+		}
 		context.globalAlpha=	1;
 	};
 	
