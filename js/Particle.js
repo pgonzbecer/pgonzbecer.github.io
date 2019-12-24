@@ -43,10 +43,11 @@ function Particle(_width, _height)	{
 		this.acc.mul(0);
 	};
 	
-	this.render=	function(context)	{
+	this.render=	function(context, isFlowField)	{
 		context.strokeStyle=	this.color || "#101820";
 		//context.fillStyle=	"#101820";
-		context.globalAlpha=	0.008;
+		if(!isFlowField)
+			context.globalAlpha=	0.008;
 		context.lineWidth = pixelSize;
 		
 		context.beginPath();
