@@ -1,7 +1,7 @@
 var	OVERALL_COLOR=	"#101820";
 
 function Particle(_width, _height)	{
-	this.pixelSize = 16;
+	this.pixelSize = 3;
 	this.width=	_width;
 	this.height=	_height;
 	this.pos=	new Vector2(
