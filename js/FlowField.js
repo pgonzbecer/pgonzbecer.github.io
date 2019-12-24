@@ -83,6 +83,7 @@ function FlowField(_canvas, _showFlowField)	{
 					// Variables
 					let	heading=	vec.getHeading();
 					
+					context.lineWidth = 1;
 					context.translate(
 						a*this.scale,
 						b*this.scale
