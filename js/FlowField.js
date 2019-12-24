@@ -15,7 +15,7 @@ function FlowField(_canvas, _showFlowField)	{
 	let	particles=	[];
 	let	zOff=	-1;
 	
-	for(let i= 0; i< 100; i++)	{
+	for(let i= 0; i< 400; i++)	{
 		particles[i]=	new Particle(this.width, this.height);
 	}
 	
